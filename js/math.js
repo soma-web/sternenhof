@@ -124,7 +124,7 @@ export function feedGame({ count = 5, title = 'Füttern' } = {}, onDone) {
         <p class="task-text">${T(text)}</p>
       </div>
       <div class="equation">${eqHTML(t)}</div>
-      <div class="hint-area ${S.mathLevel === 1 ? 'open' : ''}">${S.mathLevel === 1 ? tenFrames(t) : ''}</div>
+      <div class="hint-area"></div>
       <div class="msg"></div>
       <div class="numpad">
         ${[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => `<button class="key" data-k="${n}">${n}</button>`).join('')}
@@ -136,8 +136,15 @@ export function feedGame({ count = 5, title = 'Füttern' } = {}, onDone) {
     const box = $('.ans-box', fr.area);
     const msg = $('.msg', fr.area);
     const hint = $('.hint-area', fr.area);
-    const showHint = () => { hint.innerHTML = tenFrames(t); hint.classList.add('open'); };
-    $('.help-btn', fr.area).addEventListener('click', () => { sfx.tap(); showHint(); });
+    const helpBtn = $('.help-btn', fr.area);
+    const showHint = () => {
+      hint.innerHTML = `${tenFrames(t)}<button class="hint-close" aria-label="Hilfe schließen">✕</button>`;
+      hint.classList.add('open');
+      helpBtn.textContent = '✕ Hilfe zu';
+      $('.hint-close', hint).addEventListener('click', () => { sfx.tap(); hideHint(); });
+    };
+    const hideHint = () => { hint.classList.remove('open'); hint.innerHTML = ''; helpBtn.textContent = '💡 Hilfe'; };
+    helpBtn.addEventListener('click', () => { sfx.tap(); if (hint.classList.contains('open')) hideHint(); else showHint(); });
 
     async function check() {
       if (!input || busy) return;

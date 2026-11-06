@@ -3,7 +3,7 @@ import { S, save, resetAll } from './state.js';
 import { sfx, speak, canSpeak } from './audio.js';
 import { myHorse, PADS } from './horse.js';
 import { mount, topbar, bindTopbar, T, $, $$, go, pick, burstAt, roundDone, shoeIcon, reward } from './ui.js';
-import { runStory, CHAPTER1, createHorse } from './story.js';
+import { runStory, CHAPTER1, createHorse, chapterSelect } from './story.js';
 import { brushGame, saddleGame } from './care.js';
 import { feedGame, jumpGame } from './math.js';
 import { readingGame } from './reading.js';
@@ -49,7 +49,7 @@ function stallDeco() {
 }
 
 export function hub() {
-  const storyLabel = S.chapterDone && S.step === 0 ? 'Kapitel 1 nochmal' : S.step > 0 ? 'Geschichte weiter' : 'Geschichte';
+  const storyLabel = 'Geschichte';
   const scr = mount(`
     ${topbar({ home: false, title: '' })}
     <button class="icon-btn parents-btn" aria-label="Elternbereich">⚙️</button>
@@ -88,7 +88,7 @@ export function hub() {
 
   const done = (e) => roundDone({ title: 'Super gemacht!', earned: e, label: 'Zum Stall', onNext: () => go('hub') });
   const actions = {
-    story: () => runStory(),
+    story: () => (Math.max(S.maxStep, S.step) > 1 || S.chapterDone ? chapterSelect() : runStory()),
     care: () => brushGame(() => go('hub')),
     saddle: () => saddleGame(() => go('hub')),
     feed: () => feedGame({ count: 5, title: 'Füttern' }, done),

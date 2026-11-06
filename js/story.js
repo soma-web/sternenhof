@@ -206,10 +206,54 @@ function chapterEnd(onNext) {
   });
 }
 
+// ---------- Kapitelauswahl ----------
+export const CHAPTERS = [
+  {
+    nr: 1, title: 'Ein Pferd für dich', emoji: '🐴',
+    parts: [
+      { title: 'Ankunft auf dem Hof', emoji: '🏡', step: 1 },
+      { title: 'Putzen', emoji: '🧽', step: 10 },
+      { title: 'Füttern und Satteln', emoji: '🥕', step: 13 },
+      { title: 'Ausritt', emoji: '🌼', step: 17 },
+      { title: 'Parcours', emoji: '🏇', step: 19 },
+      { title: 'Funke ist weg!', emoji: '🌙', step: 21 },
+    ],
+  },
+  { nr: 2, title: 'Im Wald', emoji: '🌲', locked: true },
+];
+
+export function chapterSelect() {
+  const reached = (p) => S.chapterDone || S.maxStep >= p.step;
+  const cont = S.step > 0 && S.step < CHAPTER1.length;
+  const scr = mount(`
+    ${topbar({ title: 'Geschichte' })}
+    ${cont ? `<button class="btn btn-main continue-btn">Weiterlesen ➜</button>` : ''}
+    ${CHAPTERS.map((ch) => `
+      <section class="chapter ${ch.locked ? 'locked' : ''}">
+        <h2 class="chapter-title"><span class="ch-emoji">${ch.emoji}</span> ${T(`Kapitel ${ch.nr}: ${ch.title}`)}</h2>
+        ${ch.locked ? `<p class="soon">${T('Kommt bald!')} 🔒</p>` : `
+        <div class="parts">${ch.parts.map((p, k) => `
+          <button class="part ${reached(p) ? '' : 'locked'}" data-step="${p.step}" ${reached(p) ? '' : 'disabled'}>
+            <span class="part-emoji">${reached(p) ? p.emoji : '🔒'}</span>
+            <span class="part-nr">${k + 1}</span>
+            <span class="part-title">${T(p.title, { speak: false })}</span>
+          </button>`).join('')}</div>`}
+      </section>`).join('')}`, 'chapters');
+  bindTopbar(scr);
+  $('.continue-btn', scr)?.addEventListener('click', () => { sfx.tap(); runStory(); });
+  $$('.part:not(.locked)', scr).forEach((b) => b.addEventListener('click', () => {
+    sfx.tap();
+    S.step = +b.dataset.step;
+    save();
+    runStory();
+  }));
+}
+
 // ---------- Ablauf ----------
 export function runStory() {
   const steps = CHAPTER1;
   if (S.step >= steps.length) S.step = 0;
+  if (S.step > (S.maxStep || 0)) { S.maxStep = S.step; save(); }
   const step = steps[S.step];
   const next = () => { S.step++; save(); runStory(); };
   const afterGame = (earned, text) => roundDone({ title: 'Super gemacht!', text, earned, onNext: next });

@@ -8,6 +8,7 @@ export const defaultState = () => ({
   shoes: 0,
   chapter: 1,
   step: 0,
+  maxStep: 0,
   chapterDone: false,
   mathLevel: 2,
   mathStreak: 0,
