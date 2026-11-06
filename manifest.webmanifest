@@ -1,0 +1,15 @@
+{
+  "name": "Sternenhof",
+  "short_name": "Sternenhof",
+  "description": "Ein Pferde-Abenteuer zum Rechnen und Lesen",
+  "lang": "de",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#BDE8FF",
+  "theme_color": "#BDE8FF",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
