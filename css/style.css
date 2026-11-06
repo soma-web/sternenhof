@@ -238,8 +238,12 @@ svg.horse.happy { animation: hop .5s ease-out; }
 .key-ok { background: var(--ok); color: #fff; box-shadow: 0 5px 0 var(--ok-d); }
 .key-del { background: #FFF1D6; }
 
-.arena { position: relative; background: linear-gradient(180deg, transparent 55%, var(--grass) 55%); border-radius: 26px; padding: 8px 8px 14px; overflow: hidden; flex: 1; min-height: 260px; display: flex; flex-direction: column; justify-content: flex-end; }
-.runner { width: 42%; max-width: 230px; margin-bottom: -6px; transition: transform .3s; }
+.arena { position: relative; background: linear-gradient(180deg, #CFEFFF 0, #F2FBFF 55%, var(--grass) 55%); border-radius: 26px; padding: 8px 8px 14px; overflow: hidden; flex: 1; min-height: 260px; display: flex; flex-direction: column; justify-content: flex-end; }
+.runner { width: 52%; max-width: 300px; margin-bottom: -6px; transition: transform .3s; }
+.arena::before { content: '☁️'; position: absolute; top: 12px; left: 10%; font-size: 2.6rem; animation: drift 9s ease-in-out infinite alternate; }
+.arena::after { content: '☀️'; position: absolute; top: 8px; right: 8%; font-size: 2.8rem; }
+.theme-stones .arena::before { content: '🦆'; top: auto; bottom: 30%; left: auto; right: 6%; font-size: 2rem; }
+.theme-boat .arena::after { content: '🏚️'; }
 .runner.jumping { animation: jumpOver 1.1s ease-in-out forwards; }
 .runner.refuse { animation: refuse .5s; }
 .hurdles { display: flex; justify-content: space-around; gap: 6px; }
@@ -454,16 +458,18 @@ svg.horse.happy { animation: hop .5s ease-out; }
 .waves { animation: drift 4s ease-in-out infinite alternate; }
 
 /* Schmücken */
-.dress-stage { flex: 1; min-height: 180px; background: rgba(255, 255, 255, .5); border-radius: 30px; position: relative; }
+.dress-stage { min-height: 160px; background: rgba(255, 255, 255, .5); border-radius: 30px; position: relative; }
 .dress-horse { width: 100%; display: flex; justify-content: center; }
 .dress-horse svg { max-height: 30vh; width: auto; max-width: 100%; }
 .dress-stage .talk { top: 8px; right: 8px; }
 .cat-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 .cat-tab {
-  border: 3px solid transparent; background: #fff; border-radius: 18px; padding: 4px 6px;
-  display: flex; flex-direction: column; align-items: center; font-size: 1.5rem; box-shadow: 0 3px 0 rgba(0, 0, 0, .08);
+  border: 3px solid transparent; background: #fff; border-radius: 16px; padding: 4px 6px; min-height: 46px;
+  display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 4px; font-size: 1.25rem; box-shadow: 0 3px 0 rgba(0, 0, 0, .08);
 }
-.cat-tab .cat-label { font-size: .95rem; font-weight: 700; }
+.cat-tab .cat-label { font-size: .9rem; font-weight: 700; }
+.dress .msg { min-height: 0; }
+.btn-done { background: var(--pink); color: #fff; box-shadow: 0 5px 0 var(--pink-d); }
 .cat-tab.sel { border-color: var(--pink); background: #FFF0F6; }
 .dress-opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 8px; }
 .dress-opt {
@@ -522,7 +528,7 @@ svg.horse.happy { animation: hop .5s ease-out; }
 .stone.used { visibility: hidden; }
 
 /* Parcours-Varianten: Steine im Bach, Bootsfahrt */
-.theme-stones .arena, .theme-boat .arena { background: linear-gradient(180deg, transparent 50%, #5BB6F0 50%); }
+.theme-stones .arena, .theme-boat .arena { background: linear-gradient(180deg, #CFEFFF 0, #F2FBFF 50%, #5BB6F0 50%); }
 .theme-stones .poles, .theme-boat .poles { display: none; }
 .theme-stones .hurdle::after {
   content: ''; display: block; width: 90%; height: 34px; margin-top: 4px; border-radius: 50%;

@@ -68,13 +68,14 @@ export function dressUp(onDone, { story = false } = {}) {
     ${topbar({ title: 'Schmücken' })}
     <p class="instr">${T(story ? 'Mach {horse} schön für das Fest!' : 'Mach {horse} ganz schön!')}</p>
     <div class="stage dress-stage"><div class="dress-horse"></div><div class="talk"></div></div>
+    <div class="dress-actions">
+      <button class="btn btn-small photo-btn">📸 Foto</button>
+      <button class="btn btn-small btn-done">Fertig ➜</button>
+    </div>
     <div class="cat-tabs">${CATS.map((c) => `<button class="cat-tab" data-cat="${c.key}"><span>${c.icon}</span><span class="cat-label">${T(c.label, { speak: false })}</span></button>`).join('')}</div>
     <div class="dress-opts"></div>
     <div class="msg"></div>
-    <div class="dress-actions">
-      <button class="btn btn-small photo-btn">📸 Foto</button>
-      <button class="btn btn-main btn-next">${story ? 'Fertig' : 'Fertig'} ➜</button>
-    </div>`, 'dress');
+`, 'dress');
   bindTopbar(scr);
   const horseBox = $('.dress-horse', scr);
   const optsBox = $('.dress-opts', scr);
@@ -138,7 +139,7 @@ export function dressUp(onDone, { story = false } = {}) {
     burstAt(horseBox, ['💖', '✨', '⭐', '🌸'], 14);
   });
 
-  $('.btn-next', scr).addEventListener('click', () => { sfx.tap(); onDone(); });
+  $('.btn-done', scr).addEventListener('click', () => { sfx.tap(); onDone(); });
   drawHorse();
   drawOpts();
 }
