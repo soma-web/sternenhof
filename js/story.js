@@ -1,4 +1,4 @@
-// Die Geschichte – Kapitel 1: "Ein Pferd für dich"
+// Die Geschichte: Szenen, Entscheidungen, Kapitelauswahl und Ablauf.
 import { S, save } from './state.js';
 import { sfx, speak } from './audio.js';
 import { horseSVG, myHorse, COATS, MARKINGS } from './horse.js';
@@ -7,45 +7,20 @@ import { mount, topbar, bindTopbar, T, fill, $, $$, go, nextButton, roundDone, r
 import { brushGame, saddleGame } from './care.js';
 import { feedGame, jumpGame } from './math.js';
 import { readingGame } from './reading.js';
+import { tracksGame, riddleGame, syllableBridge } from './adventure.js';
+import { dressUp } from './dressup.js';
+import { CHAPTERS } from './chapters.js';
+
+export { CHAPTERS };
 
 const WHO = {
   rosi: { name: 'Tante Rosi', face: '👩‍🌾' },
-  eule: { name: 'Eule', face: '🦉' },
+  eule: { name: 'Ella, die Eule', face: '🦉' },
+  emma: { name: 'Emma', face: '👧' },
 };
 
 const FULL_GEAR = { pad: true, saddle: true, girth: true, bridle: true };
-
-export const CHAPTER1 = [
-  { t: 'askName' },
-  { t: 'scene', bg: 'hof', text: 'Hallo {name}! Es sind Ferien. Die Sonne scheint.' },
-  { t: 'scene', bg: 'hof', text: 'Du fährst zum *Sternenhof*. Dort wohnt Tante Rosi.' },
-  { t: 'scene', bg: 'hof', who: 'rosi', text: 'Hallo {name}! Schön, dass du da bist!' },
-  { t: 'scene', bg: 'hof', who: 'rosi', text: 'Ich habe eine Überraschung für dich. Komm mit in den Stall!' },
-  { t: 'scene', bg: 'stall', show: 'mystery', text: 'Im Stall steht ein Pferd. Es schaut dich an.' },
-  { t: 'createHorse' },
-  { t: 'scene', bg: 'stall', who: 'rosi', show: 'horse', text: '{horse} ist jetzt *dein* Pferd. Ihr werdet beste Freunde!' },
-  { t: 'scene', bg: 'stall', who: 'rosi', show: 'luna', text: 'Das ist Luna. Und das ist ihr Fohlen *Funke*.' },
-  { t: 'scene', bg: 'stall', who: 'rosi', show: 'luna', text: 'Funke ist klein und frech. Funke spielt so gern!' },
-  { t: 'scene', bg: 'stall', who: 'rosi', show: 'horse', text: 'Oh, {horse} ist ganz staubig. Hol das Putzzeug aus der Kammer!' },
-  { t: 'reading', mode: 'kammer', title: 'In der Kammer', intro: 'In der Kammer liegt viel Zeug. Lies genau!' },
-  { t: 'brush' },
-  { t: 'scene', bg: 'stall', show: 'horse', text: '{horse} glänzt wie neu! Aber jetzt hat {horse} Hunger.' },
-  { t: 'feed' },
-  { t: 'scene', bg: 'stall', who: 'rosi', show: 'horse', text: 'Satt und sauber! Wollen wir ausreiten? Dann musst du {horse} satteln.' },
-  { t: 'saddle' },
-  { t: 'scene', bg: 'wiese', show: 'ride', text: 'Ihr reitet los. Der Wind weht. Wie schön!' },
-  { t: 'reading', mode: 'ride', title: 'Ausritt' },
-  { t: 'scene', bg: 'wiese', who: 'rosi', show: 'ride', text: 'Schau, am Bach ist ein kleiner Parcours. Traust du dich?' },
-  { t: 'jump' },
-  { t: 'scene', bg: 'abend', show: 'horse', text: 'Am Abend seid ihr wieder im Stall. {horse} ist müde und froh.' },
-  { t: 'scene', bg: 'abend', who: 'rosi', text: 'Oh nein! Die Tür von Funke ist offen!' },
-  { t: 'scene', bg: 'abend', who: 'rosi', text: 'Funke ist weg!', shake: true },
-  { t: 'scene', bg: 'abend', text: 'Auf dem Boden liegt ein Zettel. Darauf steht:' },
-  { t: 'letter', text: 'Keine Angst! Funke ist bei mir. Kommt morgen in den Wald. Eure Freundin E.' },
-  { t: 'scene', bg: 'abend', who: 'rosi', text: 'Wer ist wohl E? Das finden wir morgen heraus.' },
-  { t: 'scene', bg: 'nacht', show: 'horse', text: 'Gute Nacht, {name}. Gute Nacht, {horse}.' },
-  { t: 'chapterEnd' },
-];
+const FUNKE = { coat: 'fuchs', marking: 'stern', socks: true };
 
 function showcase(kind) {
   switch (kind) {
@@ -54,10 +29,21 @@ function showcase(kind) {
     case 'ride': return `<div class="showcase">${myHorse(S, { gear: FULL_GEAR, cls: 'idle' })}</div>`;
     case 'luna': return `<div class="showcase duo">
         <div class="luna">${horseSVG({ coat: 'schimmel', marking: 'blesse', cls: 'idle' })}</div>
-        <div class="foal">${horseSVG({ coat: 'fuchs', marking: 'stern', socks: true, cls: 'idle' })}</div>
+        <div class="foal">${horseSVG({ ...FUNKE, cls: 'idle' })}</div>
+      </div>`;
+    case 'funke': return `<div class="showcase"><div class="foal-solo">${horseSVG({ ...FUNKE, cls: 'idle' })}</div></div>`;
+    case 'eule': return '<div class="showcase"><div class="owl">🦉</div></div>';
+    case 'emma': return `<div class="showcase duo"><div class="person">👧</div><div class="foal">${horseSVG({ ...FUNKE, cls: 'idle' })}</div></div>`;
+    case 'fest': return `<div class="showcase duo">
+        <div class="luna">${myHorse(S, { cls: 'idle' })}</div>
+        <div class="foal">${horseSVG({ ...FUNKE, bow: true, cls: 'idle' })}</div>
       </div>`;
     default: return '';
   }
+}
+
+function whoHTML(who) {
+  return who ? `<div class="who"><span class="face">${who.face}</span><span class="who-name">${who.name}</span></div>` : '';
 }
 
 function scene(step, onNext) {
@@ -68,7 +54,7 @@ function scene(step, onNext) {
     <div class="scene-body">
       ${showcase(step.show)}
       <div class="dialog ${who ? 'has-who' : 'narrator'} ${step.shake ? 'shake-in' : ''}">
-        ${who ? `<div class="who"><span class="face">${who.face}</span><span class="who-name">${who.name}</span></div>` : ''}
+        ${whoHTML(who)}
         <p class="story-text">${T(step.text)}</p>
         <div class="dialog-actions">
           <button class="icon-btn read-btn" aria-label="Vorlesen">🔊</button>
@@ -79,8 +65,35 @@ function scene(step, onNext) {
   bindTopbar(scr);
   $('.read-btn', scr).addEventListener('click', () => speak(fill(step.text).replaceAll('*', '')));
   $('.btn-next', scr).addEventListener('click', () => { sfx.tap(); onNext(); });
-  const h = $('.showcase svg.horse', scr);
-  if (h) h.addEventListener('click', () => { sfx.heart(); h.classList.add('happy'); burstAt(h, ['💖'], 5); });
+  $$('.showcase svg.horse', scr).forEach((h) => h.addEventListener('click', () => { sfx.heart(); h.classList.add('happy'); burstAt(h, ['💖'], 5); }));
+}
+
+// Entscheidung: Das Kind wählt, wie es weitergeht.
+function choice(step, onNext) {
+  const who = step.who ? WHO[step.who] : null;
+  const scr = mount(`
+    ${sceneBG(step.bg)}
+    ${topbar()}
+    <div class="scene-body">
+      <div class="dialog choice-dialog ${who ? 'has-who' : 'narrator'}">
+        ${whoHTML(who)}
+        <p class="story-text">${T(step.text)}</p>
+        <div class="choice-list">${step.options.map((o) => `
+          <button class="choice-opt" data-v="${o.v}"><span class="co-emoji">${o.emoji}</span><span class="co-label">${T(fill(o.label), { speak: false })}</span></button>`).join('')}
+        </div>
+        <div class="dialog-actions center"><button class="icon-btn read-btn" aria-label="Vorlesen">🔊</button></div>
+      </div>
+    </div>`, `story bg-${step.bg}`);
+  bindTopbar(scr);
+  $('.read-btn', scr).addEventListener('click', () => speak(`${fill(step.text)} ${step.options.map((o) => fill(o.label)).join('. Oder: ')}`));
+  $$('.choice-opt', scr).forEach((b) => b.addEventListener('click', () => {
+    S.choices[step.key] = b.dataset.v;
+    save();
+    sfx.good();
+    b.classList.add('picked');
+    burstAt(b, ['✨', '⭐'], 6);
+    setTimeout(onNext, 500);
+  }));
 }
 
 function letter(step, onNext) {
@@ -192,57 +205,66 @@ export function createHorse(onNext, { fromHub = false } = {}) {
   });
 }
 
+// ---------- Fortschritt ----------
+export function prog(nr) {
+  if (!S.progress[nr]) S.progress[nr] = { max: 0, done: false };
+  return S.progress[nr];
+}
+export const chapterUnlocked = (nr) => nr === 1 || prog(nr - 1).done;
+export const anyStoryProgress = () => prog(1).max > 1 || prog(1).done || S.chapter > 1;
+const currentChapter = () => CHAPTERS.find((c) => c.nr === S.chapter) || CHAPTERS[0];
+
 function chapterEnd(onNext) {
-  const first = !S.chapterDone;
-  S.chapterDone = true;
+  const ch = currentChapter();
+  const p = prog(ch.nr);
+  const first = !p.done;
+  p.done = true;
+  if (ch.nr === 1) S.chapterDone = true;
   save();
   if (first) reward(10);
   roundDone({
-    title: 'Kapitel 1 geschafft!',
-    text: first ? 'Du bekommst 10 Hufeisen extra. Morgen geht die Suche nach Funke weiter!' : 'Morgen geht die Suche nach Funke weiter!',
+    title: `Kapitel ${ch.nr} geschafft!`,
+    text: first ? `Du bekommst 10 Hufeisen extra. ${ch.end}` : ch.end,
     earned: first ? 10 : 0,
-    label: 'Zum Stall',
+    label: 'Weiter',
     onNext,
   });
 }
 
 // ---------- Kapitelauswahl ----------
-export const CHAPTERS = [
-  {
-    nr: 1, title: 'Ein Pferd für dich', emoji: '🐴',
-    parts: [
-      { title: 'Ankunft auf dem Hof', emoji: '🏡', step: 1 },
-      { title: 'Putzen', emoji: '🧽', step: 10 },
-      { title: 'Füttern und Satteln', emoji: '🥕', step: 13 },
-      { title: 'Ausritt', emoji: '🌼', step: 17 },
-      { title: 'Parcours', emoji: '🏇', step: 19 },
-      { title: 'Funke ist weg!', emoji: '🌙', step: 21 },
-    ],
-  },
-  { nr: 2, title: 'Im Wald', emoji: '🌲', locked: true },
-];
-
 export function chapterSelect() {
-  const reached = (p) => S.chapterDone || S.maxStep >= p.step;
-  const cont = S.step > 0 && S.step < CHAPTER1.length;
+  const c = currentChapter();
+  const fresh = S.step === 0 && chapterUnlocked(c.nr) && !prog(c.nr).done && prog(c.nr).max === 0;
+  const cont = S.step > 0
+    ? `Weiterlesen: Kapitel ${c.nr}`
+    : fresh ? `Los geht's: Kapitel ${c.nr}` : '';
   const scr = mount(`
     ${topbar({ title: 'Geschichte' })}
-    ${cont ? `<button class="btn btn-main continue-btn">Weiterlesen ➜</button>` : ''}
-    ${CHAPTERS.map((ch) => `
-      <section class="chapter ${ch.locked ? 'locked' : ''}">
-        <h2 class="chapter-title"><span class="ch-emoji">${ch.emoji}</span> ${T(`Kapitel ${ch.nr}: ${ch.title}`)}</h2>
-        ${ch.locked ? `<p class="soon">${T('Kommt bald!')} 🔒</p>` : `
-        <div class="parts">${ch.parts.map((p, k) => `
-          <button class="part ${reached(p) ? '' : 'locked'}" data-step="${p.step}" ${reached(p) ? '' : 'disabled'}>
-            <span class="part-emoji">${reached(p) ? p.emoji : '🔒'}</span>
+    ${cont ? `<button class="btn btn-main continue-btn">${cont} ➜</button>` : ''}
+    ${CHAPTERS.map((ch) => {
+      const open = chapterUnlocked(ch.nr);
+      const p = prog(ch.nr);
+      const parts = ch.steps.map((st, idx) => ({ ...st.part, idx })).filter((x) => x.title);
+      const reached = (x, k) => p.done || k === 0 || p.max >= x.idx;
+      return `
+      <section class="chapter ${open ? '' : 'locked'}">
+        <h2 class="chapter-title"><span class="ch-emoji">${ch.emoji}</span> ${T(`Kapitel ${ch.nr}: ${ch.title}`)} ${p.done ? '<span class="ch-done">⭐</span>' : ''}</h2>
+        ${open ? `
+        <div class="parts">${parts.map((x, k) => `
+          <button class="part ${reached(x, k) ? '' : 'locked'}" data-ch="${ch.nr}" data-step="${x.idx}" ${reached(x, k) ? '' : 'disabled'}>
+            <span class="part-emoji">${reached(x, k) ? x.emoji : '🔒'}</span>
             <span class="part-nr">${k + 1}</span>
-            <span class="part-title">${T(p.title, { speak: false })}</span>
-          </button>`).join('')}</div>`}
-      </section>`).join('')}`, 'chapters');
+            <span class="part-title">${T(x.title, { speak: false })}</span>
+          </button>`).join('')}</div>`
+        : `<p class="soon">🔒 ${T(`Schaffe erst Kapitel ${ch.nr - 1}!`)}</p>`}
+      </section>`;
+    }).join('')}
+    <p class="soon">${T('Neue Abenteuer kommen bald!')}</p>`, 'chapters');
   bindTopbar(scr);
   $('.continue-btn', scr)?.addEventListener('click', () => { sfx.tap(); runStory(); });
   $$('.part:not(.locked)', scr).forEach((b) => b.addEventListener('click', () => {
     sfx.tap();
+    S.chapter = +b.dataset.ch;
     S.step = +b.dataset.step;
     save();
     runStory();
@@ -250,10 +272,17 @@ export function chapterSelect() {
 }
 
 // ---------- Ablauf ----------
+const fits = (st) => !st.if || S.choices[st.if[0]] === st.if[1];
+
 export function runStory() {
-  const steps = CHAPTER1;
+  const ch = currentChapter();
+  const steps = ch.steps;
+  while (S.step < steps.length && !fits(steps[S.step])) S.step++;
   if (S.step >= steps.length) S.step = 0;
-  if (S.step > (S.maxStep || 0)) { S.maxStep = S.step; save(); }
+  const p = prog(ch.nr);
+  if (S.step > p.max) p.max = S.step;
+  if (ch.nr === 1) S.maxStep = p.max;
+  save();
   const step = steps[S.step];
   const next = () => { S.step++; save(); runStory(); };
   const afterGame = (earned, text) => roundDone({ title: 'Super gemacht!', text, earned, onNext: next });
@@ -262,13 +291,25 @@ export function runStory() {
     case 'askName': return askName(next);
     case 'createHorse': return createHorse(next);
     case 'scene': return scene(step, next);
+    case 'choice': return choice(step, next);
     case 'letter': return letter(step, next);
     case 'brush': return brushGame(next);
+    case 'brushFunke': return brushGame(next, { horse: FUNKE, name: 'Funke' });
     case 'saddle': return saddleGame(next);
-    case 'feed': return feedGame({ count: 5, title: 'Füttern' }, (e) => afterGame(e, '{horse} ist jetzt satt.'));
-    case 'jump': return jumpGame({ count: 5, title: 'Parcours' }, (e) => afterGame(e, 'Was für ein toller Ritt!'));
+    case 'dress': return dressUp(next, { story: true });
+    case 'feed': return feedGame({ count: 5, title: step.title || 'Füttern', theme: step.theme }, (e) => afterGame(e, step.theme ? 'Gut gezählt!' : '{horse} ist jetzt satt.'));
+    case 'jump': return jumpGame({ count: 5, title: step.title || 'Parcours', theme: step.theme || 'hurdles', gear: step.theme !== 'boat' }, (e) => afterGame(e, step.theme === 'boat' ? 'Ihr seid gut angekommen!' : 'Was für ein toller Sprung!'));
     case 'reading': return readingGame({ mode: step.mode, title: step.title, intro: step.intro }, (e) => afterGame(e, 'Du hast toll gelesen!'));
-    case 'chapterEnd': return chapterEnd(() => { S.step = 0; save(); go('hub'); });
+    case 'tracks': return tracksGame({ count: 5 }, (e) => afterGame(e, 'Ihr habt die Spur gefunden!'));
+    case 'riddles': return riddleGame({ count: 5 }, (e) => afterGame(e, 'Ella staunt: Ihr seid so schlau!'));
+    case 'bridge': return syllableBridge({ count: 5 }, (e) => afterGame(e, 'Die Brücke ist fertig!'));
+    case 'chapterEnd': return chapterEnd(() => {
+      S.step = 0;
+      const nextCh = CHAPTERS.find((c) => c.nr === ch.nr + 1);
+      if (nextCh) S.chapter = nextCh.nr;
+      save();
+      chapterSelect();
+    });
     default: return next();
   }
 }

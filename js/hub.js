@@ -3,7 +3,8 @@ import { S, save, resetAll } from './state.js';
 import { sfx, speak, canSpeak } from './audio.js';
 import { myHorse, PADS } from './horse.js';
 import { mount, topbar, bindTopbar, T, $, $$, go, pick, burstAt, roundDone, shoeIcon, reward } from './ui.js';
-import { runStory, CHAPTER1, createHorse, chapterSelect } from './story.js';
+import { runStory, CHAPTERS, createHorse, chapterSelect, anyStoryProgress, prog } from './story.js';
+import { dressUp } from './dressup.js';
 import { brushGame, saddleGame } from './care.js';
 import { feedGame, jumpGame } from './math.js';
 import { readingGame } from './reading.js';
@@ -63,9 +64,9 @@ export function hub() {
       <div class="stall-floor"></div>
     </div>
     <h2 class="stall-title">${T(`Der Stall von *${S.horse.name}*`)}</h2>
-    ${S.chapterDone ? `<p class="soon">${T('Kapitel 2 kommt bald!')}</p>` : ''}
     <nav class="menu">
       <button class="menu-btn story-btn" data-go="story"><span class="mi">📖</span><span>${T(storyLabel, { speak: false })}</span></button>
+      <button class="menu-btn dress-btn" data-go="dress"><span class="mi">💎</span><span>${T('Schmücken', { speak: false })}</span></button>
       <button class="menu-btn" data-go="care"><span class="mi">🧽</span><span>${T('Putzen', { speak: false })}</span></button>
       <button class="menu-btn" data-go="saddle"><span class="mi">🐴</span><span>${T('Satteln', { speak: false })}</span></button>
       <button class="menu-btn" data-go="feed"><span class="mi">🥕</span><span>${T('Füttern', { speak: false })}</span></button>
@@ -88,7 +89,8 @@ export function hub() {
 
   const done = (e) => roundDone({ title: 'Super gemacht!', earned: e, label: 'Zum Stall', onNext: () => go('hub') });
   const actions = {
-    story: () => (Math.max(S.maxStep, S.step) > 1 || S.chapterDone ? chapterSelect() : runStory()),
+    story: () => (anyStoryProgress() ? chapterSelect() : runStory()),
+    dress: () => dressUp(() => go('hub')),
     care: () => brushGame(() => go('hub')),
     saddle: () => saddleGame(() => go('hub')),
     feed: () => feedGame({ count: 5, title: 'Füttern' }, done),
@@ -188,12 +190,14 @@ function parents() {
         <h3>Fortschritt</h3>
         <p>Mathe: ${st.mathRight} von ${st.mathTotal} beim ersten Versuch richtig (${pct(st.mathRight, st.mathTotal)})</p>
         <p>Lesen: ${st.readRight} von ${st.readTotal} beim ersten Versuch richtig (${pct(st.readRight, st.readTotal)})</p>
-        <p>Geschichte: Schritt ${S.step + 1} von ${CHAPTER1.length}${S.chapterDone ? ' · Kapitel 1 abgeschlossen' : ''}</p>
+        ${CHAPTERS.map((c) => `<p>Kapitel ${c.nr} „${c.title}“: ${prog(c.nr).done ? 'geschafft ⭐' : prog(c.nr).max > 0 ? 'begonnen' : 'noch nicht gespielt'}</p>`).join('')}
+        <p>Entscheidungen: ${Object.entries(S.choices).map(([k, v]) => `${k} = ${v}`).join(', ') || '–'}</p>
         <p>Hufeisen: ${S.shoes}</p>
       </section>
       <section>
         <h3>Spielstand</h3>
-        <button class="btn btn-small" data-act="restart">Kapitel 1 von vorne</button>
+        <button class="btn btn-small" data-act="restart">Geschichte von vorne</button>
+        <button class="btn btn-small" data-act="unlock">Alle Kapitel freischalten</button>
         <button class="btn btn-small btn-danger" data-act="reset">Alles zurücksetzen</button>
         <button class="btn btn-small" data-act="test">Test: Sprachausgabe</button>
       </section>
@@ -204,7 +208,11 @@ function parents() {
     $$('[data-lvl]', scr).forEach((x) => x.classList.toggle('sel', x === b));
   }));
   $$('[data-set]', scr).forEach((c) => c.addEventListener('change', () => { S.settings[c.dataset.set] = c.checked; save(); }));
-  $('[data-act="restart"]', scr).addEventListener('click', () => { S.step = 0; save(); go('hub'); });
+  $('[data-act="restart"]', scr).addEventListener('click', () => { S.chapter = 1; S.step = 0; save(); go('hub'); });
+  $('[data-act="unlock"]', scr).addEventListener('click', () => {
+    CHAPTERS.forEach((c) => { const p = prog(c.nr); if (c.nr < CHAPTERS.length) p.done = true; p.max = Math.max(p.max, c.steps.length - 1); });
+    S.chapterDone = true; save(); alert('Alle Kapitel und Abschnitte sind jetzt frei.');
+  });
   $('[data-act="reset"]', scr).addEventListener('click', () => {
     if (confirm('Wirklich den ganzen Spielstand löschen? Pferd, Hufeisen und Fortschritt gehen verloren.')) { resetAll(); go('title'); }
   });

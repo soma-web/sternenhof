@@ -5,7 +5,51 @@ const SKIES = {
   stall: ['#E9C9A0', '#F6E4C8'],
   abend: ['#2C3E78', '#F59E7A'],
   nacht: ['#16204A', '#3B4C8F'],
+  wald: ['#BFE6C8', '#EAF7EC'],
+  fluss: ['#8FD0FF', '#E6F7FF'],
+  muehle: ['#A8DCFF', '#F2FAFF'],
+  fest: ['#5B4B9A', '#FFB38A'],
 };
+
+function tree(x, y, s = 1, dark = false) {
+  const c1 = dark ? '#2F7A45' : '#3E9455';
+  const c2 = dark ? '#276B3B' : '#4FA864';
+  return `<g transform="translate(${x} ${y}) scale(${s})">
+    <rect x="-8" y="-10" width="16" height="70" rx="4" fill="#7A5134"/>
+    <circle cx="0" cy="-40" r="42" fill="${c1}"/><circle cx="-26" cy="-18" r="28" fill="${c2}"/><circle cx="26" cy="-20" r="30" fill="${c2}"/>
+  </g>`;
+}
+
+function pine(x, y, s = 1, col = '#2E6B44') {
+  return `<g transform="translate(${x} ${y}) scale(${s})">
+    <rect x="-6" y="0" width="12" height="30" fill="#6B4630"/>
+    <path d="M0 -90 L34 -20 H-34 Z M0 -60 L40 10 H-40 Z" fill="${col}"/>
+  </g>`;
+}
+
+function mill(x, y, s = 1) {
+  return `<g transform="translate(${x} ${y}) scale(${s})">
+    <rect x="0" y="40" width="110" height="90" fill="#D9CBB8"/>
+    <g fill="#C4B49E"><rect x="8" y="50" width="22" height="12" rx="2"/><rect x="60" y="64" width="26" height="12" rx="2"/><rect x="20" y="96" width="24" height="12" rx="2"/><rect x="74" y="108" width="22" height="12" rx="2"/></g>
+    <path d="M-10 44 L55 0 L120 44 Z" fill="#8C4A3A"/>
+    <rect x="44" y="84" width="26" height="46" rx="12" fill="#6B4630"/>
+    <rect x="16" y="60" width="22" height="20" rx="3" fill="#FFE9A8"/>
+    <g class="wheel">
+      <circle cx="130" cy="95" r="40" fill="none" stroke="#7A5134" stroke-width="8"/>
+      <path d="M130 55 V135 M90 95 H170 M102 67 L158 123 M158 67 L102 123" stroke="#7A5134" stroke-width="6"/>
+    </g>
+  </g>`;
+}
+
+function bunting(y) {
+  const cols = ['#FF7FAF', '#FFD34D', '#5FCFAE', '#7FB2FF', '#B58CFF'];
+  let flags = '';
+  for (let k = 0; k < 18; k++) {
+    const x = 10 + k * 40;
+    flags += `<path d="M${x} ${y + 6} L${x + 32} ${y + 6} L${x + 16} ${y + 34} Z" fill="${cols[k % 5]}"/>`;
+  }
+  return `<path d="M0 ${y} Q360 ${y + 30} 720 ${y}" stroke="#fff" stroke-width="3" fill="none"/>${flags}`;
+}
 
 function clouds() {
   return `<g fill="#fff" opacity=".9">
@@ -61,6 +105,49 @@ export function sceneBG(key) {
   const id = `sky-${key}`;
   let body = '';
   if (key === 'stall') body = stallInside();
+  else if (key === 'wald') {
+    body = `
+      ${pine(200, 230, 1.2, '#3F7F55')}${pine(520, 230, 1.3, '#3F7F55')}${pine(120, 240, 1, '#4C8E62')}${pine(600, 240, 1.1, '#4C8E62')}
+      <path d="M0 250 Q360 220 720 250 V400 H0 Z" fill="#6DB86A"/>
+      ${tree(270, 250, 1.1, true)}${tree(450, 250, 1.2, true)}
+      <path d="M330 400 Q350 320 360 260 Q370 320 400 400 Z" fill="#C9A66B"/>
+      <g fill="#E8453C"><circle cx="300" cy="330" r="8"/><circle cx="430" cy="345" r="7"/></g>
+      <g fill="#fff"><circle cx="297" cy="327" r="2"/><circle cx="304" cy="331" r="1.6"/><circle cx="428" cy="342" r="1.6"/></g>
+      <g fill="#F2EBDD"><rect x="297" y="334" width="6" height="10"/><rect x="427" y="348" width="6" height="9"/></g>
+      ${flowers(360)}`;
+  } else if (key === 'fluss') {
+    body = `
+      ${clouds()}
+      <circle cx="450" cy="62" r="30" fill="#FFE27A"/>
+      <path d="M0 220 Q180 170 360 200 T720 190 V260 H0 Z" fill="#8CCB74"/>
+      ${mill(420, 112, 0.6)}
+      <path d="M0 250 Q360 235 720 250 V320 Q360 305 0 320 Z" fill="#5BB6F0"/>
+      <g stroke="#BFE7FF" stroke-width="3" fill="none" stroke-linecap="round" class="waves">
+        <path d="M60 270 q15 -8 30 0 t30 0"/><path d="M300 285 q15 -8 30 0 t30 0"/><path d="M520 268 q15 -8 30 0 t30 0"/><path d="M200 300 q15 -8 30 0 t30 0"/>
+      </g>
+      <path d="M0 315 Q360 300 720 315 V400 H0 Z" fill="#7CC45A"/>
+      <g stroke="#4E8E3E" stroke-width="4" stroke-linecap="round"><path d="M250 330 v-28 M258 332 v-22 M470 332 v-26 M478 330 v-18"/></g>
+      <g fill="#8A5A3C"><ellipse cx="254" cy="300" rx="4" ry="9"/><ellipse cx="474" cy="304" rx="4" ry="9"/></g>`;
+  } else if (key === 'muehle') {
+    body = `
+      ${clouds()}
+      <path d="M0 230 Q180 180 360 210 T720 200 V400 H0 Z" fill="#9BD67A"/>
+      ${tree(170, 240, 0.9)}${tree(560, 240, 1)}
+      ${mill(270, 150, 1)}
+      <path d="M380 260 Q560 250 720 270 V310 Q560 290 400 300 Z" fill="#5BB6F0"/>
+      <path d="M0 300 Q360 285 720 300 V400 H0 Z" fill="#7CC45A"/>
+      ${flowers(335)}`;
+  } else if (key === 'fest') {
+    body = `
+      <g fill="#FFF8D6">${[[80, 30], [200, 60], [600, 40], [660, 90]].map(([x, y]) => `<circle class="twinkle" cx="${x}" cy="${y}" r="2.4"/>`).join('')}</g>
+      <path d="M0 250 Q180 200 360 230 T720 220 V400 H0 Z" fill="#6FA35E"/>
+      ${barn(290, 140, 0.95)}
+      ${bunting(110)}
+      ${bunting(150)}
+      <g>${[180, 260, 460, 540].map((x, k) => `<circle class="twinkle" cx="${x}" cy="${200 + (k % 2) * 14}" r="7" fill="#FFE27A"/>`).join('')}</g>
+      <path d="M0 300 Q360 285 720 300 V400 H0 Z" fill="#5E9150"/>
+      ${flowers(335)}`;
+  }
   else if (key === 'abend' || key === 'nacht') {
     body = `
       <g fill="#FFF8D6">${[[80, 40], [200, 80], [340, 30], [470, 70], [600, 40], [650, 110], [140, 120]].map(([x, y]) => `<circle class="twinkle" cx="${x}" cy="${y}" r="2.4"/>`).join('')}</g>

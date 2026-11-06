@@ -1,7 +1,7 @@
 // Cozy-Momente: Putzen, Hufe auskratzen, Satteln & Trensen.
 import { S } from './state.js';
 import { sfx, speak } from './audio.js';
-import { myHorse, DIRT_SPOTS, HOOVES } from './horse.js';
+import { myHorse, horseSVG, DIRT_SPOTS, HOOVES } from './horse.js';
 import { mount, topbar, bindTopbar, T, $, $$, burst, burstAt, say, praise, shuffle, nextButton, reward } from './ui.js';
 
 const BRUSH = `<svg viewBox="0 0 80 60" width="80" height="60" aria-hidden="true">
@@ -23,13 +23,14 @@ function svgToScreen(svg, x, y) {
   return [p.x, p.y];
 }
 
-export function brushGame(onDone) {
+export function brushGame(onDone, { horse = null, name = null } = {}) {
+  const N = (str) => (name ? str.replaceAll('{horse}', name) : str);
   const dirt = DIRT_SPOTS.map(() => 1);
   const mud = [true, true, true, true];
   const scr = mount(`
     ${topbar({ title: 'Putzen' })}
-    <p class="instr">${T('Bürste {horse} sauber! Wisch mit dem Finger über den Schmutz.')}</p>
-    <div class="stage care-stage">${myHorse(S, { dirt, mud, cls: 'big' })}<div class="brush-cursor">${BRUSH}</div></div>
+    <p class="instr">${T(N('Bürste {horse} sauber! Wisch mit dem Finger über den Schmutz.'))}</p>
+    <div class="stage care-stage">${horse ? horseSVG({ ...horse, dirt, mud, cls: 'big' }) : myHorse(S, { dirt, mud, cls: 'big' })}<div class="brush-cursor">${BRUSH}</div></div>
     <div class="msg"></div>
     <div class="actions"></div>`, 'care');
   bindTopbar(scr);
@@ -98,8 +99,8 @@ export function brushGame(onDone) {
     phase = 'done';
     sfx.win();
     burstAt(svg, ['💖', '✨', '⭐'], 14);
-    instr.innerHTML = T('{horse} ist blitzsauber!');
-    say(msg, `${praise()} {horse} freut sich.`, 'good');
+    instr.innerHTML = T(N('{horse} ist blitzsauber!'));
+    say(msg, N(`${praise()} {horse} freut sich.`), 'good');
     reward(2);
     $('.actions', scr).innerHTML = nextButton();
     $('.btn-next', scr).addEventListener('click', () => { sfx.tap(); onDone(); });

@@ -40,7 +40,7 @@ const CLOZE = [
 
 const PLACES = ['Wald', 'Fluss', 'Wiese', 'Berg', 'Stall', 'See', 'Brücke', 'Dorf', 'Mühle', 'Hof', 'Bach', 'Weide'];
 
-function trackRead(firstTry) {
+export function trackRead(firstTry) {
   S.stats.readTotal++;
   if (firstTry) S.stats.readRight++;
   save();

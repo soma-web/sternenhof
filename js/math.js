@@ -50,7 +50,7 @@ function eqHTML(t, boxContent = '') {
 }
 
 // Zehnerfelder mit Karotten als Rechenhilfe
-function tenFrames(t) {
+function tenFrames(t, emoji = '🥕') {
   const plus = t.op === '+';
   const total = plus ? t.a + t.b : t.a;
   const frames = Math.ceil(total / 10);
@@ -63,7 +63,7 @@ function tenFrames(t) {
       if (n < total) {
         if (plus && n >= t.a) cls += ' new';
         else if (!plus && n >= t.a - t.b) cls += ' gone';
-        cells += `<span class="${cls}">🥕</span>`;
+        cells += `<span class="${cls}">${emoji}</span>`;
       } else cells += '<span class="cell empty"></span>';
     }
     html += `<div class="frame">${cells}</div>`;
@@ -90,7 +90,7 @@ const GAP_TEXT = {
   '−': 'Im Eimer waren {a} Karotten. Jetzt sind es nur noch {res}. Wie viele hat {horse} gefressen?',
 };
 
-function trackResult(firstTry) {
+export function trackResult(firstTry) {
   S.stats.mathTotal++;
   if (firstTry) {
     S.stats.mathRight++;
@@ -106,7 +106,21 @@ function trackResult(firstTry) {
 }
 
 // ---------- Futter-Spiel: Eingabe mit Zahlentasten ----------
-export function feedGame({ count = 5, title = 'Füttern' } = {}, onDone) {
+const THEMES = {
+  pilze: {
+    emoji: '🍄',
+    '+': ['Im Korb sind {a} Pilze. Ihr findet noch {b}.', 'Unter dem Baum stehen {a} Pilze. Daneben wachsen {b}.'],
+    '−': ['Im Korb sind {a} Pilze. {b} fallen heraus.', 'Am Weg stehen {a} Pilze. Ein Reh frisst {b}.'],
+    gap: {
+      '+': 'Im Korb sind {a} Pilze. Es sollen {res} sein. Wie viele fehlen?',
+      '−': 'Im Korb waren {a} Pilze. Jetzt sind es nur noch {res}. Wie viele sind weg?',
+    },
+  },
+};
+
+export function feedGame({ count = 5, title = 'Füttern', theme = null } = {}, onDone) {
+  const th = THEMES[theme];
+  const emoji = th ? th.emoji : '🥕';
   const fr = taskFrame({ total: count, title, cls: 'math feed' });
   let i = 0;
   let earned = 0;
@@ -114,7 +128,7 @@ export function feedGame({ count = 5, title = 'Füttern' } = {}, onDone) {
   function show() {
     fr.progress(i);
     const t = makeTask();
-    const text = (t.gap ? GAP_TEXT[t.op] : pick(FEED_TEXT[t.op])).replace('{a}', t.a).replace('{b}', t.b).replace('{res}', t.res);
+    const text = (t.gap ? (th ? th.gap : GAP_TEXT)[t.op] : pick((th || FEED_TEXT)[t.op])).replace('{a}', t.a).replace('{b}', t.b).replace('{res}', t.res);
     let input = '';
     let tries = 0;
     let busy = false;
@@ -138,7 +152,7 @@ export function feedGame({ count = 5, title = 'Füttern' } = {}, onDone) {
     const hint = $('.hint-area', fr.area);
     const helpBtn = $('.help-btn', fr.area);
     const showHint = () => {
-      hint.innerHTML = `${tenFrames(t)}<button class="hint-close" aria-label="Hilfe schließen">✕</button>`;
+      hint.innerHTML = `${tenFrames(t, emoji)}<button class="hint-close" aria-label="Hilfe schließen">✕</button>`;
       hint.classList.add('open');
       helpBtn.textContent = '✕ Hilfe zu';
       $('.hint-close', hint).addEventListener('click', () => { sfx.tap(); hideHint(); });
@@ -156,7 +170,7 @@ export function feedGame({ count = 5, title = 'Füttern' } = {}, onDone) {
         say(msg, praise(), 'good');
         const horse = $('.mini-horse svg', fr.area);
         horse?.classList.add('happy');
-        burstAt(box, ['🥕', '✨', '💖'], 6);
+        burstAt(box, [emoji, '✨', '💖'], 6);
         const n = tries === 0 ? 2 : 1;
         earned += n;
         reward(n);
@@ -201,8 +215,14 @@ export function feedGame({ count = 5, title = 'Füttern' } = {}, onDone) {
 }
 
 // ---------- Springparcours: richtige Stange antippen ----------
-export function jumpGame({ count = 5, title = 'Parcours', gear = true } = {}, onDone) {
-  const fr = taskFrame({ total: count, title, cls: 'math jump' });
+const JUMP_TEXT = {
+  hurdles: 'Spring über die Stange mit der richtigen Zahl!',
+  stones: 'Spring auf den Stein mit der richtigen Zahl!',
+  boat: 'Rudere zur Boje mit der richtigen Zahl!',
+};
+
+export function jumpGame({ count = 5, title = 'Parcours', gear = true, theme = 'hurdles' } = {}, onDone) {
+  const fr = taskFrame({ total: count, title, cls: `math jump theme-${theme}` });
   let i = 0;
   let earned = 0;
   const colors = ['#FF6B6B', '#4D96FF', '#FFC93C'];
@@ -214,10 +234,10 @@ export function jumpGame({ count = 5, title = 'Parcours', gear = true } = {}, on
     let tries = 0;
     let busy = false;
     fr.area.innerHTML = `
-      <p class="task-text">${T('Spring über die Stange mit der richtigen Zahl!')}</p>
+      <p class="task-text">${T(JUMP_TEXT[theme])}</p>
       <div class="equation">${eqHTML(t, '?')}</div>
       <div class="arena">
-        <div class="runner">${myHorse(S, { gear: gear ? { pad: true, saddle: true, girth: true, bridle: true } : {} })}</div>
+        <div class="runner">${myHorse(S, { gear: gear ? { pad: true, saddle: true, girth: true, bridle: true } : {} })}${theme === 'boat' ? '<div class="hull"></div>' : ''}</div>
         <div class="hurdles">${opts.map((n, k) => `
           <button class="hurdle" data-n="${n}" style="--c:${colors[k]}">
             <span class="board">${n}</span>
