@@ -26,8 +26,8 @@ Das Kind gibt seinen Namen ein, erschafft ein eigenes Pferd und erlebt mit ihm e
 
 | Bereich | Was das Kind macht |
 |---|---|
-| 📖 **Geschichte** | 3 Kapitel mit Entscheidungen, die den Weg verändern |
-| ➕ **Mathe** | Plus und Minus bis 50, passt sich automatisch an |
+| 📖 **Geschichte** | 5 Kapitel mit Entscheidungen, die den Weg verändern |
+| ➕ **Mathe** | Plus und Minus bis 50, Zehner und Einer, Zahlen ordnen. Passt sich automatisch an |
 | 🔤 **Lesen** | Einfache Wörter mit Silbenfarben, jedes Wort kann vorgelesen werden |
 | 🪮 **Pflege** | Pferd putzen, Hufe auskratzen, satteln und trensen |
 | 💎 **Schmücken** | Frisuren, Stirnschmuck, Hüte, Gamaschen und Satteldecken – mit Farben und Mustern zum Freischalten |
@@ -45,6 +45,8 @@ Funke, das kleine Fohlen vom Sternenhof, ist verschwunden. Zusammen mit dem eige
 | 1 | **Ein Pferd für dich** 🐴 | Ankommen, eigenes Pferd erschaffen, putzen, satteln, der erste Ausritt. Am Abend ist Funke weg, nur ein geheimnisvoller Brief von „E.“ liegt da |
 | 2 | **Im Wald** 🌲 | Hufspuren folgen, Pilze sammeln oder über Steine springen, Ella die Eule kennenlernen |
 | 3 | **Die alte Mühle** 🏚️ | Über den Fluss, Emma aus der Mühle treffen, Funke finden und das große Hoffest |
+| 4 | **Das Gewitter** ⛈️ | Ein Plakat für das Sternenturnier, Training mit Emma und Luna, ein Gewitter in der Nacht und ein kaputter Zaun |
+| 5 | **Das Sternenturnier** 🏆 | Startnummern, Schönheitspreis, Springen – und Emma braucht Hilfe am Wassergraben |
 
 **Entscheidungen:** An mehreren Stellen darf das Kind wählen, zum Beispiel:
 
@@ -52,6 +54,9 @@ Funke, das kleine Fohlen vom Sternenhof, ist verschwunden. Zusammen mit dem eige
 - ⬅️➡️ Im Wald links oder rechts gehen? (Pilze zählen oder über Steine springen)
 - 🦉 Ella die Eule verabschieden oder mitnehmen? (sie taucht dann später wieder auf)
 - ⛵ Mit dem Boot über den Fluss oder am Ufer entlang über die Brücke?
+- 🚧 Über Stangen oder über den Bach trainieren?
+- 🎵 Beim Gewitter ein Lied singen oder die Laterne anmachen?
+- 💪 Emma Mut machen oder mit dem eigenen Pferd vorspringen?
 
 Die Wahl verändert Szenen und Spiele. Ein zweiter Durchgang lohnt sich also.
 
@@ -71,6 +76,8 @@ Die Wahl verändert Szenen und Spiele. Ein zweiter Durchgang lohnt sich also.
   - 🏇 **Springen:** die richtige Antwort wählen, damit das Pferd über das Hindernis springt (Hürden, Steine im Bach, Bootsfahrt)
   - 🐾 **Hufspuren:** auf dem Zahlenstrahl vorwärts und rückwärts zählen
   - 🍄 **Pilze zählen** im Wald
+  - 🪵 **Bretter zählen:** Zehnerbündel und einzelne Bretter (Zehner und Einer)
+  - 🏁 **Startnummern:** Zahlen von der kleinsten zur größten ordnen
 
 Fehler sind nicht schlimm: Es gibt eine freundliche Ermutigung und einen neuen Versuch.
 
@@ -114,7 +121,7 @@ Für richtige Antworten gibt es **Hufeisen**: 2 beim ersten Versuch, sonst 1. Da
 
 - 🥕 Füttern und 🏇 Parcours (Rechnen)
 - 📚 Lesen, 🦉 Rätsel und 🌉 Silben-Brücke (Lesen)
-- 🐾 Hufspuren (Zahlenstrahl)
+- 🐾 Hufspuren (Zahlenstrahl), 🪵 Bretter zählen und 🏁 Startnummern
 
 Mit den Hufeisen kann man:
 
@@ -132,7 +139,7 @@ Farben und Muster werden **einmal** gekauft und gelten dann überall (Gamaschen,
 | Hüte | 20–30 |
 | Stirnschmuck-Formen | 15–35 |
 
-**Taschengeld:** Vor dem großen Fest in Kapitel 3 schenkt Rosi einmalig 60 Hufeisen, damit das Schmücken richtig Spaß macht.
+**Taschengeld:** Vor dem Schmücken in der Geschichte gibt es einmalig Hufeisen geschenkt (60 vor dem Fest in Kapitel 3, 40 beim Turnier). Bei der Siegerehrung gibt es 30 Hufeisen und den Herz-Pokal für den Stall.
 
 ---
 
@@ -207,11 +214,12 @@ js/
   horse.js             Pferd als SVG (Fellfarben, Abzeichen, Ausrüstung, Schmuck)
   scenes.js            Hintergründe (Hof, Wiese, Wald, Fluss, Mühle, Fest …)
   story.js             Geschichten-Engine, Kapitelauswahl, Figuren
-  chapters.js          Inhalt der Kapitel 1–3
+  chapters.js          Inhalt der Kapitel 1–5
   hub.js               Stall, Menü, Laden, Elternbereich
   math.js              Füttern, Springen, Aufgaben-Generator, Stufen
   reading.js           Leseübungen
   adventure.js         Hufspuren, Rätsel, Silben-Brücke
+  tournament.js        Bretter zählen (Zehner/Einer), Startnummern ordnen
   care.js              Putzen, Satteln
   dressup.js           Schmücken (Baukasten, Anprobieren, Kaufen)
   looks.js             Farben, Muster, Formen, Preise, Umzug alter Spielstände

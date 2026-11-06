@@ -9,6 +9,9 @@ const SKIES = {
   fluss: ['#8FD0FF', '#E6F7FF'],
   muehle: ['#A8DCFF', '#F2FAFF'],
   fest: ['#5B4B9A', '#FFB38A'],
+  sturm: ['#2B3245', '#5B6680'],
+  morgen: ['#9ED9FF', '#FFF1D6'],
+  turnier: ['#8FD0FF', '#EAF8FF'],
 };
 
 function tree(x, y, s = 1, dark = false) {
@@ -86,6 +89,49 @@ function flowers(y) {
   return s;
 }
 
+function rain() {
+  let l = '';
+  for (let i = 0; i < 46; i++) {
+    const x = (i * 157) % 760;
+    const y = (i * 89) % 380;
+    l += `<line x1="${x}" y1="${y}" x2="${x - 6}" y2="${y + 22}"/>`;
+  }
+  return `<g class="rain">${l}</g>`;
+}
+
+function rainbow(cx, cy, r) {
+  const cols = ['#E8605A', '#F4A63C', '#F4D442', '#6CCB6E', '#5BA8F0', '#9C7FE8'];
+  return `<g opacity=".85" fill="none" stroke-width="12">${cols.map((c, i) => `<path d="M${cx - r + i * 12} ${cy} A${r - i * 12} ${r - i * 12} 0 0 1 ${cx + r - i * 12} ${cy}" stroke="${c}"/>`).join('')}</g>`;
+}
+
+function stands(y) {
+  const cols = ['#FF7FAF', '#FFD34D', '#7FB2FF', '#5FCFAE', '#B58CFF', '#FF9F6B'];
+  let crowd = '';
+  for (let r = 0; r < 3; r++) {
+    for (let k = 0; k < 22; k++) {
+      const x = 14 + k * 33 + (r % 2) * 16;
+      const yy = y + 14 + r * 22;
+      crowd += `<circle cx="${x}" cy="${yy}" r="8" fill="${cols[(k + r * 2) % 6]}"/><circle cx="${x}" cy="${yy - 11}" r="6" fill="#F3C9A8"/>`;
+    }
+  }
+  return `<rect x="0" y="${y}" width="720" height="78" fill="#C9D3E2"/>
+    <rect x="0" y="${y}" width="720" height="8" fill="#9AA8BE"/>${crowd}
+    <rect x="0" y="${y + 74}" width="720" height="10" fill="#FFFFFF"/>`;
+}
+
+function poleJump(x, y, s = 1) {
+  return `<g transform="translate(${x} ${y}) scale(${s})">
+    <rect x="0" y="-60" width="8" height="64" fill="#fff" stroke="#ccc"/><rect x="92" y="-60" width="8" height="64" fill="#fff" stroke="#ccc"/>
+    <g>${[0, 1, 2, 3, 4].map((k) => `<rect x="${8 + k * 17}" y="-38" width="17" height="8" fill="${k % 2 ? '#fff' : '#E8453C'}"/>`).join('')}</g>
+    <g>${[0, 1, 2, 3, 4].map((k) => `<rect x="${8 + k * 17}" y="-20" width="17" height="8" fill="${k % 2 ? '#E8453C' : '#fff'}"/>`).join('')}</g>
+  </g>`;
+}
+
+function flagRow(y) {
+  const cols = ['#FF7FAF', '#FFD34D', '#5FCFAE', '#7FB2FF', '#B58CFF'];
+  return [60, 200, 340, 480, 620].map((x, k) => `<rect x="${x}" y="${y}" width="4" height="60" fill="#8A8F99"/><path d="M${x + 4} ${y} l34 10 l-34 10 Z" fill="${cols[k]}"/>`).join('');
+}
+
 function stallInside() {
   let planks = '';
   for (let x = 0; x < 720; x += 48) planks += `<rect x="${x}" y="0" width="48" height="400" fill="${x % 96 ? '#C98B57' : '#C08250'}"/><rect x="${x + 46}" y="0" width="2" height="400" fill="#A86E42"/>`;
@@ -148,7 +194,39 @@ export function sceneBG(key) {
       <path d="M0 300 Q360 285 720 300 V400 H0 Z" fill="#5E9150"/>
       ${flowers(335)}`;
   }
-  else if (key === 'abend' || key === 'nacht') {
+  else if (key === 'sturm') {
+    body = `
+      <rect class="sky-flash" width="720" height="400" fill="#fff"/>
+      <g fill="#4A5470"><ellipse cx="150" cy="60" rx="120" ry="40"/><ellipse cx="380" cy="45" rx="150" ry="45"/><ellipse cx="620" cy="70" rx="130" ry="42"/></g>
+      <g fill="#3B4560"><ellipse cx="260" cy="90" rx="110" ry="30"/><ellipse cx="520" cy="100" rx="120" ry="30"/></g>
+      <path class="bolt" d="M470 90 L445 160 L470 158 L440 230 L500 140 L474 142 L498 90 Z" fill="#FFE66B"/>
+      <path d="M0 260 Q180 210 360 240 T720 230 V400 H0 Z" fill="#3D5A45"/>
+      ${barn(290, 150, 0.9)}
+      <rect x="340" y="208" width="40" height="30" fill="#FFE9A8" opacity=".9"/>
+      ${fence(320, '#B8AFA4')}
+      <path d="M0 310 Q360 290 720 310 V400 H0 Z" fill="#2F4A38"/>
+      ${rain()}`;
+  } else if (key === 'morgen') {
+    body = `
+      ${rainbow(360, 250, 230)}
+      ${clouds()}
+      <circle cx="560" cy="70" r="30" fill="#FFE27A"/>
+      <path d="M0 250 Q160 180 340 230 T720 210 V400 H0 Z" fill="#9BD67A"/>
+      ${barn(290, 135, 1)}
+      ${fence(310)}
+      <g fill="#7FB2E8" opacity=".8"><ellipse cx="150" cy="345" rx="40" ry="8"/><ellipse cx="560" cy="355" rx="34" ry="7"/></g>
+      <path d="M0 300 Q360 280 720 300 V400 H0 Z" fill="#7CC45A" opacity=".0"/>
+      ${flowers(330)}`;
+  } else if (key === 'turnier') {
+    body = `
+      ${clouds()}
+      ${flagRow(40)}
+      ${stands(110)}
+      <rect x="0" y="198" width="720" height="202" fill="#E7C98F"/>
+      <g stroke="#D6B47A" stroke-width="3" stroke-linecap="round"><path d="M40 260 l20 -4 M160 300 l24 6 M520 280 l18 -6 M640 330 l-20 -4 M300 350 l22 4"/></g>
+      ${poleJump(120, 290, 1)}${poleJump(500, 280, 0.9)}
+      <rect x="0" y="198" width="720" height="6" fill="#fff"/>`;
+  } else if (key === 'abend' || key === 'nacht') {
     body = `
       <g fill="#FFF8D6">${[[80, 40], [200, 80], [340, 30], [470, 70], [600, 40], [650, 110], [140, 120]].map(([x, y]) => `<circle class="twinkle" cx="${x}" cy="${y}" r="2.4"/>`).join('')}</g>
       <circle cx="440" cy="70" r="26" fill="#FFF3C4"/><circle cx="452" cy="63" r="22" fill="${top}"/>

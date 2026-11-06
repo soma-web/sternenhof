@@ -587,3 +587,48 @@ svg.horse.happy { animation: hop .5s ease-out; }
 }
 .dress .dress-stage { position: sticky; top: 0; z-index: 5; background: #EAF6FF; box-shadow: 0 6px 12px rgba(0, 0, 0, .06); }
 .dress .dress-horse svg { max-height: 26vh; }
+
+/* ---------- Zaun-Bretter ---------- */
+.choices.nums { grid-template-columns: repeat(3, 1fr); }
+.choice.num { font-size: clamp(2rem, 9vw, 2.8rem); font-weight: 700; padding: 14px 0; }
+.brett-stapel {
+  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: center; gap: 10px 14px;
+  background: #F4E6CF; border-radius: 22px; padding: 16px 10px; min-height: 110px;
+}
+.buendel { position: relative; display: inline-flex; gap: 1px; padding: 0 2px; }
+.brett { width: 7px; height: 70px; border-radius: 3px; background: linear-gradient(90deg, #C98B57, #B07440); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12); }
+.buendel .seil { position: absolute; left: -2px; right: -2px; top: 30px; height: 7px; border-radius: 4px; background: #E2B54A; box-shadow: 0 1px 0 rgba(0, 0, 0, .2); }
+.einzelne { display: inline-flex; gap: 6px; }
+.brett.einzeln { background: linear-gradient(90deg, #DDA36E, #C98B57); }
+.brett-stapel.counting .buendel { animation: bump .5s ease-in-out 2; }
+
+/* ---------- Startnummern ---------- */
+.start-line {
+  display: flex; justify-content: center; gap: 8px; padding: 12px 8px; border-radius: 20px;
+  background: repeating-linear-gradient(90deg, #fff 0 14px, #333 14px 28px) bottom / 100% 8px no-repeat, #EEDDB8;
+}
+.slot { width: 56px; height: 62px; border-radius: 14px; border: 3px dashed rgba(0, 0, 0, .2); display: flex; align-items: center; justify-content: center; }
+.bibs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.bib {
+  width: 68px; height: 88px; border-radius: 18px; border: none; background: #fff; box-shadow: 0 5px 0 rgba(0, 0, 0, .12);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-family: inherit; cursor: pointer;
+}
+.bib-horse { font-size: 1.6rem; }
+.bib-num { background: var(--c); color: #fff; font-weight: 700; font-size: 1.7rem; border-radius: 10px; padding: 0 10px; text-shadow: 0 1px 2px rgba(0, 0, 0, .25); min-width: 48px; text-align: center; }
+.bib.small { width: auto; height: auto; box-shadow: none; background: none; }
+.bib.small .bib-num { font-size: 1.3rem; padding: 2px 8px; }
+.bib.placed { opacity: .25; transform: scale(.9); }
+.bib.nope { animation: shake .45s; }
+.bib.hint-glow { box-shadow: 0 0 0 5px var(--hint), 0 5px 0 rgba(0, 0, 0, .12); animation: pulse 1s ease-in-out infinite; }
+
+/* ---------- Gewitter ---------- */
+.rain line { stroke: rgba(210, 225, 255, .7); stroke-width: 2; stroke-linecap: round; animation: rain .6s linear infinite; }
+.rain line:nth-child(3n) { animation-delay: -.2s; }
+.rain line:nth-child(3n+1) { animation-delay: -.4s; }
+@keyframes rain { from { transform: translate(0, -40px); } to { transform: translate(-12px, 40px); } }
+.bolt { animation: bolt 4.5s infinite; opacity: 0; }
+@keyframes bolt { 0%, 86%, 92%, 100% { opacity: 0; } 88%, 90%, 94% { opacity: 1; } }
+.sky-flash { animation: skyflash 4.5s infinite; opacity: 0; }
+@keyframes skyflash { 0%, 86%, 92%, 100% { opacity: 0; } 88%, 94% { opacity: .35; } }
+.showcase .trophy { font-size: clamp(3.4rem, 15vw, 5rem); animation: hop 1.6s ease-in-out infinite; align-self: flex-end; margin-bottom: 6%; }
+.showcase.duo .luna.half { width: 48%; }

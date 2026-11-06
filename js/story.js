@@ -9,6 +9,7 @@ import { feedGame, jumpGame } from './math.js';
 import { readingGame } from './reading.js';
 import { tracksGame, riddleGame, syllableBridge } from './adventure.js';
 import { dressUp } from './dressup.js';
+import { boardsGame, sortGame } from './tournament.js';
 import { CHAPTERS } from './chapters.js';
 
 export { CHAPTERS };
@@ -17,10 +18,12 @@ const WHO = {
   rosi: { name: 'Tante Rosi', face: '👩‍🌾' },
   eule: { name: 'Ella, die Eule', face: '🦉' },
   emma: { name: 'Emma', face: '👧' },
+  richterin: { name: 'Frau Sommer, die Richterin', face: '👩‍⚖️' },
 };
 
 const FULL_GEAR = { pad: true, saddle: true, girth: true, bridle: true };
 const FUNKE = { coat: 'fuchs', marking: 'stern', socks: true };
+const LUNA_STYLE = { hat: 'blumen', hatColor: 'lila', mane: 'zopf', ribbon: 'lila' };
 
 function showcase(kind) {
   switch (kind) {
@@ -34,6 +37,12 @@ function showcase(kind) {
     case 'funke': return `<div class="showcase"><div class="foal-solo">${horseSVG({ ...FUNKE, cls: 'idle' })}</div></div>`;
     case 'eule': return '<div class="showcase"><div class="owl">🦉</div></div>';
     case 'emma': return `<div class="showcase duo"><div class="person">👧</div><div class="foal">${horseSVG({ ...FUNKE, cls: 'idle' })}</div></div>`;
+    case 'emmaLuna': return `<div class="showcase duo"><div class="person">👧</div><div class="luna">${horseSVG({ coat: 'schimmel', marking: 'blesse', cls: 'idle', gear: FULL_GEAR, style: LUNA_STYLE })}</div></div>`;
+    case 'turnier': return `<div class="showcase duo">
+        <div class="luna half">${myHorse(S, { gear: FULL_GEAR, cls: 'idle' })}</div>
+        <div class="luna half">${horseSVG({ coat: 'schimmel', marking: 'blesse', cls: 'idle', gear: FULL_GEAR })}</div>
+      </div>`;
+    case 'pokal': return `<div class="showcase duo"><div class="luna">${myHorse(S, { cls: 'idle' })}</div><div class="trophy">🏆</div></div>`;
     case 'fest': return `<div class="showcase duo">
         <div class="luna">${myHorse(S, { cls: 'idle' })}</div>
         <div class="foal">${horseSVG({ ...FUNKE, bow: true, cls: 'idle' })}</div>
@@ -233,6 +242,11 @@ function chapterEnd(onNext) {
 
 // ---------- Kapitelauswahl ----------
 export function chapterSelect() {
+  // Kapitel fertig und ein neues ist dazugekommen? Dann dort weitermachen.
+  if (S.step === 0 && prog(S.chapter).done) {
+    const nextCh = CHAPTERS.find((x) => x.nr === S.chapter + 1);
+    if (nextCh) { S.chapter = nextCh.nr; save(); }
+  }
   const c = currentChapter();
   const fresh = S.step === 0 && chapterUnlocked(c.nr) && !prog(c.nr).done && prog(c.nr).max === 0;
   const cont = S.step > 0
@@ -301,11 +315,14 @@ export function runStory() {
       scene(fresh ? step : { ...step, text: step.again }, next);
       if (fresh) {
         S.owned.push(step.id);
+        if (step.item && !S.owned.includes(step.item)) S.owned.push(step.item);
         setTimeout(() => { reward(step.amount); const box = $('.shoes'); if (box) burstAt(box, ['⭐', '✨', '💖'], 10); }, 500);
       }
       return undefined;
     }
     case 'dress': return dressUp(next, { story: true });
+    case 'boards': return boardsGame({ count: 5, title: step.title || 'Zaun reparieren' }, (e) => afterGame(e, step.after || 'Der Zaun ist wieder heil!'));
+    case 'sortNums': return sortGame({ count: 5, title: step.title || 'Startnummern' }, (e) => afterGame(e, step.after || 'Alle stehen in der richtigen Reihe!'));
     case 'feed': return feedGame({ count: 5, title: step.title || 'Füttern', theme: step.theme }, (e) => afterGame(e, step.theme ? 'Gut gezählt!' : '{horse} ist jetzt satt.'));
     case 'jump': return jumpGame({ count: 5, title: step.title || 'Parcours', theme: step.theme || 'hurdles', gear: step.theme !== 'boat' }, (e) => afterGame(e, step.theme === 'boat' ? 'Ihr seid gut angekommen!' : 'Was für ein toller Sprung!'));
     case 'reading': return readingGame({ mode: step.mode, title: step.title, intro: step.intro }, (e) => afterGame(e, 'Du hast toll gelesen!'));

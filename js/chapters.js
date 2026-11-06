@@ -1,7 +1,7 @@
-// Die Geschichte: drei Kapitel.
+// Die Geschichte: fünf Kapitel.
 // Schritt-Typen: scene, letter, choice, askName, createHorse, brush, brushFunke, feed, saddle,
-// reading, jump, tracks, riddles, bridge, dress, gift, chapterEnd.
-// gift: Taschengeld (gibt es nur beim ersten Mal).
+// reading, jump, tracks, riddles, bridge, dress, gift, boards, sortNums, chapterEnd.
+// gift: Taschengeld (gibt es nur beim ersten Mal), item: Geschenk für den Stall.
 // if: [key, wert] – Schritt nur zeigen, wenn die Entscheidung passt.
 // part: Abschnitt für die Kapitelauswahl.
 
@@ -124,8 +124,101 @@ const CH3 = [
   { t: 'chapterEnd' },
 ];
 
+const CH4 = [
+  { t: 'scene', bg: 'hof', who: 'rosi', part: { title: 'Ein Plakat', emoji: '📜' }, text: 'Guten Morgen, {name}! Heute ist ein schöner Tag.' },
+  { t: 'scene', bg: 'hof', who: 'emma', show: 'emma', text: 'Hallo {name}! Schau mal, was ich gefunden habe! Ein Plakat!' },
+  { t: 'letter', text: 'Großes Sternenturnier! Am Samstag auf dem Reitplatz. Es gibt ein Springen und einen Preis für das schönste Pferd. Alle Kinder dürfen mitmachen!' },
+  { t: 'scene', bg: 'hof', who: 'emma', show: 'emma', text: 'Machst du mit? Ich will auch mitmachen. Aber ich habe gar kein Pferd.' },
+  { t: 'scene', bg: 'hof', who: 'rosi', show: 'luna', text: 'Emma, du darfst auf Luna reiten. Luna ist ganz lieb. Und Funke bleibt bei mir.' },
+  { t: 'scene', bg: 'hof', who: 'emma', show: 'emmaLuna', text: 'Wirklich? Danke, Tante Rosi! Juhu!' },
+  { t: 'scene', bg: 'hof', who: 'eule', show: 'eule', if: ['ella', 'mit'], text: 'Huhu! Ein Turnier? Da komme ich zum Zuschauen!' },
+
+  { t: 'scene', bg: 'wiese', who: 'rosi', show: 'horse', part: { title: 'Training', emoji: '🏇' }, text: 'Für das Turnier müsst ihr üben. Sattle {horse}!' },
+  { t: 'saddle' },
+  { t: 'choice', bg: 'wiese', key: 'training', text: 'Was wollt ihr heute üben?', options: [
+    { v: 'stangen', emoji: '🚧', label: 'Über bunte Stangen springen' },
+    { v: 'bach', emoji: '💧', label: 'Über den Bach springen' },
+  ] },
+  { t: 'scene', bg: 'wiese', who: 'rosi', show: 'ride', if: ['training', 'stangen'], text: 'Ich baue die Stangen auf. Hopp, {horse}!' },
+  { t: 'jump', title: 'Training', if: ['training', 'stangen'] },
+  { t: 'scene', bg: 'wald', show: 'ride', if: ['training', 'bach'], text: 'Ihr reitet zum Bach. Platsch! {horse} mag Wasser.' },
+  { t: 'jump', theme: 'stones', title: 'Bach-Training', if: ['training', 'bach'] },
+  { t: 'scene', bg: 'wiese', who: 'emma', show: 'emmaLuna', text: 'Ich habe auch geübt. Luna springt so schön!' },
+  { t: 'scene', bg: 'wiese', who: 'rosi', show: 'ride', text: 'Ihr wart beide toll! {horse} hat jetzt Hunger.' },
+  { t: 'feed' },
+
+  { t: 'scene', bg: 'abend', show: 'horse', part: { title: 'Das Gewitter', emoji: '⛈️' }, text: 'Am Abend wird der Himmel ganz dunkel.' },
+  { t: 'scene', bg: 'sturm', text: 'Es blitzt! Es donnert! Der Regen prasselt auf das Dach.', shake: true },
+  { t: 'scene', bg: 'sturm', who: 'rosi', show: 'horse', text: '{horse} und Luna haben Angst. Wir müssen ihnen helfen!' },
+  { t: 'choice', bg: 'sturm', key: 'sturm', text: 'Wie hilfst du {horse}?', options: [
+    { v: 'singen', emoji: '🎵', label: 'Ein leises Lied singen' },
+    { v: 'licht', emoji: '🏮', label: 'Die Laterne anmachen' },
+  ] },
+  { t: 'scene', bg: 'stall', show: 'horse', if: ['sturm', 'singen'], text: 'Du singst ganz leise ein Lied. {horse} spitzt die Ohren und wird ruhig.' },
+  { t: 'scene', bg: 'stall', show: 'horse', if: ['sturm', 'licht'], text: 'Du machst die Laterne an. Das Licht ist warm und hell. {horse} atmet ganz ruhig.' },
+  { t: 'scene', bg: 'stall', who: 'rosi', show: 'horse', text: 'Gut gemacht! Bürste {horse} jetzt ganz sanft. Das tut gut.' },
+  { t: 'brush' },
+  { t: 'scene', bg: 'nacht', show: 'horse', text: 'Endlich ist das Gewitter vorbei. Alle schlafen ein. Psst!' },
+
+  { t: 'scene', bg: 'morgen', show: 'horse', part: { title: 'Nach dem Sturm', emoji: '🌈' }, text: 'Am Morgen scheint die Sonne. Schau, ein Regenbogen!' },
+  { t: 'scene', bg: 'morgen', who: 'rosi', text: 'Oh je! Der Sturm hat den Zaun kaputt gemacht. Die Bretter liegen überall.' },
+  { t: 'scene', bg: 'morgen', who: 'rosi', text: 'Hilfst du mir? Wir zählen die Bretter. Immer zehn sind zusammengebunden.' },
+  { t: 'boards', after: 'Der Zaun ist wieder heil!' },
+  { t: 'scene', bg: 'morgen', who: 'rosi', text: 'Der Zaun ist wieder heil. Danke, {name}! Du bist eine große Hilfe.' },
+  { t: 'scene', bg: 'morgen', who: 'eule', show: 'eule', if: ['ella', 'mit'], text: 'Huhu! Ich habe vom Baum aus zugeschaut. Toll gemacht!' },
+  { t: 'scene', bg: 'morgen', who: 'emma', show: 'emmaLuna', text: 'Morgen ist das Turnier! Ich bin so aufgeregt!' },
+  { t: 'scene', bg: 'nacht', show: 'horse', text: 'Gute Nacht, {name}. Gute Nacht, {horse}. Morgen ist der große Tag!' },
+  { t: 'chapterEnd' },
+];
+
+const CH5 = [
+  { t: 'scene', bg: 'hof', who: 'rosi', part: { title: 'Der große Tag', emoji: '🌅' }, text: 'Heute ist das Turnier! Zuerst putzen wir {horse}.' },
+  { t: 'brush' },
+  { t: 'scene', bg: 'turnier', show: 'turnier', text: 'Ihr kommt am Reitplatz an. So viele Leute! Überall wehen bunte Fahnen.' },
+  { t: 'scene', bg: 'turnier', who: 'richterin', text: 'Willkommen! Ich bin Frau Sommer, die Richterin. Bitte stellt euch der Reihe nach auf!' },
+  { t: 'sortNums', title: 'Startnummern', after: 'Alle stehen in der richtigen Reihe!' },
+  { t: 'scene', bg: 'turnier', who: 'richterin', text: 'Prima! Jetzt stehen alle richtig.' },
+
+  { t: 'scene', bg: 'turnier', who: 'richterin', part: { title: 'Das schönste Pferd', emoji: '🌸' }, text: 'Zuerst suchen wir das schönste Pferd. Macht eure Pferde schön!' },
+  { t: 'gift', id: 'gift-turnier', amount: 40, bg: 'turnier', who: 'rosi', text: 'Hier sind 40 Hufeisen für dich. Viel Spaß beim Schmücken!', again: 'Jetzt mach {horse} ganz schön!' },
+  { t: 'dress' },
+  { t: 'scene', bg: 'turnier', who: 'richterin', show: 'horse', text: 'Oh, wie hübsch! {horse} sieht wunderschön aus.' },
+  { t: 'scene', bg: 'turnier', who: 'emma', show: 'emmaLuna', text: 'Luna hat Blumen in der Mähne. Sieht sie nicht schön aus?' },
+
+  { t: 'scene', bg: 'turnier', who: 'rosi', part: { title: 'Die Schilder', emoji: '📋' }, text: 'Am Parcours stehen Schilder. Lies sie genau, dann weißt du den Weg!' },
+  { t: 'reading', mode: 'ride', title: 'Parcours-Schilder' },
+
+  { t: 'scene', bg: 'turnier', who: 'rosi', show: 'horse', part: { title: 'Das Springen', emoji: '🏆' }, text: 'Jetzt kommt das Springen. Sattle {horse}!' },
+  { t: 'saddle' },
+  { t: 'scene', bg: 'turnier', show: 'ride', text: 'Du bist dran! Alle schauen zu. {horse} ist bereit.' },
+  { t: 'jump', title: 'Turnier-Springen' },
+  { t: 'scene', bg: 'turnier', show: 'ride', text: 'Geschafft! Alle klatschen. Bravo, {name}! Bravo, {horse}!' },
+  { t: 'scene', bg: 'turnier', show: 'emmaLuna', text: 'Jetzt ist Emma dran. Aber am Wassergraben bleibt Luna stehen.' },
+  { t: 'scene', bg: 'turnier', who: 'emma', show: 'emmaLuna', text: 'Luna will nicht springen. Ich schaffe das nicht ...' },
+  { t: 'choice', bg: 'turnier', key: 'hilfe', text: 'Was machst du?', options: [
+    { v: 'mut', emoji: '💪', label: 'Emma Mut machen' },
+    { v: 'vor', emoji: '🐴', label: 'Mit {horse} vorspringen' },
+  ] },
+  { t: 'scene', bg: 'turnier', show: 'emmaLuna', if: ['hilfe', 'mut'], text: 'Du rufst: Du schaffst das, Emma! Luna vertraut dir! Emma lächelt und probiert es noch mal.' },
+  { t: 'scene', bg: 'turnier', show: 'turnier', if: ['hilfe', 'vor'], text: 'Du reitest mit {horse} vor. Hopp! {horse} springt über den Graben. Luna schaut genau zu.' },
+  { t: 'scene', bg: 'turnier', who: 'emma', show: 'emmaLuna', text: 'Und hopp! Luna springt! Wir haben es geschafft! Danke, {name}!' },
+  { t: 'scene', bg: 'turnier', who: 'eule', show: 'eule', if: ['ella', 'mit'], text: 'Huhu! Ich habe alles gesehen. Ihr seid so mutig!' },
+
+  { t: 'scene', bg: 'turnier', who: 'richterin', show: 'turnier', part: { title: 'Die Siegerehrung', emoji: '🎖️' }, text: 'Jetzt kommt die Siegerehrung! Alle Reiter kommen in die Mitte.' },
+  { t: 'scene', bg: 'turnier', who: 'richterin', show: 'horse', text: '{name} und {horse} bekommen die Schleife für das schönste Pferd!' },
+  { t: 'scene', bg: 'turnier', who: 'richterin', show: 'pokal', text: 'Und es gibt noch einen Preis: den Herz-Pokal. Für das Kind, das anderen hilft. Er geht an {name}!' },
+  { t: 'gift', id: 'gift-pokal', amount: 30, item: 'pokal', bg: 'turnier', who: 'rosi', show: 'pokal', text: 'Der Pokal kommt in den Stall von {horse}. Und hier sind 30 Hufeisen für dich!', again: 'Der Herz-Pokal steht schon im Stall. Du bist ein Star!' },
+  { t: 'scene', bg: 'fest', show: 'fest', text: 'Am Abend feiern alle zusammen. Emma, Rosi, Luna und Funke.' },
+  { t: 'scene', bg: 'fest', who: 'emma', show: 'fest', if: ['emma', 'freundin'], text: 'Du bist die beste Freundin der Welt!' },
+  { t: 'scene', bg: 'fest', who: 'emma', show: 'fest', if: ['emma', 'besuch'], text: 'Darf ich dich bald wieder besuchen? Das war so schön!' },
+  { t: 'scene', bg: 'nacht', show: 'horse', text: 'Gute Nacht, {name}. Gute Nacht, {horse}. Ihr seid ein tolles Team!' },
+  { t: 'chapterEnd' },
+];
+
 export const CHAPTERS = [
   { nr: 1, title: 'Ein Pferd für dich', emoji: '🐴', steps: CH1, end: 'Morgen geht die Suche nach Funke weiter!' },
   { nr: 2, title: 'Im Wald', emoji: '🌲', steps: CH2, end: 'Morgen geht es zur alten Mühle!' },
-  { nr: 3, title: 'Die alte Mühle', emoji: '🏚️', steps: CH3, end: 'Funke ist wieder zu Hause! Neue Abenteuer kommen bald.' },
+  { nr: 3, title: 'Die alte Mühle', emoji: '🏚️', steps: CH3, end: 'Funke ist wieder zu Hause! Bald gibt es ein großes Turnier.' },
+  { nr: 4, title: 'Das Gewitter', emoji: '⛈️', steps: CH4, end: 'Morgen ist das große Turnier!' },
+  { nr: 5, title: 'Das Sternenturnier', emoji: '🏆', steps: CH5, end: 'Was für ein Turnier! Neue Abenteuer kommen bald.' },
 ];

@@ -9,6 +9,7 @@ import { brushGame, saddleGame } from './care.js';
 import { feedGame, jumpGame } from './math.js';
 import { readingGame } from './reading.js';
 import { tracksGame, riddleGame, syllableBridge } from './adventure.js';
+import { boardsGame, sortGame } from './tournament.js';
 
 export const SHOP = [
   { id: 'heu', name: 'Heuballen', emoji: '🌾', price: 4 },
@@ -71,6 +72,8 @@ export function hub() {
       <button class="menu-btn" data-go="riddles"><span class="mi">🦉</span><span>${T('Rätsel', { speak: false })}</span></button>
       <button class="menu-btn" data-go="tracks"><span class="mi">🐾</span><span>${T('Hufspuren', { speak: false })}</span></button>
       <button class="menu-btn" data-go="bridge"><span class="mi">🌉</span><span>${T('Silben-Brücke', { speak: false })}</span></button>
+      <button class="menu-btn" data-go="boards"><span class="mi">🪵</span><span>${T('Bretter zählen', { speak: false })}</span></button>
+      <button class="menu-btn" data-go="sort"><span class="mi">🏁</span><span>${T('Startnummern', { speak: false })}</span></button>
       <button class="menu-btn" data-go="shop"><span class="mi">🛍️</span><span>${T('Laden', { speak: false })}</span></button>
       <button class="menu-btn" data-go="look"><span class="mi">🎨</span><span>${T('Aussehen', { speak: false })}</span></button>
     </nav>`, 'hub');
@@ -98,6 +101,8 @@ export function hub() {
     riddles: () => riddleGame({ count: 5, title: 'Rätsel' }, done),
     tracks: () => tracksGame({ count: 5, title: 'Hufspuren' }, done),
     bridge: () => syllableBridge({ count: 5, title: 'Silben-Brücke' }, done),
+    boards: () => boardsGame({ count: 5, title: 'Bretter zählen' }, done),
+    sort: () => sortGame({ count: 5, title: 'Startnummern' }, done),
     shop: () => shop(),
     look: () => createHorse(() => go('hub'), { fromHub: true }),
   };
