@@ -554,3 +554,36 @@ svg.horse.happy { animation: hop .5s ease-out; }
 }
 .theme-boat .runner.jumping { animation: jumpOver 1.1s ease-in-out forwards; }
 .theme-boat .runner.refuse { animation: refuse .5s; }
+
+/* ---------- Schmücken: Baukasten ---------- */
+.dress-rows { display: flex; flex-direction: column; gap: 10px; }
+.dress-row { display: flex; flex-direction: column; gap: 6px; }
+.row-label { font-weight: 700; font-size: 1rem; color: var(--ink-soft); padding-left: 4px; }
+.dress-opt { min-height: 74px; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip-sw {
+  position: relative; border: 3px solid transparent; background: #fff; border-radius: 16px; padding: 4px;
+  min-width: 52px; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, .08);
+}
+.chip-sw.sel { border-color: var(--ok); background: #EFFBF2; }
+.chip-sw.locked { background: #F7F3EE; }
+.chip-sw .opt-price { font-size: .75rem; line-height: 1; }
+.sw-round { width: 34px; height: 34px; border-radius: 50%; box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .12); }
+.pat-sw { width: 36px; height: 36px; display: block; }
+.opt-mini { font-size: .8rem; font-weight: 700; }
+.buy-bar {
+  background: #FFF6D8; border: 3px dashed var(--gold); border-radius: 20px; padding: 10px 12px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center;
+}
+.buy-what { font-weight: 700; font-size: 1.05rem; }
+.buy-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.buy-btn { background: var(--ok); color: #fff; box-shadow: 0 5px 0 var(--ok-d); display: inline-flex; align-items: center; gap: 4px; }
+.buy-btn.poor { background: #CFC6BE; box-shadow: 0 5px 0 #B0A69C; }
+.buy-hint { font-size: 1rem; }
+@media (min-width: 700px) {
+  .sw-round, .pat-sw { width: 44px; height: 44px; }
+  .chip-sw { min-width: 64px; min-height: 64px; }
+}
+.dress .dress-stage { position: sticky; top: 0; z-index: 5; background: #EAF6FF; box-shadow: 0 6px 12px rgba(0, 0, 0, .06); }
+.dress .dress-horse svg { max-height: 26vh; }

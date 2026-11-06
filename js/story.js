@@ -296,6 +296,15 @@ export function runStory() {
     case 'brush': return brushGame(next);
     case 'brushFunke': return brushGame(next, { horse: FUNKE, name: 'Funke' });
     case 'saddle': return saddleGame(next);
+    case 'gift': {
+      const fresh = !S.owned.includes(step.id);
+      scene(fresh ? step : { ...step, text: step.again }, next);
+      if (fresh) {
+        S.owned.push(step.id);
+        setTimeout(() => { reward(step.amount); const box = $('.shoes'); if (box) burstAt(box, ['⭐', '✨', '💖'], 10); }, 500);
+      }
+      return undefined;
+    }
     case 'dress': return dressUp(next, { story: true });
     case 'feed': return feedGame({ count: 5, title: step.title || 'Füttern', theme: step.theme }, (e) => afterGame(e, step.theme ? 'Gut gezählt!' : '{horse} ist jetzt satt.'));
     case 'jump': return jumpGame({ count: 5, title: step.title || 'Parcours', theme: step.theme || 'hurdles', gear: step.theme !== 'boat' }, (e) => afterGame(e, step.theme === 'boat' ? 'Ihr seid gut angekommen!' : 'Was für ein toller Sprung!'));

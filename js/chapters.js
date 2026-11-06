@@ -1,6 +1,7 @@
 // Die Geschichte: drei Kapitel.
 // Schritt-Typen: scene, letter, choice, askName, createHorse, brush, brushFunke, feed, saddle,
-// reading, jump, tracks, riddles, bridge, dress, chapterEnd.
+// reading, jump, tracks, riddles, bridge, dress, gift, chapterEnd.
+// gift: Taschengeld (gibt es nur beim ersten Mal).
 // if: [key, wert] – Schritt nur zeigen, wenn die Entscheidung passt.
 // part: Abschnitt für die Kapitelauswahl.
 
@@ -113,6 +114,7 @@ const CH3 = [
   { t: 'brushFunke' },
   { t: 'scene', bg: 'hof', who: 'rosi', part: { title: 'Das Fest', emoji: '🎉' }, text: 'Zurück auf dem Hof! Funke ist wieder da. Das feiern wir!' },
   { t: 'scene', bg: 'fest', who: 'rosi', text: 'Heute Abend gibt es ein Fest. Mach {horse} ganz schön!' },
+  { t: 'gift', id: 'gift-fest', amount: 60, bg: 'fest', who: 'rosi', text: 'Hier sind 60 Hufeisen Taschengeld für dich. Kauf {horse} etwas Schönes!', again: 'Du hast schon Taschengeld bekommen. Mach {horse} schön!' },
   { t: 'dress' },
   { t: 'scene', bg: 'fest', show: 'fest', text: 'Alle schauen {horse} an. Wie schön!' },
   { t: 'scene', bg: 'fest', who: 'emma', show: 'fest', text: '{horse} sieht toll aus! Und Funke hat eine Schleife bekommen.' },

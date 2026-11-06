@@ -30,7 +30,8 @@ Das Kind gibt seinen Namen ein, erschafft ein eigenes Pferd und erlebt mit ihm e
 | ➕ **Mathe** | Plus und Minus bis 50, passt sich automatisch an |
 | 🔤 **Lesen** | Einfache Wörter mit Silbenfarben, jedes Wort kann vorgelesen werden |
 | 🪮 **Pflege** | Pferd putzen, Hufe auskratzen, satteln und trensen |
-| 💎 **Schmücken** | Zöpfe, Schleifen, Stirnschmuck, Blumenkranz, bunte Gamaschen |
+| 💎 **Schmücken** | Frisuren, Stirnschmuck, Hüte, Gamaschen und Satteldecken – mit Farben und Mustern zum Freischalten |
+| 🎨 **Aussehen** | Fellfarbe, Abzeichen und Name des eigenen Pferdes (jederzeit kostenlos änderbar) |
 | 🏠 **Stall** | Mit gesammelten Hufeisen den Stall einrichten |
 
 ---
@@ -93,14 +94,16 @@ Zur Entspannung zwischen den Lernaufgaben:
 
 - 🪮 **Putzen:** Schmutz wegbürsten, Hufe auskratzen
 - 🐎 **Satteln und Trensen:** Satteldecke → Sattel → Gurt → Trense in der richtigen Reihenfolge (antippen oder ziehen)
-- 💎 **Schmücken:**
-  - Mähne: offen, Knötchen, Zopf, Schleifen
-  - Schweif: offen, Schleife, Zopf
-  - Stirnschmuck: blaue Steine, Perlen, Gold-Sterne
-  - Blumenkranz
-  - Gamaschen in vielen Farben oder Regenbogen
-  - Bandfarbe für Schleifen und Zöpfe
+- 💎 **Schmücken:** ein Baukasten aus Form, Farbe und Muster
+  - **Mähne und Schweif:** offen, Knötchen, Zopf, Schleifen, dazu die Bandfarbe
+  - **Stirnschmuck:** Stirnband, Anhänger, Perlenband, Nasenkette, Doppelbogen, Sterne. Steine in 9 Farben, Silber oder Gold
+  - **Hüte:** Blumenkranz, Strickmütze mit Bommel, Ohrenhaube. Mit Farbe, Muster und Randfarbe
+  - **Gamaschen:** Farbe und Muster
+  - **Satteldecke:** Farbe, Muster und Randfarbe
+  - **Muster:** Streifen, Punkte, Rauten, Sterne, Herzen, Glitzer, Regenbogen
+  - **Anprobieren:** Alles lässt sich erst ausprobieren. Was noch nicht gekauft ist, zeigt ein 🔒 und einen Knopf „Kaufen“. Mit „Zurück“ oder „Fertig“ bleibt nur Gekauftes am Pferd.
   - 📸 Fotoknopf mit Kompliment
+- 🎨 **Aussehen:** Fellfarbe, Abzeichen, weiße Beine und Name, getrennt vom Schmücken und kostenlos
 - 🏠 **Stall:** Das Pferd antippen, dann sagt es etwas
 
 ---
@@ -115,8 +118,21 @@ Für richtige Antworten gibt es **Hufeisen**: 2 beim ersten Versuch, sonst 1. Da
 
 Mit den Hufeisen kann man:
 
-- im **Laden** Dinge für den Stall kaufen (Heuballen, Lichterkette, Stallkatze, Pokal und mehr) und neue Satteldecken-Farben freischalten
-- beim **Schmücken** neue Frisuren, Schmuck und Gamaschen kaufen
+- im **Laden** Dinge für den Stall kaufen (Heuballen, Lichterkette, Stallkatze, Pokal und mehr)
+- beim **Schmücken** Formen, Farben und Muster freischalten
+
+Farben und Muster werden **einmal** gekauft und gelten dann überall (Gamaschen, Decke, Hut, Schmuck). Rosa, Blau, Weiß und „einfarbig“ sind von Anfang an frei.
+
+| Was | Preis |
+|---|---|
+| Neue Farbe | 6 |
+| Muster | 12–20 |
+| Gold statt Silber | 10 |
+| Frisuren | 8–15 |
+| Hüte | 20–30 |
+| Stirnschmuck-Formen | 15–35 |
+
+**Taschengeld:** Vor dem großen Fest in Kapitel 3 schenkt Rosi einmalig 60 Hufeisen, damit das Schmücken richtig Spaß macht.
 
 ---
 
@@ -197,7 +213,8 @@ js/
   reading.js           Leseübungen
   adventure.js         Hufspuren, Rätsel, Silben-Brücke
   care.js              Putzen, Satteln
-  dressup.js           Schmücken
+  dressup.js           Schmücken (Baukasten, Anprobieren, Kaufen)
+  looks.js             Farben, Muster, Formen, Preise, Umzug alter Spielstände
 ```
 
 ### Ein neues Kapitel schreiben

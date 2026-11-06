@@ -1,4 +1,6 @@
 // Spielstand – wird lokal auf dem Gerät gespeichert.
+import { DEFAULT_LOOK, migrateLook } from './looks.js';
+
 const KEY = 'sternenhof-v1';
 
 export const defaultState = () => ({
@@ -6,7 +8,7 @@ export const defaultState = () => ({
   player: { name: '' },
   horse: {
     name: '', coat: 'fuchs', marking: 'stern', socks: false, pad: 'blau',
-    style: { mane: 'offen', tail: 'offen', jewel: 'keins', wraps: 'keine', crown: 'keiner', ribbon: 'rosa' },
+    style: { ...DEFAULT_LOOK, v: 2 },
   },
   shoes: 0,
   chapter: 1,
@@ -42,7 +44,11 @@ function migrate(st) {
 function load() {
   try {
     const raw = localStorage.getItem(KEY);
-    if (raw) return migrate(merge(defaultState(), JSON.parse(raw)));
+    if (raw) {
+      const data = JSON.parse(raw);
+      if (data.horse) migrateLook(data);
+      return migrate(merge(defaultState(), data));
+    }
   } catch (e) { /* privater Modus o. ä. */ }
   return defaultState();
 }

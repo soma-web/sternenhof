@@ -1,7 +1,7 @@
 // Der Stall (Startseite), Hofladen, freies Üben und Elternbereich.
 import { S, save, resetAll } from './state.js';
 import { sfx, speak, canSpeak } from './audio.js';
-import { myHorse, PADS } from './horse.js';
+import { myHorse } from './horse.js';
 import { mount, topbar, bindTopbar, T, $, $$, go, pick, burstAt, roundDone, shoeIcon, reward } from './ui.js';
 import { runStory, CHAPTERS, createHorse, chapterSelect, anyStoryProgress, prog } from './story.js';
 import { dressUp } from './dressup.js';
@@ -22,11 +22,6 @@ export const SHOP = [
   { id: 'hase', name: 'Hase', emoji: '🐇', price: 15 },
   { id: 'pokal', name: 'Pokal', emoji: '🏆', price: 20 },
   { id: 'regenbogen', name: 'Regenbogen', emoji: '🌈', price: 25 },
-  { id: 'pad-rosa', name: 'Decke rosa', pad: 'rosa', price: 5 },
-  { id: 'pad-lila', name: 'Decke lila', pad: 'lila', price: 5 },
-  { id: 'pad-mint', name: 'Decke mint', pad: 'mint', price: 5 },
-  { id: 'pad-gelb', name: 'Decke gelb', pad: 'gelb', price: 5 },
-  { id: 'pad-rot', name: 'Decke rot', pad: 'rot', price: 5 },
 ];
 
 const HORSE_TALK = [
@@ -113,30 +108,23 @@ export function hub() {
 function shop() {
   const scr = mount(`
     ${topbar({ title: 'Hofladen' })}
-    <p class="instr">${T('Kauf schöne Sachen für den Stall!')}</p>
+    <p class="instr">${T('Kauf schöne Sachen für den Stall! Decken und Schmuck gibt es beim Schmücken.')}</p>
     <div class="shop-grid">${SHOP.map((it) => {
       const owned = S.owned.includes(it.id);
-      const active = it.pad && S.horse.pad === it.pad;
-      const icon = it.pad ? `<span class="pad-ico" style="background:${PADS[it.pad]}"></span>` : `<span class="shop-emoji">${it.emoji}</span>`;
-      return `<button class="shop-item ${owned ? 'owned' : ''} ${active ? 'active' : ''}" data-id="${it.id}">
-        ${icon}
+      return `<button class="shop-item ${owned ? 'owned' : ''}" data-id="${it.id}">
+        <span class="shop-emoji">${it.emoji}</span>
         <span class="shop-name">${T(it.name, { speak: false })}</span>
-        <span class="shop-price">${owned ? (it.pad ? (active ? 'an' : 'anziehen') : '✔') : `${shoeIcon(20)} ${it.price}`}</span>
+        <span class="shop-price">${owned ? '✔' : `${shoeIcon(20)} ${it.price}`}</span>
       </button>`;
     }).join('')}
-    <button class="shop-item ${S.horse.pad === 'blau' ? 'active' : ''} owned" data-id="pad-blau"><span class="pad-ico" style="background:${PADS.blau}"></span><span class="shop-name">${T('Decke blau', { speak: false })}</span><span class="shop-price">${S.horse.pad === 'blau' ? 'an' : 'anziehen'}</span></button>
     </div>
     <div class="msg"></div>`, 'shop');
   bindTopbar(scr);
   const msg = $('.msg', scr);
   $$('.shop-item', scr).forEach((b) => b.addEventListener('click', () => {
     const id = b.dataset.id;
-    if (id === 'pad-blau') { S.horse.pad = 'blau'; save(); sfx.tap(); return shop(); }
     const it = SHOP.find((x) => x.id === id);
-    if (S.owned.includes(id)) {
-      if (it.pad) { S.horse.pad = it.pad; save(); sfx.tap(); shop(); }
-      return;
-    }
+    if (S.owned.includes(id)) return;
     if (S.shoes < it.price) {
       sfx.soft();
       msg.innerHTML = `<div class="bubble-msg hint">${T(`Du brauchst noch ${it.price - S.shoes} Hufeisen. Spiel noch eine Runde!`)}</div>`;
@@ -144,7 +132,6 @@ function shop() {
     }
     S.shoes -= it.price;
     S.owned.push(id);
-    if (it.pad) S.horse.pad = it.pad;
     save();
     sfx.win();
     shop();
