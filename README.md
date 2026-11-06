@@ -107,7 +107,13 @@ Zur Entspannung zwischen den Lernaufgaben:
 
 ## Hufeisen und Belohnungen
 
-Für richtige Antworten und geschaffte Runden gibt es **Hufeisen**. Damit kann man:
+Für richtige Antworten gibt es **Hufeisen**: 2 beim ersten Versuch, sonst 1. Das gilt in der Geschichte und beim **freien Üben im Stall**. Dort kann man jederzeit eine Runde mit 5 Aufgaben spielen:
+
+- 🥕 Füttern und 🏇 Parcours (Rechnen)
+- 📚 Lesen, 🦉 Rätsel und 🌉 Silben-Brücke (Lesen)
+- 🐾 Hufspuren (Zahlenstrahl)
+
+Mit den Hufeisen kann man:
 
 - im **Laden** Dinge für den Stall kaufen (Heuballen, Lichterkette, Stallkatze, Pokal und mehr) und neue Satteldecken-Farben freischalten
 - beim **Schmücken** neue Frisuren, Schmuck und Gamaschen kaufen

@@ -333,6 +333,7 @@ svg.horse.happy { animation: hop .5s ease-out; }
 .menu-btn .mi { font-size: 1.9rem; }
 .menu-btn.story-btn { grid-column: 1 / -1; background: var(--pink); color: #fff; box-shadow: 0 6px 0 var(--pink-d); justify-content: center; }
 .menu-btn.story-btn .syl-a, .menu-btn.story-btn .syl-b { color: #fff; }
+.menu-btn:last-child { grid-column: 1 / -1; justify-content: center; }
 
 /* ---------- Kapitelauswahl ---------- */
 .continue-btn { margin: 4px 0 6px; }
@@ -421,6 +422,7 @@ svg.horse.happy { animation: hop .5s ease-out; }
   .menu { grid-template-columns: repeat(4, 1fr); }
   .menu-btn { flex-direction: column; justify-content: center; text-align: center; min-height: 100px; }
   .menu-btn.story-btn { flex-direction: row; min-height: 76px; }
+  .menu-btn:last-child { grid-column: span 2; }
   .cards { grid-template-columns: repeat(4, 1fr); }
   .choices.words { grid-template-columns: repeat(3, 1fr); max-width: none; }
   .mini-horse { width: 150px; }
