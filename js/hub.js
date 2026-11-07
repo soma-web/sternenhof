@@ -232,6 +232,14 @@ function parents() {
         <button class="btn btn-small" data-act="test">Test: Sprachausgabe</button>
       </section>
       <section>
+        <h3>Spielstand sichern</h3>
+        <p class="small">Speichert Pferd, Hufeisen, Schmuck, Stall und Fortschritt als Datei auf dem Gerät. Damit kannst du den Spielstand später wiederherstellen oder auf ein anderes Gerät mitnehmen.</p>
+        <button class="btn btn-small" data-act="export">💾 Spielstand herunterladen</button>
+        <button class="btn btn-small" data-act="import">📂 Spielstand einlesen</button>
+        <input type="file" class="import-file hidden" accept=".json,application/json">
+        <p class="backup-msg small"></p>
+      </section>
+      <section>
         <h3>App</h3>
         <p>Installierte Version: <b>${VERSION}</b></p>
         <p class="online-version small">Neueste Version im Internet: <span>wird geprüft …</span></p>
@@ -254,6 +262,28 @@ function parents() {
     if (confirm('Wirklich den ganzen Spielstand löschen? Pferd, Hufeisen und Fortschritt gehen verloren.')) { resetAll(); go('title'); }
   });
   $('[data-act="test"]', scr).addEventListener('click', () => speak('Hallo! Ich bin dein Pferd.'));
+  const bmsg = $('.backup-msg', scr);
+  $('[data-act="export"]', scr).addEventListener('click', () => {
+    const name = exportSave();
+    bmsg.textContent = `Gespeichert als „${name}“ (meist im Ordner „Downloads“ oder „Dateien“).`;
+  });
+  const fileIn = $('.import-file', scr);
+  $('[data-act="import"]', scr).addEventListener('click', () => fileIn.click());
+  fileIn.addEventListener('change', async () => {
+    const file = fileIn.files?.[0];
+    fileIn.value = '';
+    if (!file) return;
+    const res = await readSave(file);
+    if (!res.ok) { bmsg.textContent = `⚠️ ${res.error}`; return; }
+    const d = res.data;
+    const info = `Pferd: ${d.horse?.name || '?'}, Hufeisen: ${d.shoes ?? 0}${res.savedAt ? `, gesichert am ${new Date(res.savedAt).toLocaleDateString('de-DE')}` : ''}`;
+    if (!confirm(`Diesen Spielstand einlesen?\n\n${info}\n\nDer jetzige Spielstand wird ersetzt. (Eine Sicherungskopie bleibt auf dem Gerät.)`)) return;
+    try {
+      localStorage.setItem('sternenhof-backup', localStorage.getItem('sternenhof-v1') || '');
+      localStorage.setItem('sternenhof-v1', JSON.stringify(d));
+    } catch (e) { bmsg.textContent = '⚠️ Konnte nicht speichern.'; return; }
+    location.replace(location.pathname);
+  });
   $('[data-act="update"]', scr).addEventListener('click', (e) => { e.currentTarget.textContent = '⏳ Lädt …'; forceUpdate(); });
   onlineVersion().then((v) => {
     const el = $('.online-version span', scr);
@@ -261,6 +291,36 @@ function parents() {
     if (!v) el.textContent = 'nicht erreichbar (offline?)';
     else el.innerHTML = v === VERSION ? `<b>${v}</b> ✔ aktuell` : `<b>${v}</b> – bitte neu laden!`;
   });
+}
+
+// ---------- Spielstand als Datei ----------
+function exportSave() {
+  save();
+  const date = new Date().toISOString().slice(0, 10);
+  const who = (S.horse.name || 'pferd').toLowerCase().replace(/[^a-z0-9äöüß]+/g, '-');
+  const name = `sternenhof-${who}-${date}.json`;
+  const payload = { app: 'sternenhof', version: VERSION, savedAt: new Date().toISOString(), data: S };
+  const blob = new Blob([JSON.stringify(payload, null, 1)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+  return name;
+}
+
+async function readSave(file) {
+  if (file.size > 2_000_000) return { ok: false, error: 'Die Datei ist zu groß. Ist das wirklich ein Sternenhof-Spielstand?' };
+  let obj;
+  try { obj = JSON.parse(await file.text()); } catch (e) { return { ok: false, error: 'Die Datei kann nicht gelesen werden.' }; }
+  const data = obj && obj.app === 'sternenhof' ? obj.data : obj;
+  const valid = data && typeof data === 'object' && data.horse && typeof data.horse === 'object'
+    && typeof data.shoes === 'number' && data.player && typeof data.player === 'object';
+  if (!valid) return { ok: false, error: 'Das ist kein Sternenhof-Spielstand.' };
+  return { ok: true, data, savedAt: obj.savedAt };
 }
 
 // Neueste Versionsnummer direkt vom Server holen (am Zwischenspeicher vorbei)

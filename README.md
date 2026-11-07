@@ -157,9 +157,10 @@ Farben und Muster werden **einmal** gekauft und gelten dann überall (Gamaschen,
 - alle Kapitel freischalten oder die Geschichte von vorne beginnen
 - den Spielstand komplett zurücksetzen
 - die Sprachausgabe testen
+- den **Spielstand sichern**: 💾 als Datei herunterladen und 📂 wieder einlesen (auch auf einem anderen Gerät). Vor dem Einlesen wird nachgefragt, und der alte Stand bleibt als Sicherungskopie
 - die installierte Version sehen und mit **🔄 Neueste Version laden** die App frisch aus dem Internet holen (der Spielstand bleibt erhalten)
 
-**Datenschutz:** Es gibt kein Konto, keine Werbung und kein Tracking. Der Spielstand wird nur auf dem Gerät gespeichert (`localStorage`). Wer die Browserdaten löscht, löscht damit auch den Spielstand.
+**Datenschutz:** Es gibt kein Konto, keine Werbung und kein Tracking. Der Spielstand wird nur auf dem Gerät gespeichert (`localStorage`). Wer die Browserdaten löscht, löscht damit auch den Spielstand. Deshalb ab und zu im Elternbereich eine Sicherung herunterladen.
 
 **Vorlesen funktioniert nicht?** Die Sprachausgabe kommt vom Gerät. Auf manchen Geräten muss eine deutsche Stimme erst installiert werden (Android: Einstellungen → Sprache → Text-in-Sprache; iOS: Einstellungen → Bedienungshilfen → Gesprochene Inhalte → Stimmen).
 
