@@ -240,6 +240,11 @@ function parents() {
         <p class="backup-msg small"></p>
       </section>
       <section>
+        <h3>Kontakt</h3>
+        <p>Fragen, Ideen oder Fehler gefunden? Schreib mir:</p>
+        <p><a class="contact-link" href="mailto:andi.scholz@gmail.com?subject=Sternenhof">andi.scholz@gmail.com</a></p>
+      </section>
+      <section>
         <h3>App</h3>
         <p>Installierte Version: <b>${VERSION}</b></p>
         <p class="online-version small">Neueste Version im Internet: <span>wird geprüft …</span></p>

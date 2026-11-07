@@ -642,3 +642,4 @@ svg.horse.happy { animation: hop .5s ease-out; }
 }
 .st-horse { pointer-events: none; }
 .st-horse svg * { pointer-events: visiblePainted; }
+.contact-link { color: var(--syl-a); font-weight: 700; font-size: 1.1rem; word-break: break-all; }
