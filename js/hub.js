@@ -10,6 +10,7 @@ import { readingGame } from './reading.js';
 import { tracksGame, riddleGame, syllableBridge } from './adventure.js';
 import { boardsGame, sortGame } from './tournament.js';
 import { stableHTML, enableEditing, resetStall, stableHorse } from './stable.js';
+import { VERSION } from './version.js';
 
 export const SHOP = [
   { id: 'heu', name: 'Heuballen', emoji: '🌾', price: 4 },
@@ -230,6 +231,13 @@ function parents() {
         <button class="btn btn-small btn-danger" data-act="reset">Alles zurücksetzen</button>
         <button class="btn btn-small" data-act="test">Test: Sprachausgabe</button>
       </section>
+      <section>
+        <h3>App</h3>
+        <p>Installierte Version: <b>${VERSION}</b></p>
+        <p class="online-version small">Neueste Version im Internet: <span>wird geprüft …</span></p>
+        <button class="btn btn-small" data-act="update">🔄 Neueste Version laden</button>
+        <p class="small">Lädt die App frisch aus dem Internet. Der Spielstand (Pferd, Hufeisen, Fortschritt) bleibt erhalten.</p>
+      </section>
     </div>`, 'parents');
   bindTopbar(scr);
   $$('[data-lvl]', scr).forEach((b) => b.addEventListener('click', () => {
@@ -246,4 +254,35 @@ function parents() {
     if (confirm('Wirklich den ganzen Spielstand löschen? Pferd, Hufeisen und Fortschritt gehen verloren.')) { resetAll(); go('title'); }
   });
   $('[data-act="test"]', scr).addEventListener('click', () => speak('Hallo! Ich bin dein Pferd.'));
+  $('[data-act="update"]', scr).addEventListener('click', (e) => { e.currentTarget.textContent = '⏳ Lädt …'; forceUpdate(); });
+  onlineVersion().then((v) => {
+    const el = $('.online-version span', scr);
+    if (!el) return;
+    if (!v) el.textContent = 'nicht erreichbar (offline?)';
+    else el.innerHTML = v === VERSION ? `<b>${v}</b> ✔ aktuell` : `<b>${v}</b> – bitte neu laden!`;
+  });
+}
+
+// Neueste Versionsnummer direkt vom Server holen (am Zwischenspeicher vorbei)
+async function onlineVersion() {
+  try {
+    const res = await fetch(`js/version.js?t=${Date.now()}`, { cache: 'no-store' });
+    const m = (await res.text()).match(/VERSION = '([^']+)'/);
+    return m ? m[1] : null;
+  } catch (e) { return null; }
+}
+
+// App frisch laden: Service Worker und App-Zwischenspeicher leeren, Spielstand (localStorage) bleibt.
+async function forceUpdate() {
+  save();
+  try { localStorage.setItem('sternenhof-backup', localStorage.getItem('sternenhof-v1') || ''); } catch (e) { /* egal */ }
+  try {
+    const regs = (await navigator.serviceWorker?.getRegistrations?.()) || [];
+    await Promise.all(regs.map((r) => r.unregister()));
+  } catch (e) { /* egal */ }
+  try {
+    const keys = (await caches?.keys?.()) || [];
+    await Promise.all(keys.filter((k) => k.startsWith('sternenhof')).map((k) => caches.delete(k)));
+  } catch (e) { /* egal */ }
+  location.replace(`${location.pathname}?v=${Date.now()}`);
 }

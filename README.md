@@ -157,6 +157,7 @@ Farben und Muster werden **einmal** gekauft und gelten dann überall (Gamaschen,
 - alle Kapitel freischalten oder die Geschichte von vorne beginnen
 - den Spielstand komplett zurücksetzen
 - die Sprachausgabe testen
+- die installierte Version sehen und mit **🔄 Neueste Version laden** die App frisch aus dem Internet holen (der Spielstand bleibt erhalten)
 
 **Datenschutz:** Es gibt kein Konto, keine Werbung und kein Tracking. Der Spielstand wird nur auf dem Gerät gespeichert (`localStorage`). Wer die Browserdaten löscht, löscht damit auch den Spielstand.
 
@@ -254,5 +255,7 @@ Kapitel sind Listen von Schritten in `js/chapters.js`:
 Neue JS-Dateien in `sw.js` in die `CORE`-Liste eintragen und die `CACHE`-Version erhöhen, damit Geräte das Update laden.
 
 ### Veröffentlichen
+
+Vor jedem Push die Versionsnummer in `js/version.js` hochzählen. Sie erscheint im Elternbereich und zeigt, ob ein Gerät aktuell ist.
 
 Gehostet über **GitHub Pages** direkt aus dem `main`-Branch. Ein Push auf `main` reicht, nach etwa einer Minute ist die neue Version online.

@@ -36,5 +36,9 @@ document.addEventListener('dblclick', (e) => e.preventDefault(), { passive: fals
 go('title');
 
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
+  navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' })
+    .then((reg) => reg.update())
+    .catch(() => {});
 }
+// Nach "Neueste Version laden" die Hilfs-Angabe ?v=... wieder aus der Adresse nehmen
+if (location.search.includes('v=')) history.replaceState(null, '', location.pathname);
