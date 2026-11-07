@@ -242,7 +242,7 @@ function parents() {
       <section>
         <h3>Kontakt</h3>
         <p>Fragen, Ideen oder Fehler gefunden? Schreib mir:</p>
-        <p><a class="contact-link" href="mailto:andi.scholz@gmail.com?subject=Sternenhof">andi.scholz@gmail.com</a></p>
+        <p><a class="contact-link" href="#">…</a></p>
       </section>
       <section>
         <h3>App</h3>
@@ -267,6 +267,11 @@ function parents() {
     if (confirm('Wirklich den ganzen Spielstand löschen? Pferd, Hufeisen und Fortschritt gehen verloren.')) { resetAll(); go('title'); }
   });
   $('[data-act="test"]', scr).addEventListener('click', () => speak('Hallo! Ich bin dein Pferd.'));
+  // Kontaktadresse erst hier zusammensetzen, damit sie nicht am Stück im Quelltext steht
+  const cl = $('.contact-link', scr);
+  const addr = [['zlohcs', 'idna'].map((x) => [...x].reverse().join('')).reverse().join('.'), ['moc', 'liamg'].map((x) => [...x].reverse().join('')).reverse().join('.')].join(String.fromCharCode(64));
+  cl.textContent = addr;
+  cl.addEventListener('click', (e) => { e.preventDefault(); location.href = `mailto:${addr}?subject=Sternenhof`; });
   const bmsg = $('.backup-msg', scr);
   $('[data-act="export"]', scr).addEventListener('click', () => {
     const name = exportSave();
