@@ -1,7 +1,6 @@
 // Der Stall (Startseite), Hofladen, freies Üben und Elternbereich.
 import { S, save, resetAll } from './state.js';
 import { sfx, speak, canSpeak } from './audio.js';
-import { myHorse } from './horse.js';
 import { mount, topbar, bindTopbar, T, $, $$, go, pick, burstAt, roundDone, shoeIcon, reward } from './ui.js';
 import { runStory, CHAPTERS, createHorse, chapterSelect, anyStoryProgress, prog } from './story.js';
 import { dressUp } from './dressup.js';
@@ -10,6 +9,7 @@ import { feedGame, jumpGame } from './math.js';
 import { readingGame } from './reading.js';
 import { tracksGame, riddleGame, syllableBridge } from './adventure.js';
 import { boardsGame, sortGame } from './tournament.js';
+import { stableHTML, enableEditing, resetStall, stableHorse } from './stable.js';
 
 export const SHOP = [
   { id: 'heu', name: 'Heuballen', emoji: '🌾', price: 4 },
@@ -23,6 +23,10 @@ export const SHOP = [
   { id: 'hase', name: 'Hase', emoji: '🐇', price: 15 },
   { id: 'pokal', name: 'Pokal', emoji: '🏆', price: 20 },
   { id: 'regenbogen', name: 'Regenbogen', emoji: '🌈', price: 25 },
+  { id: 'glocke', name: 'Glocke', emoji: '🔔', price: 6, note: 'für einen Haken' },
+  { id: 'kissen', name: 'Herzkissen', emoji: '💖', price: 7, note: 'fürs Regal' },
+  { id: 'halfter', name: 'Halfter', emoji: '🪢', price: 8, note: 'für einen Haken' },
+  { id: 'foto', name: 'Foto', emoji: '🖼️', price: 12, note: 'ein Bild von deinem Pferd' },
 ];
 
 const HORSE_TALK = [
@@ -30,35 +34,14 @@ const HORSE_TALK = [
   'Du bist toll!', 'Ich mag Äpfel.', 'Kraul mich noch mal!', 'Wo ist Funke?', 'Hihihi!',
 ];
 
-function stallDeco() {
-  const has = (id) => S.owned.includes(id);
-  const slot = (id, cls, emoji) => (has(id) ? `<span class="deco ${cls}">${emoji}</span>` : '');
-  return `
-    ${has('lichter') ? '<div class="deco lights">✨ ✨ ✨ ✨ ✨ ✨ ✨</div>' : ''}
-    ${has('regenbogen') ? '<span class="deco rainbow">🌈</span>' : ''}
-    ${has('schild') ? `<div class="deco nameplate">${T(S.horse.name, { syllables: false, speak: false })}</div>` : ''}
-    ${slot('laterne', 'lantern', '🏮')}
-    ${slot('pokal', 'trophy', '🏆')}
-    ${slot('blume', 'flower', '🌻')}
-    ${slot('heu', 'hay', '🌾')}
-    ${slot('apfel', 'apples', '🍎')}
-    ${slot('katze', 'cat', '🐈')}
-    ${slot('hase', 'bunny', '🐇')}`;
-}
-
 export function hub() {
   const storyLabel = 'Geschichte';
   const scr = mount(`
     ${topbar({ home: false, title: '' })}
     <button class="icon-btn parents-btn" aria-label="Elternbereich">⚙️</button>
     <div class="stall">
-      <div class="stall-wall">
-        <div class="stall-window"></div>
-        ${stallDeco()}
-        <div class="stall-horse">${myHorse(S, { cls: 'idle' })}</div>
-        <div class="talk"></div>
-      </div>
-      <div class="stall-floor"></div>
+      ${stableHTML()}
+      <button class="icon-btn stall-full-btn" aria-label="Stall groß ansehen">⛶</button>
     </div>
     <h2 class="stall-title">${T(`Der Stall von *${S.horse.name}*`)}</h2>
     <nav class="menu">
@@ -73,21 +56,11 @@ export function hub() {
       <button class="menu-btn" data-go="tracks"><span class="mi">🐾</span><span>${T('Hufspuren', { speak: false })}</span></button>
       <button class="menu-btn" data-go="bridge"><span class="mi">🌉</span><span>${T('Silben-Brücke', { speak: false })}</span></button>
       <button class="menu-btn" data-go="boards"><span class="mi">🪵</span><span>${T('Bretter zählen', { speak: false })}</span></button>
-      <button class="menu-btn" data-go="sort"><span class="mi">🏁</span><span>${T('Startnummern', { speak: false })}</span></button>
+      <button class="menu-btn" data-go="sort"><span class="mi">🏁</span><span>${T('Zahlen ordnen', { speak: false })}</span></button>
       <button class="menu-btn" data-go="shop"><span class="mi">🛍️</span><span>${T('Laden', { speak: false })}</span></button>
       <button class="menu-btn" data-go="look"><span class="mi">🎨</span><span>${T('Aussehen', { speak: false })}</span></button>
     </nav>`, 'hub');
   bindTopbar(scr);
-
-  const horse = $('.stall-horse svg', scr);
-  const talk = $('.talk', scr);
-  horse.addEventListener('click', () => {
-    sfx.heart();
-    horse.classList.remove('happy'); void horse.getBoundingClientRect(); horse.classList.add('happy');
-    burstAt(horse, ['💖', '💕', '✨'], 7);
-    const line = pick(HORSE_TALK);
-    talk.innerHTML = `<div class="talk-bubble pop-in">${T(line)}</div>`;
-  });
 
   const done = (e) => roundDone({ title: 'Super gemacht!', earned: e, label: 'Zum Stall', onNext: () => go('hub') });
   const actions = {
@@ -102,12 +75,69 @@ export function hub() {
     tracks: () => tracksGame({ count: 5, title: 'Hufspuren' }, done),
     bridge: () => syllableBridge({ count: 5, title: 'Silben-Brücke' }, done),
     boards: () => boardsGame({ count: 5, title: 'Bretter zählen' }, done),
-    sort: () => sortGame({ count: 5, title: 'Startnummern' }, done),
+    sort: () => sortGame({ count: 5, title: 'Zahlen ordnen' }, done),
     shop: () => shop(),
     look: () => createHorse(() => go('hub'), { fromHub: true }),
   };
   $$('.menu-btn', scr).forEach((b) => b.addEventListener('click', () => { sfx.tap(); actions[b.dataset.go](); }));
   $('.parents-btn', scr).addEventListener('click', () => { sfx.tap(); parentsGate(); });
+
+  const stage = $('.stable-stage', scr);
+  $('.stall-full-btn', scr).addEventListener('click', () => { sfx.tap(); stableFull(); });
+  bindHorseTalk(stage);
+}
+
+function bindHorseTalk(stage) {
+  const horse = stableHorse(stage);
+  const talk = $('.talk', stage);
+  horse.addEventListener('click', () => {
+    sfx.heart();
+    horse.classList.remove('happy'); void horse.getBoundingClientRect(); horse.classList.add('happy');
+    burstAt(horse, ['💖', '💕', '✨'], 7);
+    const line = pick(HORSE_TALK);
+    talk.innerHTML = `<div class="talk-bubble pop-in">${T(line)}</div>`;
+  });
+
+}
+
+// ---------- Stall im Vollbild, mit Einrichten ----------
+function stableFull() {
+  let editing = false;
+  const scr = mount(`
+    <div class="stall-full">
+      <div class="stall-full-inner">${stableHTML()}</div>
+      <div class="stall-bar">
+        <button class="btn btn-small stall-back">✕ Zurück</button>
+        <button class="btn btn-small stall-edit">✏️ Einrichten</button>
+        <button class="btn btn-small stall-reset hidden">↺ Wie am Anfang</button>
+      </div>
+      <p class="stall-hint hidden">${T('Zieh die Sachen dorthin, wo du sie haben willst!', { speak: false, syllables: false })}</p>
+      <p class="turn-hint">📱↻ ${T('Dreh dein Handy für ein großes Bild!', { speak: false, syllables: false })}</p>
+    </div>`, 'stall-full-screen');
+  try { document.documentElement.requestFullscreen?.().catch(() => {}); } catch (e) { /* nicht überall erlaubt */ }
+
+  const draw = () => {
+    $('.stall-full-inner', scr).innerHTML = stableHTML();
+    const stage = $('.stable-stage', scr);
+    stage.classList.toggle('editing', editing);
+    if (editing) enableEditing(stage); else bindHorseTalk(stage);
+  };
+  const leave = () => {
+    try { if (document.fullscreenElement) document.exitFullscreen?.(); } catch (e) { /* egal */ }
+    go('hub');
+  };
+  $('.stall-back', scr).addEventListener('click', () => { sfx.tap(); leave(); });
+  $('.stall-edit', scr).addEventListener('click', (e) => {
+    sfx.tap();
+    editing = !editing;
+    e.currentTarget.textContent = editing ? '✔ Fertig' : '✏️ Einrichten';
+    e.currentTarget.classList.toggle('btn-ok', editing);
+    $('.stall-reset', scr).classList.toggle('hidden', !editing);
+    $('.stall-hint', scr).classList.toggle('hidden', !editing);
+    draw();
+  });
+  $('.stall-reset', scr).addEventListener('click', () => { sfx.tap(); resetStall(); draw(); });
+  draw();
 }
 
 function shop() {

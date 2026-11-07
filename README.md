@@ -32,7 +32,7 @@ Das Kind gibt seinen Namen ein, erschafft ein eigenes Pferd und erlebt mit ihm e
 | 🪮 **Pflege** | Pferd putzen, Hufe auskratzen, satteln und trensen |
 | 💎 **Schmücken** | Frisuren, Stirnschmuck, Hüte, Gamaschen und Satteldecken – mit Farben und Mustern zum Freischalten |
 | 🎨 **Aussehen** | Fellfarbe, Abzeichen und Name des eigenen Pferdes (jederzeit kostenlos änderbar) |
-| 🏠 **Stall** | Mit gesammelten Hufeisen den Stall einrichten |
+| 🏠 **Stall** | Mit Regalen, Haken und Sattelhalter. Im Vollbild ansehen und alles frei einrichten |
 
 ---
 
@@ -111,7 +111,11 @@ Zur Entspannung zwischen den Lernaufgaben:
   - **Anprobieren:** Alles lässt sich erst ausprobieren. Was noch nicht gekauft ist, zeigt ein 🔒 und einen Knopf „Kaufen“. Mit „Zurück“ oder „Fertig“ bleibt nur Gekauftes am Pferd.
   - 📸 Fotoknopf mit Kompliment
 - 🎨 **Aussehen:** Fellfarbe, Abzeichen, weiße Beine und Name, getrennt vom Schmücken und kostenlos
-- 🏠 **Stall:** Das Pferd antippen, dann sagt es etwas
+- 🏠 **Stall:**
+  - Das Pferd antippen, dann sagt es etwas
+  - ⛶ oben links öffnet den Stall im **Vollbild** (auf dem Handy am besten quer halten)
+  - ✏️ **Einrichten:** Alle Sachen und das Pferd lassen sich frei verschieben. In der Nähe von Regalbrett, Haken oder Sattelhalter rasten sie ein. „Wie am Anfang“ stellt alles zurück
+  - Sattel, Trense, Putzkorb und Eimer sind von Anfang an da
 
 ---
 
@@ -125,7 +129,7 @@ Für richtige Antworten gibt es **Hufeisen**: 2 beim ersten Versuch, sonst 1. Da
 
 Mit den Hufeisen kann man:
 
-- im **Laden** Dinge für den Stall kaufen (Heuballen, Lichterkette, Stallkatze, Pokal und mehr)
+- im **Laden** Dinge für den Stall kaufen (Heuballen, Lichterkette, Stallkatze, Pokal, Glocke und Halfter für die Haken, Herzkissen fürs Regal, ein Foto vom eigenen Pferd und mehr)
 - beim **Schmücken** Formen, Farben und Muster freischalten
 
 Farben und Muster werden **einmal** gekauft und gelten dann überall (Gamaschen, Decke, Hut, Schmuck). Rosa, Blau, Weiß und „einfarbig“ sind von Anfang an frei.
@@ -215,7 +219,8 @@ js/
   scenes.js            Hintergründe (Hof, Wiese, Wald, Fluss, Mühle, Fest …)
   story.js             Geschichten-Engine, Kapitelauswahl, Figuren
   chapters.js          Inhalt der Kapitel 1–5
-  hub.js               Stall, Menü, Laden, Elternbereich
+  hub.js               Startseite, Menü, Laden, Elternbereich, Stall im Vollbild
+  stable.js            Stall-Bühne: Zeichnung, Gegenstände, Verschieben und Einrasten
   math.js              Füttern, Springen, Aufgaben-Generator, Stufen
   reading.js           Leseübungen
   adventure.js         Hufspuren, Rätsel, Silben-Brücke

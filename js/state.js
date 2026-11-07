@@ -22,6 +22,7 @@ export const defaultState = () => ({
   mathMiss: 0,
   settings: { syllables: true, speech: true, sound: true },
   owned: [],
+  stall: { pos: {} }, // Platz der Dinge im Stall
   stats: { mathRight: 0, mathTotal: 0, readRight: 0, readTotal: 0 },
 });
 
