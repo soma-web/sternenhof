@@ -20,10 +20,13 @@ export const defaultState = () => ({
   mathLevel: 2,
   mathStreak: 0,
   mathMiss: 0,
+  spellLevel: 1,  // Schreib-Werkstatt, 1–5
+  spellStreak: 0,
+  spellMiss: 0,
   settings: { syllables: true, speech: true, sound: true },
   owned: [],
   stall: { pos: {} }, // Platz der Dinge im Stall
-  stats: { mathRight: 0, mathTotal: 0, readRight: 0, readTotal: 0 },
+  stats: { mathRight: 0, mathTotal: 0, readRight: 0, readTotal: 0, spellRight: 0, spellTotal: 0 },
 });
 
 function merge(base, data) {

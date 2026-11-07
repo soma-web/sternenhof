@@ -29,6 +29,7 @@ Das Kind gibt seinen Namen ein, erschafft ein eigenes Pferd und erlebt mit ihm e
 | 📖 **Geschichte** | 5 Kapitel mit Entscheidungen, die den Weg verändern |
 | ➕ **Mathe** | Plus und Minus bis 50, Zehner und Einer, Zahlen ordnen. Passt sich automatisch an |
 | 🔤 **Lesen** | Einfache Wörter mit Silbenfarben, jedes Wort kann vorgelesen werden |
+| ✏️ **Schreiben** | Wörter richtig schreiben (z. B. „Ich spreche ks, aber schreibe x“), in 5 Stufen bis zum ganz alleine Schreiben |
 | 🪮 **Pflege** | Pferd putzen, Hufe auskratzen, satteln und trensen |
 | 💎 **Schmücken** | Frisuren, Stirnschmuck, Hüte, Gamaschen und Satteldecken – mit Farben und Mustern zum Freischalten |
 | 🎨 **Aussehen** | Fellfarbe, Abzeichen und Name des eigenen Pferdes (jederzeit kostenlos änderbar) |
@@ -45,7 +46,7 @@ Funke, das kleine Fohlen vom Sternenhof, ist verschwunden. Zusammen mit dem eige
 | 1 | **Ein Pferd für dich** 🐴 | Ankommen, eigenes Pferd erschaffen, putzen, satteln, der erste Ausritt. Am Abend ist Funke weg, nur ein geheimnisvoller Brief von „E.“ liegt da |
 | 2 | **Im Wald** 🌲 | Hufspuren folgen, Pilze sammeln oder über Steine springen, Ella die Eule kennenlernen |
 | 3 | **Die alte Mühle** 🏚️ | Über den Fluss, Emma aus der Mühle treffen, Funke finden und das große Hoffest |
-| 4 | **Das Gewitter** ⛈️ | Ein Plakat für das Sternenturnier, Training mit Emma und Luna, ein Gewitter in der Nacht und ein kaputter Zaun |
+| 4 | **Das Gewitter** ⛈️ | Ein Plakat für das Sternenturnier, Training mit Emma und Luna, ein Gewitter in der Nacht, ein kaputter Zaun und Emmas nasses Schulheft |
 | 5 | **Das Sternenturnier** 🏆 | Startnummern, Schönheitspreis, Springen – und Emma braucht Hilfe am Wassergraben |
 
 **Entscheidungen:** An mehreren Stellen darf das Kind wählen, zum Beispiel:
@@ -95,6 +96,22 @@ Fehler sind nicht schlimm: Es gibt eine freundliche Ermutigung und einen neuen V
 
 ---
 
+## Schreiben
+
+Die **Schreib-Werkstatt** übt die Wörter vom Arbeitsblatt „Ich spreche ks, aber schreibe x“: Taxi, Nixe, Boxer, Lexikon, Mixer, Hexe, Box, Text, hexen, mixen, dazu Axt und boxen. Zu jedem Wort gibt es ein Bild, einen Satz mit Lücke und einen Knopf 🔊 zum Anhören.
+
+Die 5 Stufen passen sich automatisch an (3× fehlerfrei = schwerer, 2× daneben = leichter):
+
+1. **Ein Buchstabe fehlt:** Ta_i – x, ks oder cks?
+2. **Zwei Lücken:** zusätzlich fehlt ein zweiter Buchstabe
+3. **Buchstaben legen:** die Buchstaben in die richtige Reihenfolge bringen, der erste steht schon da
+4. **Mit falschen Buchstaben:** wie Stufe 3, aber k und s liegen als Falle dabei
+5. **Ganz alleine schreiben:** auf einer Tastatur, mit Groß- und Kleinschreibung (Nomen groß, Tuwörter klein)
+
+Bei Fehlern gibt es Tipps („Man hört ks, aber man schreibt …?“, „Der Anfang stimmt schon!“). In der Geschichte kommt die Schreib-Werkstatt in Kapitel 4 vor, im Stall gibt es sie unter ✏️ **Schreiben**. Weitere Wortlisten aus der Schule lassen sich in `js/spelling.js` ergänzen.
+
+---
+
 ## Cozy-Spiele
 
 Zur Entspannung zwischen den Lernaufgaben:
@@ -125,7 +142,8 @@ Für richtige Antworten gibt es **Hufeisen**: 2 beim ersten Versuch, sonst 1. Da
 
 - 🥕 Füttern und 🏇 Parcours (Rechnen)
 - 📚 Lesen, 🦉 Rätsel und 🌉 Silben-Brücke (Lesen)
-- 🐾 Hufspuren (Zahlenstrahl), 🪵 Bretter zählen und 🏁 Startnummern
+- 🐾 Hufspuren (Zahlenstrahl), 🪵 Bretter zählen und 🏁 Zahlen ordnen
+- ✏️ Schreiben (Schreib-Werkstatt)
 
 Mit den Hufeisen kann man:
 
@@ -151,7 +169,7 @@ Farben und Muster werden **einmal** gekauft und gelten dann überall (Gamaschen,
 
 **Elternbereich:** Im Stall oben auf ⚙️ tippen, dann den Knopf **3 Sekunden gedrückt halten**. Dort kann man:
 
-- die Mathe-Stufe (1 bis 5) direkt einstellen
+- die Mathe-Stufe und die Schreib-Stufe (je 1 bis 5) direkt einstellen
 - Silbenfarben, Vorlesen und Töne ein- und ausschalten
 - sehen, welche Kapitel geschafft sind und welche Entscheidungen getroffen wurden
 - alle Kapitel freischalten oder die Geschichte von vorne beginnen
@@ -227,6 +245,7 @@ js/
   reading.js           Leseübungen
   adventure.js         Hufspuren, Rätsel, Silben-Brücke
   tournament.js        Bretter zählen (Zehner/Einer), Startnummern ordnen
+  spelling.js          Schreib-Werkstatt: Wortlisten und 5 Stufen
   care.js              Putzen, Satteln
   dressup.js           Schmücken (Baukasten, Anprobieren, Kaufen)
   looks.js             Farben, Muster, Formen, Preise, Umzug alter Spielstände

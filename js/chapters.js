@@ -1,6 +1,6 @@
 // Die Geschichte: fünf Kapitel.
 // Schritt-Typen: scene, letter, choice, askName, createHorse, brush, brushFunke, feed, saddle,
-// reading, jump, tracks, riddles, bridge, dress, gift, boards, sortNums, chapterEnd.
+// reading, jump, tracks, riddles, bridge, dress, gift, boards, sortNums, spell, chapterEnd.
 // gift: Taschengeld (gibt es nur beim ersten Mal), item: Geschenk für den Stall.
 // if: [key, wert] – Schritt nur zeigen, wenn die Entscheidung passt.
 // part: Abschnitt für die Kapitelauswahl.
@@ -166,6 +166,10 @@ const CH4 = [
   { t: 'boards', after: 'Der Zaun ist wieder heil!' },
   { t: 'scene', bg: 'morgen', who: 'rosi', text: 'Der Zaun ist wieder heil. Danke, {name}! Du bist eine große Hilfe.' },
   { t: 'scene', bg: 'morgen', who: 'eule', show: 'eule', if: ['ella', 'mit'], text: 'Huhu! Ich habe vom Baum aus zugeschaut. Toll gemacht!' },
+  { t: 'scene', bg: 'morgen', who: 'emma', show: 'emma', part: { title: 'Das nasse Heft', emoji: '✏️' }, text: 'Oh nein! Mein Schulheft lag draußen. Der Regen hat die Wörter verwischt!' },
+  { t: 'scene', bg: 'morgen', who: 'emma', show: 'emma', text: 'Wir üben gerade Wörter mit *x*. Man hört ks, aber man schreibt x. Hilfst du mir, die Wörter neu zu schreiben?' },
+  { t: 'spell', set: 'x', title: 'Das nasse Heft', after: 'Emmas Heft ist wieder schön!' },
+  { t: 'scene', bg: 'morgen', who: 'emma', show: 'emma', text: 'Danke, {name}! Jetzt sieht mein Heft wieder schön aus. Du schreibst ja super!' },
   { t: 'scene', bg: 'morgen', who: 'emma', show: 'emmaLuna', text: 'Morgen ist das Turnier! Ich bin so aufgeregt!' },
   { t: 'scene', bg: 'nacht', show: 'horse', text: 'Gute Nacht, {name}. Gute Nacht, {horse}. Morgen ist der große Tag!' },
   { t: 'chapterEnd' },

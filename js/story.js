@@ -10,6 +10,7 @@ import { readingGame } from './reading.js';
 import { tracksGame, riddleGame, syllableBridge } from './adventure.js';
 import { dressUp } from './dressup.js';
 import { boardsGame, sortGame } from './tournament.js';
+import { spellGame } from './spelling.js';
 import { CHAPTERS } from './chapters.js';
 
 export { CHAPTERS };
@@ -321,6 +322,7 @@ export function runStory() {
       return undefined;
     }
     case 'dress': return dressUp(next, { story: true });
+    case 'spell': return spellGame({ count: 5, title: step.title || 'Schreib-Werkstatt', set: step.set || 'x' }, (e) => afterGame(e, step.after || 'Super geschrieben!'));
     case 'boards': return boardsGame({ count: 5, title: step.title || 'Zaun reparieren' }, (e) => afterGame(e, step.after || 'Der Zaun ist wieder heil!'));
     case 'sortNums': return sortGame({ count: 5, title: step.title || 'Startnummern' }, (e) => afterGame(e, step.after || 'Alle stehen in der richtigen Reihe!'));
     case 'feed': return feedGame({ count: 5, title: step.title || 'Füttern', theme: step.theme }, (e) => afterGame(e, step.theme ? 'Gut gezählt!' : '{horse} ist jetzt satt.'));

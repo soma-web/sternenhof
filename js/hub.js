@@ -9,6 +9,7 @@ import { feedGame, jumpGame } from './math.js';
 import { readingGame } from './reading.js';
 import { tracksGame, riddleGame, syllableBridge } from './adventure.js';
 import { boardsGame, sortGame } from './tournament.js';
+import { spellGame } from './spelling.js';
 import { stableHTML, enableEditing, resetStall, stableHorse } from './stable.js';
 import { VERSION } from './version.js';
 
@@ -56,6 +57,7 @@ export function hub() {
       <button class="menu-btn" data-go="riddles"><span class="mi">🦉</span><span>${T('Rätsel', { speak: false })}</span></button>
       <button class="menu-btn" data-go="tracks"><span class="mi">🐾</span><span>${T('Hufspuren', { speak: false })}</span></button>
       <button class="menu-btn" data-go="bridge"><span class="mi">🌉</span><span>${T('Silben-Brücke', { speak: false })}</span></button>
+      <button class="menu-btn" data-go="spell"><span class="mi">✏️</span><span>${T('Schreiben', { speak: false })}</span></button>
       <button class="menu-btn" data-go="boards"><span class="mi">🪵</span><span>${T('Bretter zählen', { speak: false })}</span></button>
       <button class="menu-btn" data-go="sort"><span class="mi">🏁</span><span>${T('Zahlen ordnen', { speak: false })}</span></button>
       <button class="menu-btn" data-go="shop"><span class="mi">🛍️</span><span>${T('Laden', { speak: false })}</span></button>
@@ -75,6 +77,7 @@ export function hub() {
     riddles: () => riddleGame({ count: 5, title: 'Rätsel' }, done),
     tracks: () => tracksGame({ count: 5, title: 'Hufspuren' }, done),
     bridge: () => syllableBridge({ count: 5, title: 'Silben-Brücke' }, done),
+    spell: () => spellGame({ count: 5, title: 'Schreib-Werkstatt' }, done),
     boards: () => boardsGame({ count: 5, title: 'Bretter zählen' }, done),
     sort: () => sortGame({ count: 5, title: 'Zahlen ordnen' }, done),
     shop: () => shop(),
@@ -202,6 +205,7 @@ function pct(a, b) { return b ? `${Math.round((a / b) * 100)} %` : '–'; }
 function parents() {
   const st = S.stats;
   const LEVELS = ['bis 20', 'Zehner', 'ZE + E', 'Übergang', 'Zweistellig'];
+  const SPELL_LEVELS = ['Ein Buchstabe fehlt', 'Zwei Lücken', 'Buchstaben legen', 'Mit falschen Buchstaben', 'Ganz alleine schreiben'];
   const scr = mount(`
     ${topbar({ title: 'Eltern' })}
     <div class="parents-panel">
@@ -209,6 +213,11 @@ function parents() {
         <h3>Mathe-Stufe</h3>
         <p class="small">Passt sich automatisch an (4× richtig = höher, 2× daneben = leichter).</p>
         <div class="chips">${LEVELS.map((l, k) => `<button class="chip ${S.mathLevel === k + 1 ? 'sel' : ''}" data-lvl="${k + 1}">${k + 1}: ${l}</button>`).join('')}</div>
+      </section>
+      <section>
+        <h3>Schreib-Stufe</h3>
+        <p class="small">Passt sich automatisch an (3× richtig = höher, 2× daneben = leichter). Wörter: „Ich spreche ks, aber schreibe x“.</p>
+        <div class="chips">${SPELL_LEVELS.map((l, k) => `<button class="chip ${(S.spellLevel || 1) === k + 1 ? 'sel' : ''}" data-spell="${k + 1}">${k + 1}: ${l}</button>`).join('')}</div>
       </section>
       <section>
         <h3>Einstellungen</h3>
@@ -220,6 +229,7 @@ function parents() {
         <h3>Fortschritt</h3>
         <p>Mathe: ${st.mathRight} von ${st.mathTotal} beim ersten Versuch richtig (${pct(st.mathRight, st.mathTotal)})</p>
         <p>Lesen: ${st.readRight} von ${st.readTotal} beim ersten Versuch richtig (${pct(st.readRight, st.readTotal)})</p>
+        <p>Schreiben: ${st.spellRight || 0} von ${st.spellTotal || 0} ohne Fehler (${pct(st.spellRight || 0, st.spellTotal || 0)})</p>
         ${CHAPTERS.map((c) => `<p>Kapitel ${c.nr} „${c.title}“: ${prog(c.nr).done ? 'geschafft ⭐' : prog(c.nr).max > 0 ? 'begonnen' : 'noch nicht gespielt'}</p>`).join('')}
         <p>Entscheidungen: ${Object.entries(S.choices).map(([k, v]) => `${k} = ${v}`).join(', ') || '–'}</p>
         <p>Hufeisen: ${S.shoes}</p>
@@ -256,6 +266,10 @@ function parents() {
   $$('[data-lvl]', scr).forEach((b) => b.addEventListener('click', () => {
     S.mathLevel = +b.dataset.lvl; S.mathStreak = 0; S.mathMiss = 0; save();
     $$('[data-lvl]', scr).forEach((x) => x.classList.toggle('sel', x === b));
+  }));
+  $$('[data-spell]', scr).forEach((b) => b.addEventListener('click', () => {
+    S.spellLevel = +b.dataset.spell; S.spellStreak = 0; S.spellMiss = 0; save();
+    $$('[data-spell]', scr).forEach((x) => x.classList.toggle('sel', x === b));
   }));
   $$('[data-set]', scr).forEach((c) => c.addEventListener('change', () => { S.settings[c.dataset.set] = c.checked; save(); }));
   $('[data-act="restart"]', scr).addEventListener('click', () => { S.chapter = 1; S.step = 0; save(); go('hub'); });

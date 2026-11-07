@@ -643,3 +643,40 @@ svg.horse.happy { animation: hop .5s ease-out; }
 .st-horse { pointer-events: none; }
 .st-horse svg * { pointer-events: visiblePainted; }
 .contact-link { color: var(--syl-a); font-weight: 700; font-size: 1.1rem; word-break: break-all; }
+
+/* ---------- Schreib-Werkstatt ---------- */
+.spell-card { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 22px; padding: 10px 14px; }
+.spell-pic { font-size: clamp(3rem, 14vw, 4.4rem); line-height: 1; }
+.spell-side { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; flex: 1; }
+.spell-sentence { margin: 0; font-size: clamp(1.15rem, 4.6vw, 1.5rem); }
+.spell-blank { display: inline-block; min-width: 3em; border-bottom: 3px solid var(--pink); color: transparent; }
+.hear-btn { background: #EAF2FF; }
+.spell-word { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px; font-size: clamp(2.2rem, 10vw, 3.2rem); font-weight: 700; letter-spacing: .02em; min-height: 1.4em; }
+.spell-word .lt { padding: 0 1px; }
+.spell-word .gap { min-width: 1.1em; padding: 0 6px; text-align: center; border-bottom: 4px solid #C9B9A8; color: #C9B9A8; border-radius: 4px; }
+.spell-word .gap.now { border-color: var(--pink); color: var(--pink); animation: pulse 1.2s ease-in-out infinite; }
+.spell-word .gap.filled { color: var(--ok-d); border-color: var(--ok); animation: popIn .3s; }
+.spell-opts { grid-template-columns: repeat(3, 1fr); }
+.spell-opt { font-size: clamp(1.8rem, 8vw, 2.4rem); font-weight: 700; }
+.spell-word.slots { gap: 6px; }
+.slot-l { width: 1.2em; height: 1.4em; border-radius: 10px; background: #fff; border: 3px dashed #D8CBBE; display: flex; align-items: center; justify-content: center; font-size: clamp(1.6rem, 7vw, 2.4rem); }
+.slot-l.now { border-color: var(--pink); }
+.slot-l.filled { border-style: solid; border-color: var(--ok); color: var(--ok-d); animation: popIn .25s; }
+.tiles { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.tile { width: 58px; height: 62px; border-radius: 14px; border: none; background: #FFE9A8; box-shadow: 0 5px 0 #E2C46A; font: 700 2rem inherit; font-family: inherit; color: var(--ink); cursor: pointer; }
+.tile.used { opacity: .2; transform: scale(.85); }
+.tile.nope { animation: shake .45s; background: #FFD6D6; }
+.tile.hint-glow { box-shadow: 0 0 0 5px var(--hint), 0 5px 0 #E2C46A; animation: pulse 1s ease-in-out infinite; }
+.spell-word.typed { background: #fff; border-radius: 16px; padding: 4px 14px; border: 3px solid #E6DCD2; min-width: 60%; align-self: center; }
+.spell-word.typed.wrong { border-color: #F2A0A0; }
+.spell-word.typed.right { border-color: var(--ok); }
+.caret { width: 3px; height: 1.1em; background: var(--pink); align-self: center; animation: twinkle 1s infinite; }
+.ok-l { color: var(--ok-d); }
+.bad-l { color: #D9443C; text-decoration: underline; }
+.kbd { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; }
+.key { height: 46px; border-radius: 10px; border: none; background: #fff; box-shadow: 0 3px 0 rgba(0, 0, 0, .14); font: 700 1.35rem inherit; font-family: inherit; color: var(--ink); padding: 0; cursor: pointer; }
+.key:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0, 0, 0, .14); }
+.key.wide { grid-column: span 3; font-size: 1.05rem; }
+.key.shift.on { background: #FFE0EC; box-shadow: 0 3px 0 var(--pink-d); }
+.key.ok { background: var(--ok); color: #fff; box-shadow: 0 3px 0 var(--ok-d); grid-column: span 4; }
+@media (min-width: 700px) { .key { height: 58px; font-size: 1.6rem; } .tile { width: 70px; height: 74px; } }
