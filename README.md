@@ -61,6 +61,8 @@ Funke, das kleine Fohlen vom Sternenhof, ist verschwunden. Zusammen mit dem eige
 
 Die Wahl verändert Szenen und Spiele. Ein zweiter Durchgang lohnt sich also.
 
+📖 **Die ganze Geschichte zum Lesen** (mit allen Entscheidungen und Spielen) steht in [GESCHICHTE.md](GESCHICHTE.md).
+
 **Kapitelauswahl:** Bereits erreichte Kapitel und Abschnitte lassen sich jederzeit neu spielen. Für das erste Abschließen eines Kapitels gibt es 10 Bonus-Hufeisen.
 
 ---
@@ -270,6 +272,7 @@ Kapitel sind Listen von Schritten in `js/chapters.js`:
 - `*Wort*` wird hervorgehoben
 - `if: [key, wert]` zeigt einen Schritt nur nach der passenden Entscheidung
 - `part` markiert Abschnitte für die Kapitelauswahl
+- Nach Änderungen `node tools/export-story.mjs` ausführen, das aktualisiert [GESCHICHTE.md](GESCHICHTE.md)
 - Alle Schritt-Typen stehen oben in `js/chapters.js`, das Kapitel selbst kommt in die Liste `CHAPTERS` am Ende der Datei
 
 Neue JS-Dateien in `sw.js` in die `CORE`-Liste eintragen und die `CACHE`-Version erhöhen, damit Geräte das Update laden.
