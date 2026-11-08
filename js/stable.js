@@ -87,6 +87,16 @@ export const svgAlmaKorb = (() => {
 </svg>`;
 })();
 
+
+export const svgSternHufeisen = `<svg viewBox="0 0 60 64">
+  <defs><linearGradient id="goldgrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE68A"/><stop offset=".55" stop-color="#F2B33D"/><stop offset="1" stop-color="#C98A1B"/></linearGradient></defs>
+  <path d="M12 8 C2 26 6 54 30 56 C54 54 58 26 48 8" fill="none" stroke="#9A6A12" stroke-width="13" stroke-linecap="round"/>
+  <path d="M12 8 C2 26 6 54 30 56 C54 54 58 26 48 8" fill="none" stroke="url(#goldgrad)" stroke-width="10" stroke-linecap="round"/>
+  <g fill="#9A6A12"><circle cx="9.5" cy="22" r="1.6"/><circle cx="11" cy="36" r="1.6"/><circle cx="50.5" cy="22" r="1.6"/><circle cx="49" cy="36" r="1.6"/></g>
+  <path transform="translate(30 30) scale(2.3)" d="M0 -5 L1.5 -1.5 5 -1.5 2.2 0.8 3.2 4.5 0 2.3 -3.2 4.5 -2.2 0.8 -5 -1.5 -1.5 -1.5 Z" fill="url(#goldgrad)" stroke="#9A6A12" stroke-width=".5"/>
+  <circle cx="24" cy="14" r="1.6" fill="#fff" opacity=".9"/><circle cx="44" cy="44" r="1.2" fill="#fff" opacity=".8"/>
+</svg>`;
+
 const frame = (inner, bg = '#BDE8FF') => `<div class="st-frame" style="background:${bg}">${inner}</div>`;
 
 /**
@@ -113,6 +123,7 @@ export const ITEMS = {
   foto:      { label: 'Foto', w: 44, x: 262, y: 118, snap: 'wall', html: () => frame(myHorse(S, { cls: '' })) },
   kissen:    { label: 'Herzkissen', emoji: '💖', w: 24, x: 76, y: 84, snap: 'shelf' },
   alma:      { label: 'Alma', w: 84, x: 96, y: 297, snap: 'floor', html: () => svgAlma },
+  sternhufeisen: { label: 'Sternen-Hufeisen', w: 30, x: 268, y: 70, snap: 'wall', html: () => svgSternHufeisen },
   almakorb:  { label: 'Alma im Körbchen', w: 104, x: 322, y: 299, snap: 'floor', html: () => svgAlmaKorb },
 };
 const HORSE = { w: 190, x: 214, y: 294 };

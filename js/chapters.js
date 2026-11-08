@@ -1,4 +1,4 @@
-// Die Geschichte: fünf Kapitel.
+// Die Geschichte: sechs Kapitel.
 // Schritt-Typen: scene, letter, choice, askName, createHorse, brush, brushFunke, feed, saddle,
 // reading, jump, tracks, riddles, bridge, dress, gift, boards, sortNums, spell, chapterEnd.
 // gift: Taschengeld (gibt es nur beim ersten Mal), item: Geschenk für den Stall.
@@ -219,10 +219,79 @@ const CH5 = [
   { t: 'chapterEnd' },
 ];
 
+
+const CH6 = [
+  { t: 'scene', bg: 'hof', part: { title: 'Besuch für dich', emoji: '🐕' }, text: 'Heute kommt Besuch auf den Sternenhof. Ein Auto hält vor dem Tor.' },
+  { t: 'scene', bg: 'hof', show: 'alma', text: 'Aus dem Auto springt ein Hund. Es ist *Alma*! Sie wedelt ganz doll mit dem Schwanz.' },
+  { t: 'scene', bg: 'hof', who: 'rosi', show: 'alma', text: 'Alma darf ein paar Tage bei uns bleiben. Pass gut auf sie auf, {name}!' },
+  { t: 'scene', bg: 'hof', show: 'alma', text: 'Alma schnüffelt überall. Dann läuft sie zu {horse} und stupst ihn mit der Nase an.' },
+  { t: 'choice', bg: 'hof', key: 'almaspiel', text: 'Was macht ihr zuerst mit Alma?', options: [
+    { v: 'ball', emoji: '🎾', label: 'Einen Ball werfen' },
+    { v: 'kraulen', emoji: '💖', label: 'Alma kraulen' },
+  ] },
+  { t: 'scene', bg: 'wiese', show: 'alma', if: ['almaspiel', 'ball'], text: 'Du wirfst den Ball ganz weit. Alma rennt und rennt. Sie bringt ihn immer wieder zurück!' },
+  { t: 'scene', bg: 'hof', show: 'alma', if: ['almaspiel', 'kraulen'], text: 'Du kraulst Alma hinter den Ohren. Sie legt sich auf den Rücken. Jetzt will sie am Bauch gekrault werden!' },
+  { t: 'scene', bg: 'stall', who: 'rosi', show: 'horse', text: 'Und {horse} möchte auch etwas Liebe. Und Futter!' },
+  { t: 'feed' },
+
+  { t: 'scene', bg: 'wiese', show: 'alma', part: { title: 'Alma buddelt', emoji: '🦴' }, text: 'Plötzlich buddelt Alma unter dem alten Apfelbaum. Die Erde fliegt durch die Luft!' },
+  { t: 'scene', bg: 'wiese', show: 'kiste', text: 'Da liegt eine kleine, rostige Kiste im Loch. Was ist da wohl drin?' },
+  { t: 'scene', bg: 'wiese', who: 'rosi', show: 'kiste', text: 'Diese Kiste kenne ich nicht. Mach sie ganz vorsichtig auf!' },
+  { t: 'scene', bg: 'wiese', text: 'In der Kiste liegt ein altes Papier. Es ist eine *Schatzkarte*! Darauf steht:' },
+  { t: 'letter', text: 'Wer diese Karte findet, darf den Schatz vom Sternenhof suchen. Folge den drei Zeichen: das Pferd, die Brücke, der hohe Baum. Viel Glück! Oma Frieda' },
+  { t: 'scene', bg: 'wiese', who: 'rosi', text: 'Das hat meine Oma Frieda geschrieben! Ihr hat der Hof früher gehört. Los, wir suchen den Schatz!' },
+  { t: 'scene', bg: 'wiese', who: 'eule', show: 'eule', if: ['ella', 'mit'], text: 'Huhu! Eine Schatzsuche? Ich helfe mit! Ich sehe von oben alles.' },
+
+  { t: 'scene', bg: 'stall', who: 'rosi', part: { title: 'Das Pferd', emoji: '🖼️' }, text: 'Das erste Zeichen ist ein Pferd. Wo könnte das sein?' },
+  { t: 'scene', bg: 'stall', show: 'alma', text: 'Alma läuft in den Stall und bellt ein altes Bild an. Wuff! Auf dem Bild ist ein Pferd!' },
+  { t: 'scene', bg: 'stall', who: 'rosi', text: 'Hinter dem Bild klebt ein Zettel. Oma Frieda hat Rätsel aufgeschrieben!' },
+  { t: 'riddles', title: 'Omas Rätsel' },
+  { t: 'scene', bg: 'stall', who: 'rosi', text: 'Super gelöst! Auf dem Zettel steht noch: Geh zur Brücke am Bach.' },
+
+  { t: 'scene', bg: 'stall', who: 'rosi', show: 'horse', part: { title: 'Die Brücke', emoji: '🌉' }, text: 'Zum Bach reiten wir. Sattle {horse}! Alma läuft neben euch her.' },
+  { t: 'saddle' },
+  { t: 'scene', bg: 'fluss', show: 'ride', text: 'Ihr kommt zur kleinen Brücke. Darunter liegt ein flacher Stein mit Buchstaben.' },
+  { t: 'scene', bg: 'fluss', who: 'rosi', text: 'Das Wasser hat die Buchstaben verwaschen. Oma hat Wörter mit *x* eingeritzt. Kannst du sie richtig schreiben?' },
+  { t: 'spell', set: 'x', title: 'Der Buchstaben-Stein', after: 'Der Stein ist wieder lesbar!' },
+  { t: 'scene', bg: 'fluss', who: 'rosi', text: 'Toll geschrieben! Unter den Wörtern ist ein Pfeil. Er zeigt zum hohen Baum.' },
+  { t: 'choice', bg: 'fluss', key: 'schatzweg', text: 'Wie kommt ihr zum hohen Baum?', options: [
+    { v: 'spuren', emoji: '🐾', label: 'Alma schnüffelt den Weg' },
+    { v: 'hecken', emoji: '🌳', label: 'Über die Hecken springen' },
+  ] },
+  { t: 'scene', bg: 'wald', show: 'alma', if: ['schatzweg', 'spuren'], text: 'Alma hält die Nase auf den Boden. Schnüffel, schnüffel! Folge ihren Pfotenspuren!' },
+  { t: 'tracks', title: 'Almas Spur', runner: 'Alma', pron: 'sie', icon: '🐕', print: '🐾', after: 'Alma hat den Weg gefunden!', if: ['schatzweg', 'spuren'] },
+  { t: 'scene', bg: 'wiese', show: 'ride', if: ['schatzweg', 'hecken'], text: 'Vor euch sind lauter Hecken. Hopp, {horse}! Alma kriecht einfach unten durch.' },
+  { t: 'jump', title: 'Über die Hecken', if: ['schatzweg', 'hecken'] },
+
+  { t: 'scene', bg: 'wald', show: 'alma', part: { title: 'Der hohe Baum', emoji: '🌳' }, text: 'Da steht der höchste Baum vom ganzen Hof. Alma bellt: Wuff! Wuff!' },
+  { t: 'scene', bg: 'wald', who: 'rosi', text: 'Unter dem Baum liegen alte Bretter. In die Rinde hat Oma geritzt: Zähl die Bretter, dann findest du das Versteck.' },
+  { t: 'boards', title: 'Omas Bretter', after: 'Jetzt wisst ihr, wo das Versteck ist!' },
+  { t: 'scene', bg: 'wald', text: 'Ganz oben in einem Astloch steckt ein kleines Kästchen aus Holz. Rosi holt es vorsichtig herunter.' },
+
+  { t: 'scene', bg: 'wald', who: 'rosi', part: { title: 'Der Schatz', emoji: '⭐' }, text: 'Mach du es auf, {name}. Du hast den Schatz gefunden!' },
+  { t: 'scene', bg: 'wald', show: 'schatz', text: 'Im Kästchen liegt ein goldenes Hufeisen. In der Mitte ist ein *Stern*. Es glitzert in der Sonne!' },
+  { t: 'scene', bg: 'wald', who: 'rosi', show: 'schatz', text: 'Das ist das Sternen-Hufeisen! Davon hat Oma immer erzählt. Deshalb heißt unser Hof *Sternenhof*!' },
+  { t: 'scene', bg: 'wald', who: 'rosi', show: 'schatz', text: 'Oma hat gesagt: Es bringt Glück für Pferde und für Freunde.' },
+  { t: 'choice', bg: 'wald', key: 'schatz', text: 'Wo soll das Sternen-Hufeisen hängen?', options: [
+    { v: 'stall', emoji: '🏠', label: 'Im Stall von {horse}' },
+    { v: 'alle', emoji: '💕', label: 'Dort, wo alle es sehen' },
+  ] },
+  { t: 'scene', bg: 'stall', show: 'schatz', if: ['schatz', 'stall'], text: 'Ihr hängt das Sternen-Hufeisen in den Stall. Jetzt passt es jede Nacht auf {horse} auf.' },
+  { t: 'scene', bg: 'hof', show: 'schatz', if: ['schatz', 'alle'], text: 'Ihr hängt das Sternen-Hufeisen in den Stall, gleich neben die Tür. So sieht es jeder, der vorbeikommt.' },
+  { t: 'gift', id: 'gift-schatz', amount: 25, item: 'sternhufeisen', bg: 'stall', who: 'rosi', show: 'schatz', text: 'Und für die tollen Schatzsucher gibt es 25 Hufeisen. Alma bekommt einen Knochen!', again: 'Das Sternen-Hufeisen hängt schon im Stall. Es glitzert so schön!' },
+
+  { t: 'scene', bg: 'abend', who: 'emma', show: 'emma', part: { title: 'Gute Nacht, Alma', emoji: '🌙' }, text: 'Hallo! Ich habe gehört, ihr habt einen Schatz gefunden? Das muss ich sehen!' },
+  { t: 'scene', bg: 'abend', who: 'emma', show: 'schatz', text: 'Wow, ein echtes Sternen-Hufeisen! Ihr seid die besten Schatzsucher der Welt!' },
+  { t: 'scene', bg: 'nacht', show: 'almaKorb', text: 'Alma ist ganz müde. Sie rollt sich in ihrem Körbchen zusammen und schnarcht leise.' },
+  { t: 'scene', bg: 'nacht', show: 'horse', text: 'Gute Nacht, {name}. Gute Nacht, {horse}. Gute Nacht, Alma!' },
+  { t: 'chapterEnd' },
+];
+
 export const CHAPTERS = [
   { nr: 1, title: 'Ein Pferd für dich', emoji: '🐴', steps: CH1, end: 'Morgen geht die Suche nach Funke weiter!' },
   { nr: 2, title: 'Im Wald', emoji: '🌲', steps: CH2, end: 'Morgen geht es zur alten Mühle!' },
   { nr: 3, title: 'Die alte Mühle', emoji: '🏚️', steps: CH3, end: 'Funke ist wieder zu Hause! Bald gibt es ein großes Turnier.' },
   { nr: 4, title: 'Das Gewitter', emoji: '⛈️', steps: CH4, end: 'Morgen ist das große Turnier!' },
-  { nr: 5, title: 'Das Sternenturnier', emoji: '🏆', steps: CH5, end: 'Was für ein Turnier! Neue Abenteuer kommen bald.' },
+  { nr: 5, title: 'Das Sternenturnier', emoji: '🏆', steps: CH5, end: 'Was für ein Turnier! Bald bekommt der Sternenhof Besuch.' },
+  { nr: 6, title: 'Die Schatzkarte', emoji: '🗺️', steps: CH6, end: 'Was für ein Schatz! Neue Abenteuer kommen bald.' },
 ];

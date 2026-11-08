@@ -13,6 +13,7 @@ Die Spiele zwischendurch stehen kursiv in eckigen Klammern.
 3. 🏚️ Kapitel 3: Die alte Mühle
 4. ⛈️ Kapitel 4: Das Gewitter
 5. 🏆 Kapitel 5: Das Sternenturnier
+6. 🗺️ Kapitel 6: Die Schatzkarte
 
 ---
 
@@ -444,5 +445,132 @@ Am Abend feiern alle zusammen. Emma, Rosi, Luna und Funke.
 
 Gute Nacht, [Name]. Gute Nacht, [Pferd]. Ihr seid ein tolles Team!
 
-**Ende von Kapitel 5.** Was für ein Turnier! Neue Abenteuer kommen bald. *[+10 Hufeisen beim ersten Mal]*
+**Ende von Kapitel 5.** Was für ein Turnier! Bald bekommt der Sternenhof Besuch. *[+10 Hufeisen beim ersten Mal]*
+
+---
+
+## 🗺️ Kapitel 6: Die Schatzkarte
+
+### 🐕 Besuch für dich
+
+Heute kommt Besuch auf den Sternenhof. Ein Auto hält vor dem Tor.
+
+Aus dem Auto springt ein Hund. Es ist **Alma**! Sie wedelt ganz doll mit dem Schwanz.
+
+**Tante Rosi:** „Alma darf ein paar Tage bei uns bleiben. Pass gut auf sie auf, [Name]!“
+
+Alma schnüffelt überall. Dann läuft sie zu [Pferd] und stupst ihn mit der Nase an.
+
+🔀 **Entscheidung:** Was macht ihr zuerst mit Alma?
+
+- 🎾 Einen Ball werfen
+- 💖 Alma kraulen
+
+↳ *Wenn gewählt: „Was macht ihr zuerst mit Alma? → Einen Ball werfen“* — Du wirfst den Ball ganz weit. Alma rennt und rennt. Sie bringt ihn immer wieder zurück!
+
+↳ *Wenn gewählt: „Was macht ihr zuerst mit Alma? → Alma kraulen“* — Du kraulst Alma hinter den Ohren. Sie legt sich auf den Rücken. Jetzt will sie am Bauch gekrault werden!
+
+**Tante Rosi:** „Und [Pferd] möchte auch etwas Liebe. Und Futter!“
+
+*[🥕 Rechenspiel: Füttern (Plus und Minus bis 50).]*
+
+### 🦴 Alma buddelt
+
+Plötzlich buddelt Alma unter dem alten Apfelbaum. Die Erde fliegt durch die Luft!
+
+Da liegt eine kleine, rostige Kiste im Loch. Was ist da wohl drin?
+
+**Tante Rosi:** „Diese Kiste kenne ich nicht. Mach sie ganz vorsichtig auf!“
+
+In der Kiste liegt ein altes Papier. Es ist eine **Schatzkarte**! Darauf steht:
+
+✉️ *Auf dem Zettel steht:*
+
+> Wer diese Karte findet, darf den Schatz vom Sternenhof suchen. Folge den drei Zeichen: das Pferd, die Brücke, der hohe Baum. Viel Glück! Oma Frieda
+
+**Tante Rosi:** „Das hat meine Oma Frieda geschrieben! Ihr hat der Hof früher gehört. Los, wir suchen den Schatz!“
+
+↳ *Wenn gewählt: „Was sagst du zu Ella? → Willst du mitkommen?“ (Kapitel 2)* — **Ella, die Eule:** „Huhu! Eine Schatzsuche? Ich helfe mit! Ich sehe von oben alles.“
+
+### 🖼️ Das Pferd
+
+**Tante Rosi:** „Das erste Zeichen ist ein Pferd. Wo könnte das sein?“
+
+Alma läuft in den Stall und bellt ein altes Bild an. Wuff! Auf dem Bild ist ein Pferd!
+
+**Tante Rosi:** „Hinter dem Bild klebt ein Zettel. Oma Frieda hat Rätsel aufgeschrieben!“
+
+*[🦉 Lesespiel: Ellas Rätsel.]*
+
+**Tante Rosi:** „Super gelöst! Auf dem Zettel steht noch: Geh zur Brücke am Bach.“
+
+### 🌉 Die Brücke
+
+**Tante Rosi:** „Zum Bach reiten wir. Sattle [Pferd]! Alma läuft neben euch her.“
+
+*[🐴 Spiel: Satteln und Trensen (Decke → Sattel → Gurt → Trense).]*
+
+Ihr kommt zur kleinen Brücke. Darunter liegt ein flacher Stein mit Buchstaben.
+
+**Tante Rosi:** „Das Wasser hat die Buchstaben verwaschen. Oma hat Wörter mit **x** eingeritzt. Kannst du sie richtig schreiben?“
+
+*[✏️ Schreibspiel: Wörter mit x richtig schreiben.]*
+
+**Tante Rosi:** „Toll geschrieben! Unter den Wörtern ist ein Pfeil. Er zeigt zum hohen Baum.“
+
+🔀 **Entscheidung:** Wie kommt ihr zum hohen Baum?
+
+- 🐾 Alma schnüffelt den Weg
+- 🌳 Über die Hecken springen
+
+↳ *Wenn gewählt: „Wie kommt ihr zum hohen Baum? → Alma schnüffelt den Weg“* — Alma hält die Nase auf den Boden. Schnüffel, schnüffel! Folge ihren Pfotenspuren!
+
+↳ *Wenn gewählt: „Wie kommt ihr zum hohen Baum? → Alma schnüffelt den Weg“* — *[🐾 Rechenspiel: Hufspuren auf dem Zahlenstrahl.]*
+
+↳ *Wenn gewählt: „Wie kommt ihr zum hohen Baum? → Über die Hecken springen“* — Vor euch sind lauter Hecken. Hopp, [Pferd]! Alma kriecht einfach unten durch.
+
+↳ *Wenn gewählt: „Wie kommt ihr zum hohen Baum? → Über die Hecken springen“* — *[🏇 Rechenspiel: Über die Hecken – über Hindernisse springen.]*
+
+### 🌳 Der hohe Baum
+
+Da steht der höchste Baum vom ganzen Hof. Alma bellt: Wuff! Wuff!
+
+**Tante Rosi:** „Unter dem Baum liegen alte Bretter. In die Rinde hat Oma geritzt: Zähl die Bretter, dann findest du das Versteck.“
+
+*[🪵 Rechenspiel: Bretter zählen (Zehner und Einer).]*
+
+Ganz oben in einem Astloch steckt ein kleines Kästchen aus Holz. Rosi holt es vorsichtig herunter.
+
+### ⭐ Der Schatz
+
+**Tante Rosi:** „Mach du es auf, [Name]. Du hast den Schatz gefunden!“
+
+Im Kästchen liegt ein goldenes Hufeisen. In der Mitte ist ein **Stern**. Es glitzert in der Sonne!
+
+**Tante Rosi:** „Das ist das Sternen-Hufeisen! Davon hat Oma immer erzählt. Deshalb heißt unser Hof **Sternenhof**!“
+
+**Tante Rosi:** „Oma hat gesagt: Es bringt Glück für Pferde und für Freunde.“
+
+🔀 **Entscheidung:** Wo soll das Sternen-Hufeisen hängen?
+
+- 🏠 Im Stall von [Pferd]
+- 💕 Dort, wo alle es sehen
+
+↳ *Wenn gewählt: „Wo soll das Sternen-Hufeisen hängen? → Im Stall von [Pferd]“* — Ihr hängt das Sternen-Hufeisen in den Stall. Jetzt passt es jede Nacht auf [Pferd] auf.
+
+↳ *Wenn gewählt: „Wo soll das Sternen-Hufeisen hängen? → Dort, wo alle es sehen“* — Ihr hängt das Sternen-Hufeisen in den Stall, gleich neben die Tür. So sieht es jeder, der vorbeikommt.
+
+🎁 **Tante Rosi:** „Und für die tollen Schatzsucher gibt es 25 Hufeisen. Alma bekommt einen Knochen!“ *[25 Hufeisen, nur beim ersten Mal]*
+
+### 🌙 Gute Nacht, Alma
+
+**Emma:** „Hallo! Ich habe gehört, ihr habt einen Schatz gefunden? Das muss ich sehen!“
+
+**Emma:** „Wow, ein echtes Sternen-Hufeisen! Ihr seid die besten Schatzsucher der Welt!“
+
+Alma ist ganz müde. Sie rollt sich in ihrem Körbchen zusammen und schnarcht leise.
+
+Gute Nacht, [Name]. Gute Nacht, [Pferd]. Gute Nacht, Alma!
+
+**Ende von Kapitel 6.** Was für ein Schatz! Neue Abenteuer kommen bald. *[+10 Hufeisen beim ersten Mal]*
 

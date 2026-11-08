@@ -18,7 +18,7 @@ function trackTask() {
   return { a, b, op: plus ? '+' : '−', res: plus ? a + b : a - b, gap: false, answer: plus ? a + b : a - b };
 }
 
-export function tracksGame({ count = 5, title = 'Hufspuren' } = {}, onDone) {
+export function tracksGame({ count = 5, title = 'Hufspuren', runner = 'Funke', pron = 'er', icon = '🐴', print = '🐾' } = {}, onDone) {
   const fr = taskFrame({ total: count, title, cls: 'tracks' });
   let i = 0;
   let earned = 0;
@@ -34,9 +34,9 @@ export function tracksGame({ count = 5, title = 'Hufspuren' } = {}, onDone) {
     let tries = 0;
     let busy = false;
     fr.area.innerHTML = `
-      <p class="task-text">${T(`Funke war bei *${t.a}*. Dann ist er ${t.b} Schritte ${plus ? 'weiter' : 'zurück'} gelaufen. Wo ist er jetzt?`)}</p>
+      <p class="task-text">${T(`${runner} war bei *${t.a}*. Dann ist ${pron} ${t.b} Schritte ${plus ? 'weiter' : 'zurück'} gelaufen. Wo ist ${pron} jetzt?`)}</p>
       <div class="equation small-eq"><span>${t.a}</span><span class="op">${t.op}</span><span>${t.b}</span><span class="op">=</span><span class="ans-box">?</span></div>
-      <div class="trail">${nums.map((n) => `<button class="hoof-tile ${n === t.a ? 'start' : ''}" data-n="${n}"><span class="hoof-print">${n === t.a ? '🐴' : '🐾'}</span><span class="hoof-num">${n}</span></button>`).join('')}</div>
+      <div class="trail">${nums.map((n) => `<button class="hoof-tile ${n === t.a ? 'start' : ''}" data-n="${n}"><span class="hoof-print">${n === t.a ? icon : print}</span><span class="hoof-num">${n}</span></button>`).join('')}</div>
       <div class="msg"></div>`;
     const msg = $('.msg', fr.area);
     const box = $('.ans-box', fr.area);
@@ -61,7 +61,7 @@ export function tracksGame({ count = 5, title = 'Hufspuren' } = {}, onDone) {
         sfx.good();
         await walk();
         b.classList.add('right');
-        b.querySelector('.hoof-print').textContent = '🐴';
+        b.querySelector('.hoof-print').textContent = icon;
         say(msg, praise(), 'good');
         burstAt(b, ['⭐', '✨', '🐾'], 6);
         const r = tries === 0 ? 2 : 1;
@@ -80,7 +80,7 @@ export function tracksGame({ count = 5, title = 'Hufspuren' } = {}, onDone) {
           await walk();
           $(`.hoof-tile[data-n="${t.answer}"]`, fr.area).classList.add('right');
           box.textContent = t.answer;
-          say(msg, `Schau: Funke ist bei ${t.answer}.`, 'hint');
+          say(msg, `Schau: ${runner} ist bei ${t.answer}.`, 'hint');
           trackResult(false);
           await wait(2200);
           i++;

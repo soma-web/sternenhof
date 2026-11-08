@@ -681,3 +681,10 @@ svg.horse.happy { animation: hop .5s ease-out; }
 .key.ok { background: var(--ok); color: #fff; box-shadow: 0 3px 0 var(--ok-d); grid-column: span 4; }
 @media (min-width: 700px) { .key { height: 58px; font-size: 1.6rem; } .tile { width: 70px; height: 74px; } }
 .shop-svg { display: block; width: 64px; height: 44px; } .shop-svg svg { width: 100%; height: 100%; }
+
+.showcase.duo .dog { width: 34%; max-width: 220px; align-self: flex-end; margin-bottom: 2%; }
+.showcase .dog-solo { width: min(60%, 340px); }
+.showcase.duo .star-shoe { width: 22%; max-width: 140px; align-self: center; animation: hop 1.8s ease-in-out infinite; filter: drop-shadow(0 0 10px rgba(255, 226, 122, .9)); }
+.showcase .dog svg, .showcase .dog-solo svg, .showcase .star-shoe svg { width: 100%; height: auto; display: block; }
+.showcase.alma-duo .dog { width: 42%; max-width: 260px; }
+.showcase.duo .luna.half + .dog { margin-left: -2%; }

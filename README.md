@@ -26,7 +26,7 @@ Das Kind gibt seinen Namen ein, erschafft ein eigenes Pferd und erlebt mit ihm e
 
 | Bereich | Was das Kind macht |
 |---|---|
-| 📖 **Geschichte** | 5 Kapitel mit Entscheidungen, die den Weg verändern |
+| 📖 **Geschichte** | 6 Kapitel mit Entscheidungen, die den Weg verändern |
 | ➕ **Mathe** | Plus und Minus bis 50, Zehner und Einer, Zahlen ordnen. Passt sich automatisch an |
 | 🔤 **Lesen** | Einfache Wörter mit Silbenfarben, jedes Wort kann vorgelesen werden |
 | ✏️ **Schreiben** | Wörter richtig schreiben (z. B. „Ich spreche ks, aber schreibe x“), in 5 Stufen bis zum ganz alleine Schreiben |
@@ -48,6 +48,7 @@ Funke, das kleine Fohlen vom Sternenhof, ist verschwunden. Zusammen mit dem eige
 | 3 | **Die alte Mühle** 🏚️ | Über den Fluss, Emma aus der Mühle treffen, Funke finden und das große Hoffest |
 | 4 | **Das Gewitter** ⛈️ | Ein Plakat für das Sternenturnier, Training mit Emma und Luna, ein Gewitter in der Nacht, ein kaputter Zaun und Emmas nasses Schulheft |
 | 5 | **Das Sternenturnier** 🏆 | Startnummern, Schönheitspreis, Springen – und Emma braucht Hilfe am Wassergraben |
+| 6 | **Die Schatzkarte** 🗺️ | Alma kommt zu Besuch und buddelt eine Schatzkarte von Oma Frieda aus. Die Suche führt zum Sternen-Hufeisen |
 
 **Entscheidungen:** An mehreren Stellen darf das Kind wählen, zum Beispiel:
 
@@ -58,6 +59,8 @@ Funke, das kleine Fohlen vom Sternenhof, ist verschwunden. Zusammen mit dem eige
 - 🚧 Über Stangen oder über den Bach trainieren?
 - 🎵 Beim Gewitter ein Lied singen oder die Laterne anmachen?
 - 💪 Emma Mut machen oder mit dem eigenen Pferd vorspringen?
+- 🎾 Mit Alma Ball spielen oder sie kraulen?
+- 🐾 Almas Spur folgen oder über die Hecken springen?
 
 Die Wahl verändert Szenen und Spiele. Ein zweiter Durchgang lohnt sich also.
 
@@ -240,7 +243,7 @@ js/
   horse.js             Pferd als SVG (Fellfarben, Abzeichen, Ausrüstung, Schmuck)
   scenes.js            Hintergründe (Hof, Wiese, Wald, Fluss, Mühle, Fest …)
   story.js             Geschichten-Engine, Kapitelauswahl, Figuren
-  chapters.js          Inhalt der Kapitel 1–5
+  chapters.js          Inhalt der Kapitel 1–6
   hub.js               Startseite, Menü, Laden, Elternbereich, Stall im Vollbild
   stable.js            Stall-Bühne: Zeichnung, Gegenstände, Verschieben und Einrasten
   math.js              Füttern, Springen, Aufgaben-Generator, Stufen

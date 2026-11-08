@@ -11,6 +11,7 @@ import { tracksGame, riddleGame, syllableBridge } from './adventure.js';
 import { dressUp } from './dressup.js';
 import { boardsGame, sortGame } from './tournament.js';
 import { spellGame } from './spelling.js';
+import { svgAlma, svgAlmaKorb, svgSternHufeisen } from './stable.js';
 import { CHAPTERS } from './chapters.js';
 
 export { CHAPTERS };
@@ -43,6 +44,10 @@ function showcase(kind) {
         <div class="luna half">${myHorse(S, { gear: FULL_GEAR, cls: 'idle' })}</div>
         <div class="luna half">${horseSVG({ coat: 'schimmel', marking: 'blesse', cls: 'idle', gear: FULL_GEAR })}</div>
       </div>`;
+    case 'alma': return `<div class="showcase duo alma-duo"><div class="luna half">${myHorse(S, { cls: 'idle' })}</div><div class="dog">${svgAlma}</div></div>`;
+    case 'almaKorb': return `<div class="showcase"><div class="dog-solo">${svgAlmaKorb}</div></div>`;
+    case 'kiste': return `<div class="showcase duo"><div class="dog">${svgAlma}</div><div class="trophy">🧰</div></div>`;
+    case 'schatz': return `<div class="showcase duo"><div class="luna">${myHorse(S, { cls: 'idle' })}</div><div class="star-shoe">${svgSternHufeisen}</div></div>`;
     case 'pokal': return `<div class="showcase duo"><div class="luna">${myHorse(S, { cls: 'idle' })}</div><div class="trophy">🏆</div></div>`;
     case 'fest': return `<div class="showcase duo">
         <div class="luna">${myHorse(S, { cls: 'idle' })}</div>
@@ -328,7 +333,7 @@ export function runStory() {
     case 'feed': return feedGame({ count: 5, title: step.title || 'Füttern', theme: step.theme }, (e) => afterGame(e, step.theme ? 'Gut gezählt!' : '{horse} ist jetzt satt.'));
     case 'jump': return jumpGame({ count: 5, title: step.title || 'Parcours', theme: step.theme || 'hurdles', gear: step.theme !== 'boat' }, (e) => afterGame(e, step.theme === 'boat' ? 'Ihr seid gut angekommen!' : 'Was für ein toller Sprung!'));
     case 'reading': return readingGame({ mode: step.mode, title: step.title, intro: step.intro }, (e) => afterGame(e, 'Du hast toll gelesen!'));
-    case 'tracks': return tracksGame({ count: 5 }, (e) => afterGame(e, 'Ihr habt die Spur gefunden!'));
+    case 'tracks': return tracksGame({ count: 5, title: step.title || 'Hufspuren', runner: step.runner, pron: step.pron, icon: step.icon, print: step.print }, (e) => afterGame(e, step.after || 'Ihr habt die Spur gefunden!'));
     case 'riddles': return riddleGame({ count: 5 }, (e) => afterGame(e, 'Ella staunt: Ihr seid so schlau!'));
     case 'bridge': return syllableBridge({ count: 5 }, (e) => afterGame(e, 'Die Brücke ist fertig!'));
     case 'chapterEnd': return chapterEnd(() => {
