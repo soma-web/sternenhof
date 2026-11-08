@@ -136,7 +136,7 @@ Zur Entspannung zwischen den Lernaufgaben:
 - 🏠 **Stall:**
   - Das Pferd antippen, dann sagt es etwas
   - ⛶ oben links öffnet den Stall im **Vollbild** (auf dem Handy am besten quer halten)
-  - ✏️ **Einrichten:** Alle Sachen und das Pferd lassen sich frei verschieben. In der Nähe von Regalbrett, Haken oder Sattelhalter rasten sie ein. „Wie am Anfang“ stellt alles zurück
+  - ✏️ **Einrichten:** Alle Sachen und das Pferd lassen sich frei verschieben. In der Nähe von Regalbrett, Haken oder Sattelhalter rasten sie ein. Mit ✕ kommt ein Gegenstand ins **📦 Lager**, Antippen im Lager holt ihn kostenlos zurück. Das Pferd bleibt immer im Stall. „Wie am Anfang“ stellt alles zurück und holt alles aus dem Lager
   - Sattel, Trense, Putzkorb und Eimer sind von Anfang an da
 
 ---

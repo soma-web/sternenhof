@@ -10,7 +10,7 @@ import { readingGame } from './reading.js';
 import { tracksGame, riddleGame, syllableBridge } from './adventure.js';
 import { boardsGame, sortGame } from './tournament.js';
 import { spellGame } from './spelling.js';
-import { stableHTML, enableEditing, resetStall, stableHorse, svgAlma, svgAlmaKorb } from './stable.js';
+import { stableHTML, enableEditing, resetStall, stableHorse, svgAlma, svgAlmaKorb, storedItems, unstoreItem, itemIcon, itemLabel } from './stable.js';
 import { VERSION } from './version.js';
 
 export const SHOP = [
@@ -112,13 +112,16 @@ function stableFull() {
   const scr = mount(`
     <div class="stall-full">
       <div class="stall-full-inner">${stableHTML()}</div>
+      <div class="stall-side">
       <div class="stall-bar">
         <button class="btn btn-small stall-back">✕ Zurück</button>
         <button class="btn btn-small stall-edit">✏️ Einrichten</button>
         <button class="btn btn-small stall-reset hidden">↺ Wie am Anfang</button>
       </div>
-      <p class="stall-hint hidden">${T('Zieh die Sachen dorthin, wo du sie haben willst!', { speak: false, syllables: false })}</p>
+      <p class="stall-hint hidden">${T('Zieh die Sachen dorthin, wo du sie haben willst! Mit ✕ kommt etwas ins Lager.', { speak: false, syllables: false })}</p>
+      <div class="lager hidden"></div>
       <p class="turn-hint">📱↻ ${T('Dreh dein Handy für ein großes Bild!', { speak: false, syllables: false })}</p>
+      </div>
     </div>`, 'stall-full-screen');
   try { document.documentElement.requestFullscreen?.().catch(() => {}); } catch (e) { /* nicht überall erlaubt */ }
 
@@ -126,7 +129,24 @@ function stableFull() {
     $('.stall-full-inner', scr).innerHTML = stableHTML();
     const stage = $('.stable-stage', scr);
     stage.classList.toggle('editing', editing);
-    if (editing) enableEditing(stage); else bindHorseTalk(stage);
+    if (editing) enableEditing(stage, { onStore: () => draw() }); else bindHorseTalk(stage);
+    drawLager();
+  };
+  // Lager: weggeräumte Sachen, Antippen holt sie kostenlos zurück
+  const drawLager = () => {
+    const box = $('.lager', scr);
+    const list = storedItems();
+    box.classList.toggle('hidden', !editing);
+    if (!editing) { box.innerHTML = ''; return; }
+    box.innerHTML = `<div class="lager-title">📦 ${T('Im Lager', { speak: false, syllables: false })}</div>`
+      + (list.length
+        ? `<div class="lager-items">${list.map((id) => `<button class="lager-item" data-id="${id}" aria-label="${itemLabel(id)} zurückholen">${itemIcon(id)}<span class="lager-name">${itemLabel(id)}</span></button>`).join('')}</div>`
+        : `<p class="lager-empty">${T('Leer. Tipp auf ✕, um etwas wegzuräumen.', { speak: false, syllables: false })}</p>`);
+    $$('.lager-item', box).forEach((b) => b.addEventListener('click', () => {
+      sfx.pop();
+      unstoreItem(b.dataset.id);
+      draw();
+    }));
   };
   const leave = () => {
     try { if (document.fullscreenElement) document.exitFullscreen?.(); } catch (e) { /* egal */ }

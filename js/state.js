@@ -25,7 +25,7 @@ export const defaultState = () => ({
   spellMiss: 0,
   settings: { syllables: true, speech: true, sound: true },
   owned: [],
-  stall: { pos: {} }, // Platz der Dinge im Stall
+  stall: { pos: {}, hidden: [] }, // Platz der Dinge im Stall, hidden = im Lager
   stats: { mathRight: 0, mathTotal: 0, readRight: 0, readTotal: 0, spellRight: 0, spellTotal: 0 },
 });
 

@@ -688,3 +688,33 @@ svg.horse.happy { animation: hop .5s ease-out; }
 .showcase .dog svg, .showcase .dog-solo svg, .showcase .star-shoe svg { width: 100%; height: auto; display: block; }
 .showcase.alma-duo .dog { width: 42%; max-width: 260px; }
 .showcase.duo .luna.half + .dog { margin-left: -2%; }
+
+/* ---------- Lager ---------- */
+.st-del {
+  position: absolute; top: -10px; right: -10px; width: 26px; height: 26px; border-radius: 50%; border: 2px solid #fff;
+  background: #E8605A; color: #fff; font-size: .85rem; font-weight: 700; line-height: 1; padding: 0; cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .3); z-index: 2; pointer-events: auto;
+}
+.st-item.storing { transition: transform .2s, opacity .2s; transform: translate(-50%, -100%) scale(.3); opacity: 0; }
+.lager { width: min(100%, 900px); background: #F6E7CF; border-radius: 18px; padding: 8px 10px; box-shadow: 0 4px 0 rgba(0, 0, 0, .2); }
+.lager-title { font-weight: 700; margin-bottom: 6px; }
+.lager-items { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.lager-item {
+  flex: 0 0 auto; width: 78px; border: none; border-radius: 14px; background: #fff; padding: 6px 4px; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 2px; box-shadow: 0 3px 0 rgba(0, 0, 0, .12); font-family: inherit;
+}
+.lager-emoji { font-size: 1.9rem; line-height: 1.1; }
+.lager-svg { display: block; width: 56px; height: 34px; }
+.lager-svg svg, .lager-svg .st-frame { width: 100%; height: 100%; }
+.lager-svg .st-plate { font-size: .7rem; }
+.lager-name { font-size: .75rem; font-weight: 700; color: var(--ink); text-align: center; line-height: 1.1; }
+.lager-empty { margin: 0; color: var(--ink-soft); font-size: .95rem; }
+.stall-side { display: flex; flex-direction: column; align-items: center; gap: 10px; width: min(100%, 900px); }
+.stall-side .lager { width: 100%; }
+@media (orientation: landscape) and (max-height: 500px) {
+  .stall-full { flex-wrap: nowrap; }
+  .stall-side { width: 150px; max-height: calc(100dvh - 20px); overflow-y: auto; }
+  .lager-items { flex-wrap: wrap; overflow-x: visible; }
+  .lager-item { width: 56px; }
+  .lager-name { display: none; }
+}

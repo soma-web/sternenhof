@@ -129,7 +129,29 @@ export const ITEMS = {
 const HORSE = { w: 190, x: 214, y: 294 };
 
 const has = (id) => ITEMS[id].free || S.owned.includes(id);
-export const placedItems = () => Object.keys(ITEMS).filter(has);
+const isStored = (id) => (S.stall.hidden || []).includes(id) && id !== 'pferd';
+/** Im Stall sichtbar: gekauft (oder frei) und nicht im Lager */
+export const placedItems = () => Object.keys(ITEMS).filter((id) => has(id) && !isStored(id));
+/** Im Lager: gekauft, aber weggeräumt */
+export const storedItems = () => Object.keys(ITEMS).filter((id) => has(id) && isStored(id));
+
+/** Gegenstand wegräumen (bleibt gekauft) */
+export function storeItem(id) {
+  if (id === 'pferd' || !ITEMS[id]) return; // das Pferd bleibt immer im Stall
+  S.stall.hidden = [...new Set([...(S.stall.hidden || []), id])];
+  save();
+}
+/** Gegenstand aus dem Lager zurück in den Stall (kostenlos, alter Platz) */
+export function unstoreItem(id) {
+  S.stall.hidden = (S.stall.hidden || []).filter((x) => x !== id);
+  save();
+}
+/** Kleines Bild für die Lager-Leiste */
+export function itemIcon(id) {
+  const it = ITEMS[id];
+  return it.emoji ? `<span class="lager-emoji">${it.emoji}</span>` : `<span class="lager-svg">${it.html()}</span>`;
+}
+export const itemLabel = (id) => ITEMS[id].label;
 
 function posOf(id) {
   const p = S.stall?.pos?.[id];
@@ -211,8 +233,25 @@ function snap(id, x, y) {
 }
 
 /** Macht die Gegenstände in einer Bühne verschiebbar. */
-export function enableEditing(stage, { onMove } = {}) {
+export function enableEditing(stage, { onMove, onStore } = {}) {
   let drag = null;
+  // ✕ zum Wegräumen an jedem Gegenstand (nicht am Pferd)
+  $$('.st-item', stage).forEach((el) => {
+    if (el.dataset.id === 'pferd') return;
+    const del = document.createElement('button');
+    del.className = 'st-del';
+    del.setAttribute('aria-label', 'Wegräumen');
+    del.textContent = '✕';
+    del.addEventListener('pointerdown', (e) => { e.stopPropagation(); });
+    del.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sfx.pop();
+      storeItem(el.dataset.id);
+      el.classList.add('storing');
+      setTimeout(() => onStore?.(el.dataset.id), 220);
+    });
+    el.appendChild(del);
+  });
   const rectOf = () => stage.getBoundingClientRect();
   const toUnits = (e) => {
     const r = rectOf();
@@ -261,6 +300,7 @@ export function enableEditing(stage, { onMove } = {}) {
 
 export function resetStall() {
   S.stall.pos = {};
+  S.stall.hidden = [];
   save();
 }
 
