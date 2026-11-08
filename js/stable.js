@@ -31,6 +31,61 @@ const svgLichter = () => {
   }
   return `<svg viewBox="0 0 360 34"><path d="M0 8 Q180 40 360 8" stroke="#3C6B3C" stroke-width="2" fill="none"/>${b}</svg>`;
 };
+// ---------- Alma, der Familienhund ----------
+// Weiß und schlank, dunkel gestromter Kopf mit weißer Blesse, Knickohren, ein paar Tupfen, Ringelschwanz.
+const A_WHITE = '#FBF8F3';
+const A_LINE = 'rgba(60,40,30,.22)';
+const A_HEAD = '#4E3A30';
+const A_BRINDLE = '#7A5C48';
+const almaHead = (sleepy = false) => `
+  <g>
+    <path d="M86 19 Q84 9 90 8 Q93 10 92 19 Z" fill="#3A2B24"/>
+    <ellipse cx="96" cy="26" rx="13" ry="11" fill="${A_HEAD}"/>
+    <path d="M88 23 q4 -3 8 -1 M89 30 q4 -2 7 0" stroke="${A_BRINDLE}" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    <path d="M98 14 Q106 13 111 21 L112 28 Q105 21 98 19 Z" fill="${A_WHITE}"/>
+    <path d="M104 24 Q112 25 117 30 Q119 37 110 38 Q101 38 99 32 Z" fill="${A_WHITE}" stroke="${A_LINE}" stroke-width="1"/>
+    <ellipse cx="116.5" cy="31" rx="3.2" ry="2.6" fill="#1E1714"/>
+    <path d="M108 37 q3 1.6 6 0" stroke="#1E1714" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+    ${sleepy
+      ? '<path d="M99 26 q2.5 2 5 0" stroke="#1E1714" stroke-width="1.6" fill="none" stroke-linecap="round"/>'
+      : '<circle cx="101" cy="25" r="2.7" fill="#6B4426"/><circle cx="101" cy="25" r="1.5" fill="#1E1714"/><circle cx="101.8" cy="24.1" r=".7" fill="#fff"/>'}
+    <path d="M92 18 Q93 7 101 7 Q107 8 106 14 Q104 18 100 22 Q98 17 92 18 Z" fill="${A_HEAD}" stroke="${A_LINE}" stroke-width=".7"/>
+    <path d="M101 8 Q106 9 105.5 14" stroke="#2E221D" stroke-width="1.2" fill="none" stroke-linecap="round" opacity=".6"/>
+  </g>`;
+
+export const svgAlma = `<svg viewBox="0 0 124 80">
+  <ellipse cx="62" cy="76" rx="44" ry="3.5" fill="rgba(0,0,0,.12)"/>
+  <path d="M28 40 C14 38 10 24 18 20 C25 17 27 26 21 28" stroke="${A_LINE}" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <path d="M28 40 C14 38 10 24 18 20 C25 17 27 26 21 28" stroke="${A_WHITE}" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M32 46 L30 72 h6 L39 48 Z M73 46 L72 72 h6 L79 48 Z" fill="#ECE5DA"/>
+  <path d="M27 44 Q30 31 52 31 Q72 30 82 36 Q90 42 84 52 Q72 58 52 56 Q32 56 27 44 Z" fill="${A_WHITE}" stroke="${A_LINE}" stroke-width="1"/>
+  <path d="M76 40 Q86 34 90 24 L101 31 Q95 43 84 51 Z" fill="${A_WHITE}"/>
+  <path d="M39 50 L38 73 h6.5 L46 52 Z M80 48 L80 73 h6.5 L86 49 Z" fill="${A_WHITE}" stroke="${A_LINE}" stroke-width=".8"/>
+  <g fill="#3A2C26"><circle cx="45" cy="35" r="2.2"/><circle cx="56" cy="33.5" r="1.5"/><circle cx="64" cy="35.5" r="2.6"/><circle cx="37" cy="39" r="1.3"/><circle cx="71" cy="40" r="1.2"/></g>
+  <g fill="#E8E1D6"><ellipse cx="33" cy="73" rx="5" ry="2.4"/><ellipse cx="41.5" cy="74" rx="5" ry="2.4"/><ellipse cx="75" cy="73" rx="5" ry="2.4"/><ellipse cx="83.5" cy="74" rx="5" ry="2.4"/></g>
+  ${almaHead()}
+</svg>`;
+
+export const svgAlmaKorb = (() => {
+  let weave = '';
+  for (let x = 18; x <= 104; x += 7) weave += `<path d="M${x} ${62 + Math.abs(x - 61) * -0.12 + 6} q2 6 0 11" stroke="#7E4E26" stroke-width="1.3" fill="none" opacity=".55"/>`;
+  return `<svg viewBox="0 0 124 80">
+  <ellipse cx="62" cy="76" rx="58" ry="4" fill="rgba(0,0,0,.12)"/>
+  <ellipse cx="62" cy="52" rx="57" ry="20" fill="#9A6634"/>
+  <ellipse cx="62" cy="48" rx="50" ry="15" fill="#BFC8D2"/>
+  <path d="M26 46 Q40 28 66 31 Q96 31 107 46 Q90 54 62 54 Q38 54 26 46 Z" fill="#1FA9C8"/>
+  <path d="M36 40 l58 2 M30 45 l74 2 M42 35 l44 0" stroke="#E9FBFF" stroke-width="2.2" stroke-linecap="round" opacity=".9"/>
+  <ellipse cx="74" cy="41" rx="27" ry="12" fill="${A_WHITE}" stroke="${A_LINE}" stroke-width="1"/>
+  <g fill="#3A2C26"><circle cx="72" cy="32.5" r="1.8"/><circle cx="84" cy="35" r="1.3"/><circle cx="90" cy="39" r="1.1"/></g>
+  <path d="M98 45 C94 53 72 55 54 51" stroke="${A_LINE}" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M98 45 C94 53 72 55 54 51" stroke="${A_WHITE}" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <g transform="translate(-60 16)">${almaHead(true)}</g>
+  <path d="M7 55 Q62 86 117 55 L115 63 Q62 92 9 63 Z" fill="#A87140"/>
+  <path d="M7 55 Q62 86 117 55" stroke="#8A5A2C" stroke-width="5" fill="none" stroke-linecap="round"/>
+  ${weave}
+</svg>`;
+})();
+
 const frame = (inner, bg = '#BDE8FF') => `<div class="st-frame" style="background:${bg}">${inner}</div>`;
 
 /**
@@ -56,6 +111,8 @@ export const ITEMS = {
   glocke:    { label: 'Glocke', emoji: '🔔', w: 22, x: HOOKS[2][0], y: HOOKS[2][1] + 26, drop: 26, snap: 'hook' },
   foto:      { label: 'Foto', w: 44, x: 262, y: 118, snap: 'wall', html: () => frame(myHorse(S, { cls: '' })) },
   kissen:    { label: 'Herzkissen', emoji: '💖', w: 24, x: 76, y: 84, snap: 'shelf' },
+  alma:      { label: 'Alma', w: 84, x: 96, y: 297, snap: 'floor', html: () => svgAlma },
+  almakorb:  { label: 'Alma im Körbchen', w: 104, x: 322, y: 299, snap: 'floor', html: () => svgAlmaKorb },
 };
 const HORSE = { w: 190, x: 214, y: 294 };
 

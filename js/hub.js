@@ -10,7 +10,7 @@ import { readingGame } from './reading.js';
 import { tracksGame, riddleGame, syllableBridge } from './adventure.js';
 import { boardsGame, sortGame } from './tournament.js';
 import { spellGame } from './spelling.js';
-import { stableHTML, enableEditing, resetStall, stableHorse } from './stable.js';
+import { stableHTML, enableEditing, resetStall, stableHorse, svgAlma, svgAlmaKorb } from './stable.js';
 import { VERSION } from './version.js';
 
 export const SHOP = [
@@ -29,6 +29,8 @@ export const SHOP = [
   { id: 'kissen', name: 'Herzkissen', emoji: '💖', price: 7, note: 'fürs Regal' },
   { id: 'halfter', name: 'Halfter', emoji: '🪢', price: 8, note: 'für einen Haken' },
   { id: 'foto', name: 'Foto', emoji: '🖼️', price: 12, note: 'ein Bild von deinem Pferd' },
+  { id: 'alma', name: 'Alma', svg: () => svgAlma, price: 18, note: 'unser Hund' },
+  { id: 'almakorb', name: 'Alma im Körbchen', svg: () => svgAlmaKorb, price: 20, note: 'Alma macht ein Nickerchen' },
 ];
 
 const HORSE_TALK = [
@@ -151,7 +153,7 @@ function shop() {
     <div class="shop-grid">${SHOP.map((it) => {
       const owned = S.owned.includes(it.id);
       return `<button class="shop-item ${owned ? 'owned' : ''}" data-id="${it.id}">
-        <span class="shop-emoji">${it.emoji}</span>
+        ${it.svg ? `<span class="shop-svg">${it.svg()}</span>` : `<span class="shop-emoji">${it.emoji}</span>`}
         <span class="shop-name">${T(it.name, { speak: false })}</span>
         <span class="shop-price">${owned ? '✔' : `${shoeIcon(20)} ${it.price}`}</span>
       </button>`;

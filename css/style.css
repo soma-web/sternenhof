@@ -680,3 +680,4 @@ svg.horse.happy { animation: hop .5s ease-out; }
 .key.shift.on { background: #FFE0EC; box-shadow: 0 3px 0 var(--pink-d); }
 .key.ok { background: var(--ok); color: #fff; box-shadow: 0 3px 0 var(--ok-d); grid-column: span 4; }
 @media (min-width: 700px) { .key { height: 58px; font-size: 1.6rem; } .tile { width: 70px; height: 74px; } }
+.shop-svg { display: block; width: 64px; height: 44px; } .shop-svg svg { width: 100%; height: 100%; }

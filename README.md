@@ -149,7 +149,7 @@ Für richtige Antworten gibt es **Hufeisen**: 2 beim ersten Versuch, sonst 1. Da
 
 Mit den Hufeisen kann man:
 
-- im **Laden** Dinge für den Stall kaufen (Heuballen, Lichterkette, Stallkatze, Pokal, Glocke und Halfter für die Haken, Herzkissen fürs Regal, ein Foto vom eigenen Pferd und mehr)
+- im **Laden** Dinge für den Stall kaufen (Heuballen, Lichterkette, Stallkatze, Pokal, Glocke und Halfter für die Haken, Herzkissen fürs Regal, ein Foto vom eigenen Pferd, unseren Hund Alma stehend oder im Körbchen und mehr)
 - beim **Schmücken** Formen, Farben und Muster freischalten
 
 Farben und Muster werden **einmal** gekauft und gelten dann überall (Gamaschen, Decke, Hut, Schmuck). Rosa, Blau, Weiß und „einfarbig“ sind von Anfang an frei.
