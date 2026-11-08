@@ -42,7 +42,6 @@ const almaHead = (sleepy = false) => `
     <path d="M86 19 Q84 9 90 8 Q93 10 92 19 Z" fill="#3A2B24"/>
     <ellipse cx="96" cy="26" rx="13" ry="11" fill="${A_HEAD}"/>
     <path d="M88 23 q4 -3 8 -1 M89 30 q4 -2 7 0" stroke="${A_BRINDLE}" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-    <path d="M98 14 Q106 13 111 21 L112 28 Q105 21 98 19 Z" fill="${A_WHITE}"/>
     <path d="M104 24 Q112 25 117 30 Q119 37 110 38 Q101 38 99 32 Z" fill="${A_WHITE}" stroke="${A_LINE}" stroke-width="1"/>
     <ellipse cx="116.5" cy="31" rx="3.2" ry="2.6" fill="#1E1714"/>
     <path d="M108 37 q3 1.6 6 0" stroke="#1E1714" stroke-width="1.1" fill="none" stroke-linecap="round"/>
@@ -61,6 +60,7 @@ export const svgAlma = `<svg viewBox="0 0 124 80">
   <path d="M27 44 Q30 31 52 31 Q72 30 82 36 Q90 42 84 52 Q72 58 52 56 Q32 56 27 44 Z" fill="${A_WHITE}" stroke="${A_LINE}" stroke-width="1"/>
   <path d="M76 40 Q86 34 90 24 L101 31 Q95 43 84 51 Z" fill="${A_WHITE}"/>
   <path d="M39 50 L38 73 h6.5 L46 52 Z M80 48 L80 73 h6.5 L86 49 Z" fill="${A_WHITE}" stroke="${A_LINE}" stroke-width=".8"/>
+  <ellipse cx="35" cy="39.5" rx="6.5" ry="5" fill="#2A201C" transform="rotate(-15 35 39.5)"/>
   <g fill="#3A2C26"><circle cx="45" cy="35" r="2.2"/><circle cx="56" cy="33.5" r="1.5"/><circle cx="64" cy="35.5" r="2.6"/><circle cx="37" cy="39" r="1.3"/><circle cx="71" cy="40" r="1.2"/></g>
   <g fill="#E8E1D6"><ellipse cx="33" cy="73" rx="5" ry="2.4"/><ellipse cx="41.5" cy="74" rx="5" ry="2.4"/><ellipse cx="75" cy="73" rx="5" ry="2.4"/><ellipse cx="83.5" cy="74" rx="5" ry="2.4"/></g>
   ${almaHead()}
@@ -76,6 +76,7 @@ export const svgAlmaKorb = (() => {
   <path d="M26 46 Q40 28 66 31 Q96 31 107 46 Q90 54 62 54 Q38 54 26 46 Z" fill="#1FA9C8"/>
   <path d="M36 40 l58 2 M30 45 l74 2 M42 35 l44 0" stroke="#E9FBFF" stroke-width="2.2" stroke-linecap="round" opacity=".9"/>
   <ellipse cx="74" cy="41" rx="27" ry="12" fill="${A_WHITE}" stroke="${A_LINE}" stroke-width="1"/>
+  <ellipse cx="96" cy="40" rx="6" ry="4.6" fill="#2A201C" transform="rotate(25 96 40)"/>
   <g fill="#3A2C26"><circle cx="72" cy="32.5" r="1.8"/><circle cx="84" cy="35" r="1.3"/><circle cx="90" cy="39" r="1.1"/></g>
   <path d="M98 45 C94 53 72 55 54 51" stroke="${A_LINE}" stroke-width="7" fill="none" stroke-linecap="round"/>
   <path d="M98 45 C94 53 72 55 54 51" stroke="${A_WHITE}" stroke-width="5" fill="none" stroke-linecap="round"/>
