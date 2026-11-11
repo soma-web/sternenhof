@@ -48,8 +48,8 @@ Funke, das kleine Fohlen vom Sternenhof, ist verschwunden. Zusammen mit dem eige
 | 3 | **Die alte Mühle** 🏚️ | Über den Fluss, Emma aus der Mühle treffen, Funke finden und das große Hoffest |
 | 4 | **Das Gewitter** ⛈️ | Ein Plakat für das Sternenturnier, Training mit Emma und Luna, ein Gewitter in der Nacht, ein kaputter Zaun und Emmas nasses Schulheft |
 | 5 | **Das Sternenturnier** 🏆 | Startnummern, Schönheitspreis, Springen – und Emma braucht Hilfe am Wassergraben |
-| 7 | **Das Einhorn-Fest** 🦄 | Eine Einladung zum Einhorn-Fest, Omas Bastelbuch voller Hundertertafel-Rätsel, ein selbstgebasteltes Horn und eine Glitzer-Parade |
 | 6 | **Die Schatzkarte** 🗺️ | Alma kommt zu Besuch und buddelt eine Schatzkarte von Oma Frieda aus. Die Suche führt zum Sternen-Hufeisen |
+| 7 | **Das Einhorn-Fest** 🦄 | Eine Einladung zum Einhorn-Fest, Omas Bastelbuch voller Hundertertafel-Rätsel, ein selbstgebasteltes Horn und eine Glitzer-Parade |
 
 **Entscheidungen:** An mehreren Stellen darf das Kind wählen, zum Beispiel:
 
