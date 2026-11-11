@@ -28,6 +28,9 @@ const GAMES = {
   boards: '🪵 Rechenspiel: Bretter zählen (Zehner und Einer).',
   sortNums: '🏁 Rechenspiel: Startnummern der Größe nach ordnen.',
   spell: '✏️ Schreibspiel: Wörter mit x richtig schreiben.',
+  hFill: '🔢 Hundertertafel: Zahlen nach Aufträgen eintragen (Zeile, Spalte, Einer, Zahlwörter, zwischen …).',
+  hWrite: '🔢 Hundertertafel: Die Zahlen einer Zeile oder Spalte aufschreiben.',
+  hHidden: (s) => (s.picture === 'einhorn' ? '🦄 Hundertertafel: Verdeckte Zahlen – darunter erscheint ein Einhorn.' : '⭐ Hundertertafel: Verdeckte Zahlen unter Sternen, Herzen und Punkten.'),
 };
 
 const fmt = (t = '') => t
@@ -71,7 +74,7 @@ for (const ch of CHAPTERS) {
         md += `🔀 **Entscheidung:** ${fmt(st.text)}\n\n${st.options.map((o) => `- ${o.emoji} ${fmt(o.label)}`).join('\n')}\n\n`;
         break;
       case 'gift':
-        md += `${cond}🎁 **${WHO[st.who] || 'Geschenk'}:** „${fmt(st.text)}“ *[${st.amount} Hufeisen${st.item === 'pokal' ? ' und der Herz-Pokal für den Stall' : ''}, nur beim ersten Mal]*\n\n`;
+        md += `${cond}🎁 **${WHO[st.who] || 'Geschenk'}:** „${fmt(st.text)}“ *[${[st.amount ? `${st.amount} Hufeisen` : '', st.item === 'pokal' ? 'der Herz-Pokal für den Stall' : '', st.item === 'sternhufeisen' ? 'das Sternen-Hufeisen für den Stall' : '', st.style?.horn ? 'das Einhorn-Horn zum Schmücken' : ''].filter(Boolean).join(' und ')}, nur beim ersten Mal]*\n\n`;
         break;
       case 'chapterEnd':
         md += `\n**Ende von Kapitel ${ch.nr}.** ${fmt(ch.end)} *[+10 Hufeisen beim ersten Mal]*\n\n`;

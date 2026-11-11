@@ -15,14 +15,14 @@ function bundle() {
 }
 
 function boardTask() {
-  const max = lvl() <= 1 ? 29 : 50;
+  const max = lvl() <= 1 ? 29 : lvl() <= 3 ? 59 : 99;
   const min = lvl() <= 1 ? 11 : 12;
   let n;
   do { n = rand(min, max); } while (n % 10 === 0 && Math.random() < 0.7);
   const t = Math.floor(n / 10);
   const e = n % 10;
   const wrong = new Set();
-  if (e > 0 && e * 10 + t <= 50 && e * 10 + t !== n) wrong.add(e * 10 + t);  // Zahlendreher
+  if (e > 0 && e * 10 + t <= 99 && e * 10 + t !== n) wrong.add(e * 10 + t);  // Zahlendreher
   wrong.add(n + 10 <= 59 ? n + 10 : n - 10);
   wrong.add(e === 9 ? n - 1 : n + 1);
   const opts = shuffle([n, ...shuffle([...wrong].filter((x) => x !== n && x > 0)).slice(0, 2)]);
@@ -87,7 +87,7 @@ export function boardsGame({ count = 5, title = 'Zaun reparieren' } = {}, onDone
 function sortTask() {
   const l = lvl();
   const size = l <= 1 ? 3 : l <= 3 ? 4 : 5;
-  const max = l <= 1 ? 20 : 50;
+  const max = l <= 1 ? 20 : l <= 3 ? 50 : 100;
   const nums = new Set();
   if (l >= 4) {
     // nah beieinander, damit man genau schauen muss

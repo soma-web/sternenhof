@@ -10,6 +10,7 @@ import { readingGame } from './reading.js';
 import { tracksGame, riddleGame, syllableBridge } from './adventure.js';
 import { boardsGame, sortGame } from './tournament.js';
 import { spellGame } from './spelling.js';
+import { hundredMixed } from './hundred.js';
 import { stableHTML, enableEditing, resetStall, stableHorse, svgAlma, svgAlmaKorb, storedItems, unstoreItem, itemIcon, itemLabel } from './stable.js';
 import { VERSION } from './version.js';
 
@@ -60,6 +61,7 @@ export function hub() {
       <button class="menu-btn" data-go="tracks"><span class="mi">🐾</span><span>${T('Hufspuren', { speak: false })}</span></button>
       <button class="menu-btn" data-go="bridge"><span class="mi">🌉</span><span>${T('Silben-Brücke', { speak: false })}</span></button>
       <button class="menu-btn" data-go="spell"><span class="mi">✏️</span><span>${T('Schreiben', { speak: false })}</span></button>
+      <button class="menu-btn" data-go="hundred"><span class="mi">🔢</span><span>${T('Hundertertafel', { speak: false })}</span></button>
       <button class="menu-btn" data-go="boards"><span class="mi">🪵</span><span>${T('Bretter zählen', { speak: false })}</span></button>
       <button class="menu-btn" data-go="sort"><span class="mi">🏁</span><span>${T('Zahlen ordnen', { speak: false })}</span></button>
       <button class="menu-btn" data-go="shop"><span class="mi">🛍️</span><span>${T('Laden', { speak: false })}</span></button>
@@ -80,6 +82,7 @@ export function hub() {
     tracks: () => tracksGame({ count: 5, title: 'Hufspuren' }, done),
     bridge: () => syllableBridge({ count: 5, title: 'Silben-Brücke' }, done),
     spell: () => spellGame({ count: 5, title: 'Schreib-Werkstatt' }, done),
+    hundred: () => hundredMixed(done),
     boards: () => boardsGame({ count: 5, title: 'Bretter zählen' }, done),
     sort: () => sortGame({ count: 5, title: 'Zahlen ordnen' }, done),
     shop: () => shop(),
@@ -226,7 +229,7 @@ function pct(a, b) { return b ? `${Math.round((a / b) * 100)} %` : '–'; }
 
 function parents() {
   const st = S.stats;
-  const LEVELS = ['bis 20', 'Zehner', 'ZE + E', 'Übergang', 'Zweistellig'];
+  const LEVELS = ['bis 20', 'Zehner bis 100', 'ZE + E', 'Übergang', 'Zweistellig bis 100'];
   const SPELL_LEVELS = ['Ein Buchstabe fehlt', 'Zwei Lücken', 'Buchstaben legen', 'Mit falschen Buchstaben', 'Ganz alleine schreiben'];
   const scr = mount(`
     ${topbar({ title: 'Eltern' })}

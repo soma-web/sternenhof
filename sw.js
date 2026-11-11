@@ -1,10 +1,10 @@
 // Service Worker: Netzwerk zuerst, Cache als Offline-Rückfall.
-const CACHE = 'sternenhof-v9';
+const CACHE = 'sternenhof-v10';
 const CORE = [
   './', 'index.html', 'manifest.webmanifest', 'icons/icon.svg', 'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png', 'css/style.css',
   'js/main.js', 'js/state.js', 'js/ui.js', 'js/audio.js', 'js/syllables.js', 'js/horse.js',
   'js/scenes.js', 'js/care.js', 'js/math.js', 'js/reading.js', 'js/story.js', 'js/hub.js',
-  'js/chapters.js', 'js/adventure.js', 'js/dressup.js', 'js/looks.js', 'js/tournament.js', 'js/stable.js', 'js/version.js', 'js/spelling.js',
+  'js/chapters.js', 'js/adventure.js', 'js/dressup.js', 'js/looks.js', 'js/tournament.js', 'js/stable.js', 'js/version.js', 'js/spelling.js', 'js/hundred.js',
 ];
 
 self.addEventListener('install', (e) => {

@@ -14,6 +14,7 @@ Die Spiele zwischendurch stehen kursiv in eckigen Klammern.
 4. ⛈️ Kapitel 4: Das Gewitter
 5. 🏆 Kapitel 5: Das Sternenturnier
 6. 🗺️ Kapitel 6: Die Schatzkarte
+7. 🦄 Kapitel 7: Das Einhorn-Fest
 
 ---
 
@@ -560,7 +561,7 @@ Im Kästchen liegt ein goldenes Hufeisen. In der Mitte ist ein **Stern**. Es gli
 
 ↳ *Wenn gewählt: „Wo soll das Sternen-Hufeisen hängen? → Dort, wo alle es sehen“* — Ihr hängt das Sternen-Hufeisen in den Stall, gleich neben die Tür. So sieht es jeder, der vorbeikommt.
 
-🎁 **Tante Rosi:** „Und für die tollen Schatzsucher gibt es 25 Hufeisen. Alma bekommt einen Knochen!“ *[25 Hufeisen, nur beim ersten Mal]*
+🎁 **Tante Rosi:** „Und für die tollen Schatzsucher gibt es 25 Hufeisen. Alma bekommt einen Knochen!“ *[25 Hufeisen und das Sternen-Hufeisen für den Stall, nur beim ersten Mal]*
 
 ### 🌙 Gute Nacht, Alma
 
@@ -572,5 +573,102 @@ Alma ist ganz müde. Sie rollt sich in ihrem Körbchen zusammen und schnarcht le
 
 Gute Nacht, [Name]. Gute Nacht, [Pferd]. Gute Nacht, Alma!
 
-**Ende von Kapitel 6.** Was für ein Schatz! Neue Abenteuer kommen bald. *[+10 Hufeisen beim ersten Mal]*
+**Ende von Kapitel 6.** Was für ein Schatz! Bald gibt es ein Fest mit Einhörnern. *[+10 Hufeisen beim ersten Mal]*
+
+---
+
+## 🦄 Kapitel 7: Das Einhorn-Fest
+
+### 💌 Die Einladung
+
+Es ist ein sonniger Morgen. Emma kommt angerannt und winkt mit einem Brief.
+
+**Emma:** „Schau mal, [Name]! Eine Einladung!“
+
+✉️ *Auf dem Zettel steht:*
+
+> Einladung zum Einhorn-Fest! Am Sonntag auf der großen Wiese. Alle Pferde kommen als Einhorn verkleidet. Es gibt Musik, Kuchen und eine Glitzer-Parade!
+
+**Emma:** „Luna und Funke kommen auch. Und [Pferd] natürlich!“
+
+Du schaust [Pferd] an. Oh nein! [Pferd] hat ja gar kein Horn!
+
+**Tante Rosi:** „Keine Sorge! Meine Oma Frieda hatte ein Bastelbuch. Da steht bestimmt drin, wie man ein Horn bastelt.“
+
+↳ *Wenn gewählt: „Was sagst du zu Ella? → Willst du mitkommen?“ (Kapitel 2)* — **Ella, die Eule:** „Huhu! Ein Einhorn-Fest? Dann bastle ich mir eine Glitzer-Feder!“
+
+### 📒 Omas Bastelbuch
+
+**Tante Rosi:** „Hier ist das Bastelbuch. Oh je, die Seite ist ganz verblasst. Nur eine **Hundertertafel** ist noch zu sehen.“
+
+**Tante Rosi:** „Oma hat immer Rätsel mit der Hundertertafel gemacht. Lies die Aufträge und trag die Zahlen wieder ein!“
+
+Tipp: Am Rand stehen Hilfszahlen. Oben steht die Spalte, links stehen die Zehner.
+
+*[🔢 Hundertertafel: Zahlen nach Aufträgen eintragen (Zeile, Spalte, Einer, Zahlwörter, zwischen …).]*
+
+**Tante Rosi:** „Super! Unten auf der Seite steht noch: Schreibe die Zahlen auf.“
+
+*[🔢 Hundertertafel: Die Zahlen einer Zeile oder Spalte aufschreiben.]*
+
+### 🦄 Das verdeckte Einhorn
+
+**Tante Rosi:** „Auf der nächsten Seite kleben bunte Sticker. Welche Zahlen sind darunter versteckt?“
+
+*[⭐ Hundertertafel: Verdeckte Zahlen unter Sternen, Herzen und Punkten.]*
+
+**Tante Rosi:** „Und hier ist die letzte Seite. Ein Horn, eine Mähne und ein Auge sind verdeckt.“
+
+*[🦄 Hundertertafel: Verdeckte Zahlen – darunter erscheint ein Einhorn.]*
+
+**Tante Rosi:** „Schau! Die Kästchen ergeben ein Einhorn. Und am Horn sieht man genau, wie man es bastelt. Spitz und schräg!“
+
+### ✂️ Wir basteln ein Horn
+
+**Tante Rosi:** „Wir brauchen Pappe, Kleber und ein Gummiband. Das Gummiband hält das Horn gut fest.“
+
+🔀 **Entscheidung:** Welche Farbe soll das Horn haben?
+
+- ✨ Glänzendes Gold
+- 🌈 Bunter Regenbogen
+- 💗 Rosa mit Glitzer
+
+↳ *Wenn gewählt: „Welche Farbe soll das Horn haben? → Glänzendes Gold“* — 🎁 **Tante Rosi:** „Fertig! Ein goldenes Horn. Setz es [Pferd] auf!“ *[das Einhorn-Horn zum Schmücken, nur beim ersten Mal]*
+
+↳ *Wenn gewählt: „Welche Farbe soll das Horn haben? → Bunter Regenbogen“* — 🎁 **Tante Rosi:** „Fertig! Ein Horn in allen Farben vom Regenbogen. Setz es [Pferd] auf!“ *[das Einhorn-Horn zum Schmücken, nur beim ersten Mal]*
+
+↳ *Wenn gewählt: „Welche Farbe soll das Horn haben? → Rosa mit Glitzer“* — 🎁 **Tante Rosi:** „Fertig! Ein rosa Horn mit Glitzer. Setz es [Pferd] auf!“ *[das Einhorn-Horn zum Schmücken, nur beim ersten Mal]*
+
+[Pferd] trägt jetzt ein Horn! [Pferd] wiehert ganz stolz.
+
+🎁 **Tante Rosi:** „Ein echtes Einhorn braucht noch mehr Zauber. Hier sind 40 Hufeisen. Probier die bunte Mähne und den Glitzer aus!“ *[40 Hufeisen, nur beim ersten Mal]*
+
+*[💎 Schmücken: Das Kind macht sein Pferd schön.]*
+
+### 🎉 Das Einhorn-Fest
+
+Auf der Wiese stehen lauter Einhörner! Überall glitzert und funkelt es.
+
+**Emma:** „Wow! [Pferd] ist das schönste Einhorn, das ich je gesehen habe! Und schau mal, Luna und Funke!“
+
+↳ *Wenn gewählt: „Was sagst du zu Ella? → Willst du mitkommen?“ (Kapitel 2)* — **Ella, die Eule:** „Huhu! Schaut mal, meine Glitzer-Feder! Bin ich jetzt eine Einhorn-Eule?“
+
+🔀 **Entscheidung:** Was macht ihr auf dem Fest?
+
+- 🌈 Bei der Glitzer-Parade mitreiten
+- 💃 Beim Einhorn-Tanz mitmachen
+
+↳ *Wenn gewählt: „Was macht ihr auf dem Fest? → Bei der Glitzer-Parade mitreiten“* — Die Parade geht los! Über bunte Stangen geht es durch die Wiese. Hopp, kleines Einhorn!
+
+↳ *Wenn gewählt: „Was macht ihr auf dem Fest? → Bei der Glitzer-Parade mitreiten“* — *[🏇 Rechenspiel: Glitzer-Parade – über Hindernisse springen.]*
+
+↳ *Wenn gewählt: „Was macht ihr auf dem Fest? → Beim Einhorn-Tanz mitmachen“* — **Emma:** „Zum Einhorn-Tanz stellen sich alle der Reihe nach auf. Wer hat welche Nummer?“
+
+↳ *Wenn gewählt: „Was macht ihr auf dem Fest? → Beim Einhorn-Tanz mitmachen“* — *[🏁 Rechenspiel: Startnummern der Größe nach ordnen.]*
+
+Danach gibt es Regenbogen-Kuchen. Alle lachen und tanzen, bis die Sterne leuchten.
+
+Gute Nacht, [Name]. Gute Nacht, kleines Einhorn [Pferd]!
+
+**Ende von Kapitel 7.** Was für ein zauberhaftes Fest! Neue Abenteuer kommen bald. *[+10 Hufeisen beim ersten Mal]*
 

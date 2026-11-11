@@ -4,7 +4,7 @@ import { sfx, speak } from './audio.js';
 import { myHorse, RIBBONS } from './horse.js';
 import {
   PALETTE, FREE_COLORS, COLOR_PRICE, PATTERNS, METALS, MANES, TAILS, JEWELS, HATS, WRAP_FORMS,
-  DEFAULT_LOOK, patternSwatch,
+  DEFAULT_LOOK, patternSwatch, HORNS, MANE_COLORS, GLITTER,
 } from './looks.js';
 import { mount, topbar, bindTopbar, T, $, $$, burstAt, shoeIcon, pick } from './ui.js';
 
@@ -50,6 +50,14 @@ const TABS = [
     colorRow('wrapColor', 'Farbe', (d) => d.wraps === 'an'),
     patternRow('wrapPattern', 'wrapColor', (d) => d.wraps === 'an'),
   ] },
+  { key: 'unicorn', label: 'Einhorn', icon: '🦄', rows: [
+    formRow('horn', 'Horn', HORNS),
+    colorRow('hornColor', 'Farbe', (d) => d.horn === 'horn'),
+    patternRow('hornPattern', 'hornColor', (d) => d.horn === 'horn'),
+    { field: 'maneColor', label: 'Mähne und Schweif', kind: 'color',
+      opts: MANE_COLORS.map((o) => ({ ...o, key: `maehne-${o.v}` })) },
+    formRow('glitter', 'Glitzer', GLITTER),
+  ] },
   { key: 'pad', label: 'Decke', icon: '🟦', rows: [
     colorRow('padColor', 'Farbe'),
     patternRow('padPattern', 'padColor'),
@@ -75,14 +83,14 @@ function lockedParts(draft) {
 }
 
 /** Schmücken. opts.story: in der Geschichte (mit "Fertig"-Text) */
-export function dressUp(onDone, { story = false } = {}) {
+export function dressUp(onDone, { story = false, tab: startTab = null, text = null } = {}) {
   S.horse.style = { ...DEFAULT_LOOK, ...(S.horse.style || {}) };
   const draft = { ...S.horse.style };
-  let tab = TABS[0].key;
+  let tab = startTab && TABS.some((x) => x.key === startTab) ? startTab : TABS[0].key;
 
   const scr = mount(`
     ${topbar({ title: 'Schmücken' })}
-    <p class="instr">${T(story ? 'Mach {horse} schön für das Fest!' : 'Mach {horse} ganz schön!')}</p>
+    <p class="instr">${T(text || (story ? 'Mach {horse} schön für das Fest!' : 'Mach {horse} ganz schön!'))}</p>
     <div class="stage dress-stage"><div class="dress-horse"></div><div class="talk"></div></div>
     <div class="buy-bar hidden"></div>
     <div class="dress-actions">

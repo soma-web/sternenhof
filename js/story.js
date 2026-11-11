@@ -11,6 +11,7 @@ import { tracksGame, riddleGame, syllableBridge } from './adventure.js';
 import { dressUp } from './dressup.js';
 import { boardsGame, sortGame } from './tournament.js';
 import { spellGame } from './spelling.js';
+import { hundredFill, hundredWrite, hundredHidden } from './hundred.js';
 import { svgAlma, svgAlmaKorb, svgSternHufeisen } from './stable.js';
 import { CHAPTERS } from './chapters.js';
 
@@ -26,6 +27,8 @@ const WHO = {
 const FULL_GEAR = { pad: true, saddle: true, girth: true, bridle: true };
 const FUNKE = { coat: 'fuchs', marking: 'stern', socks: true };
 const LUNA_STYLE = { hat: 'blumen', hatColor: 'lila', mane: 'zopf', ribbon: 'lila' };
+const LUNA_UNI = { horn: 'horn', hornColor: 'silber', hornPattern: 'glitzer', maneColor: 'lila', mane: 'zopf', ribbon: 'lila', glitter: 'an' };
+const FUNKE_UNI = { horn: 'horn', hornColor: 'rosa', hornPattern: 'herzen', maneColor: 'regenbogen' };
 
 function showcase(kind) {
   switch (kind) {
@@ -48,6 +51,11 @@ function showcase(kind) {
     case 'almaKorb': return `<div class="showcase"><div class="dog-solo">${svgAlmaKorb}</div></div>`;
     case 'kiste': return `<div class="showcase duo"><div class="dog">${svgAlma}</div><div class="trophy">🧰</div></div>`;
     case 'schatz': return `<div class="showcase duo"><div class="luna">${myHorse(S, { cls: 'idle' })}</div><div class="star-shoe">${svgSternHufeisen}</div></div>`;
+    case 'einhornFest': return `<div class="showcase trio">
+        <div class="t-a">${myHorse(S, { cls: 'idle' })}</div>
+        <div class="t-b">${horseSVG({ coat: 'schimmel', marking: 'blesse', cls: 'idle', style: LUNA_UNI })}</div>
+        <div class="t-c">${horseSVG({ ...FUNKE, cls: 'idle', style: FUNKE_UNI })}</div>
+      </div>`;
     case 'pokal': return `<div class="showcase duo"><div class="luna">${myHorse(S, { cls: 'idle' })}</div><div class="trophy">🏆</div></div>`;
     case 'fest': return `<div class="showcase duo">
         <div class="luna">${myHorse(S, { cls: 'idle' })}</div>
@@ -322,11 +330,17 @@ export function runStory() {
       if (fresh) {
         S.owned.push(step.id);
         if (step.item && !S.owned.includes(step.item)) S.owned.push(step.item);
+        (step.unlock || []).forEach((k) => { if (!S.owned.includes(k)) S.owned.push(k); });
+        if (step.style) Object.assign(S.horse.style, step.style);
+        save();
         setTimeout(() => { reward(step.amount); const box = $('.shoes'); if (box) burstAt(box, ['⭐', '✨', '💖'], 10); }, 500);
       }
       return undefined;
     }
-    case 'dress': return dressUp(next, { story: true });
+    case 'dress': return dressUp(next, { story: true, tab: step.tab, text: step.text });
+    case 'hFill': return hundredFill({ count: 5, title: step.title || 'Hundertertafel' }, (e) => afterGame(e, step.after || 'Die Tafel ist voll!'));
+    case 'hWrite': return hundredWrite({ count: 4, title: step.title || 'Zeilen und Spalten' }, (e) => afterGame(e, step.after || 'Alle Zahlen aufgeschrieben!'));
+    case 'hHidden': return hundredHidden({ picture: step.picture || 'zufall', title: step.title || 'Verdeckte Zahlen' }, (e) => afterGame(e, step.after || 'Alle Sticker aufgedeckt!'));
     case 'spell': return spellGame({ count: 5, title: step.title || 'Schreib-Werkstatt', set: step.set || 'x' }, (e) => afterGame(e, step.after || 'Super geschrieben!'));
     case 'boards': return boardsGame({ count: 5, title: step.title || 'Zaun reparieren' }, (e) => afterGame(e, step.after || 'Der Zaun ist wieder heil!'));
     case 'sortNums': return sortGame({ count: 5, title: step.title || 'Startnummern' }, (e) => afterGame(e, step.after || 'Alle stehen in der richtigen Reihe!'));

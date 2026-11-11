@@ -26,8 +26,8 @@ Das Kind gibt seinen Namen ein, erschafft ein eigenes Pferd und erlebt mit ihm e
 
 | Bereich | Was das Kind macht |
 |---|---|
-| 📖 **Geschichte** | 6 Kapitel mit Entscheidungen, die den Weg verändern |
-| ➕ **Mathe** | Plus und Minus bis 50, Zehner und Einer, Zahlen ordnen. Passt sich automatisch an |
+| 📖 **Geschichte** | 7 Kapitel mit Entscheidungen, die den Weg verändern |
+| ➕ **Mathe** | Plus und Minus bis 100, Hundertertafel, Zehner und Einer, Zahlen ordnen. Passt sich automatisch an |
 | 🔤 **Lesen** | Einfache Wörter mit Silbenfarben, jedes Wort kann vorgelesen werden |
 | ✏️ **Schreiben** | Wörter richtig schreiben (z. B. „Ich spreche ks, aber schreibe x“), in 5 Stufen bis zum ganz alleine Schreiben |
 | 🪮 **Pflege** | Pferd putzen, Hufe auskratzen, satteln und trensen |
@@ -48,6 +48,7 @@ Funke, das kleine Fohlen vom Sternenhof, ist verschwunden. Zusammen mit dem eige
 | 3 | **Die alte Mühle** 🏚️ | Über den Fluss, Emma aus der Mühle treffen, Funke finden und das große Hoffest |
 | 4 | **Das Gewitter** ⛈️ | Ein Plakat für das Sternenturnier, Training mit Emma und Luna, ein Gewitter in der Nacht, ein kaputter Zaun und Emmas nasses Schulheft |
 | 5 | **Das Sternenturnier** 🏆 | Startnummern, Schönheitspreis, Springen – und Emma braucht Hilfe am Wassergraben |
+| 7 | **Das Einhorn-Fest** 🦄 | Eine Einladung zum Einhorn-Fest, Omas Bastelbuch voller Hundertertafel-Rätsel, ein selbstgebasteltes Horn und eine Glitzer-Parade |
 | 6 | **Die Schatzkarte** 🗺️ | Alma kommt zu Besuch und buddelt eine Schatzkarte von Oma Frieda aus. Die Suche führt zum Sternen-Hufeisen |
 
 **Entscheidungen:** An mehreren Stellen darf das Kind wählen, zum Beispiel:
@@ -72,7 +73,7 @@ Die Wahl verändert Szenen und Spiele. Ein zweiter Durchgang lohnt sich also.
 
 ## Mathe
 
-- Aufgaben mit **Plus und Minus bis 50**
+- Aufgaben mit **Plus und Minus bis 100**
 - **5 Stufen**, die sich automatisch anpassen:
   - 4 Aufgaben hintereinander auf Anhieb richtig → eine Stufe schwerer
   - 2 Fehler → eine Stufe leichter
@@ -84,6 +85,10 @@ Die Wahl verändert Szenen und Spiele. Ein zweiter Durchgang lohnt sich also.
   - 🍄 **Pilze zählen** im Wald
   - 🪵 **Bretter zählen:** Zehnerbündel und einzelne Bretter (Zehner und Einer)
   - 🏁 **Startnummern:** Zahlen von der kleinsten zur größten ordnen
+  - 🔢 **Hundertertafel** (wie auf dem Arbeitsblatt, mit Hilfszahlen 1–10 oben und 0–90 links):
+    - **Eintragen:** „Trage alle Zahlen in der 3. Spalte ein“, „… die 7 Einer haben“, „Trage ein: dreiundvierzig“, „… zwischen 90 und 100“. Bis Stufe 3 tippt man das richtige Kästchen an, ab Stufe 4 tippt man die Zahl selbst ein
+    - **Aufschreiben:** die Zahlen einer Zeile oder Spalte
+    - **Verdeckte Zahlen:** Welche Zahl liegt unter dem Sticker? Beim Aufdecken entsteht z. B. ein Einhorn
 
 Fehler sind nicht schlimm: Es gibt eine freundliche Ermutigung und einen neuen Versuch.
 
@@ -129,6 +134,7 @@ Zur Entspannung zwischen den Lernaufgaben:
   - **Hüte:** Blumenkranz, Strickmütze mit Bommel, Ohrenhaube. Mit Farbe, Muster und Randfarbe
   - **Gamaschen:** Farbe und Muster
   - **Satteldecke:** Farbe, Muster und Randfarbe
+  - **🦄 Einhorn:** Horn in vielen Farben und Mustern, Regenbogen- oder bunte Mähne und Schweif, Glitzer-Fell (das Horn gibt es in Kapitel 7 geschenkt)
   - **Muster:** Streifen, Punkte, Rauten, Sterne, Herzen, Glitzer, Regenbogen
   - **Anprobieren:** Alles lässt sich erst ausprobieren. Was noch nicht gekauft ist, zeigt ein 🔒 und einen Knopf „Kaufen“. Mit „Zurück“ oder „Fertig“ bleibt nur Gekauftes am Pferd.
   - 📸 Fotoknopf mit Kompliment
@@ -147,7 +153,7 @@ Für richtige Antworten gibt es **Hufeisen**: 2 beim ersten Versuch, sonst 1. Da
 
 - 🥕 Füttern und 🏇 Parcours (Rechnen)
 - 📚 Lesen, 🦉 Rätsel und 🌉 Silben-Brücke (Lesen)
-- 🐾 Hufspuren (Zahlenstrahl), 🪵 Bretter zählen und 🏁 Zahlen ordnen
+- 🐾 Hufspuren (Zahlenstrahl), 🪵 Bretter zählen, 🏁 Zahlen ordnen und 🔢 Hundertertafel
 - ✏️ Schreiben (Schreib-Werkstatt)
 
 Mit den Hufeisen kann man:
@@ -243,7 +249,7 @@ js/
   horse.js             Pferd als SVG (Fellfarben, Abzeichen, Ausrüstung, Schmuck)
   scenes.js            Hintergründe (Hof, Wiese, Wald, Fluss, Mühle, Fest …)
   story.js             Geschichten-Engine, Kapitelauswahl, Figuren
-  chapters.js          Inhalt der Kapitel 1–6
+  chapters.js          Inhalt der Kapitel 1–7
   hub.js               Startseite, Menü, Laden, Elternbereich, Stall im Vollbild
   stable.js            Stall-Bühne: Zeichnung, Gegenstände, Verschieben und Einrasten
   math.js              Füttern, Springen, Aufgaben-Generator, Stufen
@@ -251,6 +257,7 @@ js/
   adventure.js         Hufspuren, Rätsel, Silben-Brücke
   tournament.js        Bretter zählen (Zehner/Einer), Startnummern ordnen
   spelling.js          Schreib-Werkstatt: Wortlisten und 5 Stufen
+  hundred.js           Hundertertafel: Eintragen, Aufschreiben, Verdeckte Zahlen
   care.js              Putzen, Satteln
   dressup.js           Schmücken (Baukasten, Anprobieren, Kaufen)
   looks.js             Farben, Muster, Formen, Preise, Umzug alter Spielstände

@@ -1,6 +1,6 @@
-// Die Geschichte: sechs Kapitel.
+// Die Geschichte: sieben Kapitel.
 // Schritt-Typen: scene, letter, choice, askName, createHorse, brush, brushFunke, feed, saddle,
-// reading, jump, tracks, riddles, bridge, dress, gift, boards, sortNums, spell, chapterEnd.
+// reading, jump, tracks, riddles, bridge, dress, gift, boards, sortNums, spell, hFill, hWrite, hHidden, chapterEnd.
 // gift: Taschengeld (gibt es nur beim ersten Mal), item: Geschenk für den Stall.
 // if: [key, wert] – Schritt nur zeigen, wenn die Entscheidung passt.
 // part: Abschnitt für die Kapitelauswahl.
@@ -287,11 +287,64 @@ const CH6 = [
   { t: 'chapterEnd' },
 ];
 
+
+const CH7 = [
+  { t: 'scene', bg: 'hof', part: { title: 'Die Einladung', emoji: '💌' }, text: 'Es ist ein sonniger Morgen. Emma kommt angerannt und winkt mit einem Brief.' },
+  { t: 'scene', bg: 'hof', who: 'emma', show: 'emma', text: 'Schau mal, {name}! Eine Einladung!' },
+  { t: 'letter', text: 'Einladung zum Einhorn-Fest! Am Sonntag auf der großen Wiese. Alle Pferde kommen als Einhorn verkleidet. Es gibt Musik, Kuchen und eine Glitzer-Parade!' },
+  { t: 'scene', bg: 'hof', who: 'emma', show: 'emma', text: 'Luna und Funke kommen auch. Und {horse} natürlich!' },
+  { t: 'scene', bg: 'stall', show: 'horse', text: 'Du schaust {horse} an. Oh nein! {horse} hat ja gar kein Horn!' },
+  { t: 'scene', bg: 'stall', who: 'rosi', show: 'horse', text: 'Keine Sorge! Meine Oma Frieda hatte ein Bastelbuch. Da steht bestimmt drin, wie man ein Horn bastelt.' },
+  { t: 'scene', bg: 'stall', who: 'eule', show: 'eule', if: ['ella', 'mit'], text: 'Huhu! Ein Einhorn-Fest? Dann bastle ich mir eine Glitzer-Feder!' },
+
+  { t: 'scene', bg: 'stall', who: 'rosi', part: { title: 'Omas Bastelbuch', emoji: '📒' }, text: 'Hier ist das Bastelbuch. Oh je, die Seite ist ganz verblasst. Nur eine *Hundertertafel* ist noch zu sehen.' },
+  { t: 'scene', bg: 'stall', who: 'rosi', text: 'Oma hat immer Rätsel mit der Hundertertafel gemacht. Lies die Aufträge und trag die Zahlen wieder ein!' },
+  { t: 'scene', bg: 'stall', text: 'Tipp: Am Rand stehen Hilfszahlen. Oben steht die Spalte, links stehen die Zehner.' },
+  { t: 'hFill', title: 'Omas Hundertertafel', after: 'Die Tafel ist wieder voll!' },
+  { t: 'scene', bg: 'stall', who: 'rosi', text: 'Super! Unten auf der Seite steht noch: Schreibe die Zahlen auf.' },
+  { t: 'hWrite', title: 'Zeilen und Spalten', after: 'Alle Zahlen stehen wieder da!' },
+
+  { t: 'scene', bg: 'stall', who: 'rosi', part: { title: 'Das verdeckte Einhorn', emoji: '🦄' }, text: 'Auf der nächsten Seite kleben bunte Sticker. Welche Zahlen sind darunter versteckt?' },
+  { t: 'hHidden', picture: 'sterne', title: 'Sterne, Herzen, Punkte', after: 'Alle Sticker sind aufgedeckt!' },
+  { t: 'scene', bg: 'stall', who: 'rosi', text: 'Und hier ist die letzte Seite. Ein Horn, eine Mähne und ein Auge sind verdeckt.' },
+  { t: 'hHidden', picture: 'einhorn', title: 'Das verdeckte Einhorn', after: 'Ein Einhorn aus Kästchen!' },
+  { t: 'scene', bg: 'stall', who: 'rosi', text: 'Schau! Die Kästchen ergeben ein Einhorn. Und am Horn sieht man genau, wie man es bastelt. Spitz und schräg!' },
+
+  { t: 'scene', bg: 'stall', who: 'rosi', part: { title: 'Wir basteln ein Horn', emoji: '✂️' }, text: 'Wir brauchen Pappe, Kleber und ein Gummiband. Das Gummiband hält das Horn gut fest.' },
+  { t: 'choice', bg: 'stall', key: 'hornfarbe', text: 'Welche Farbe soll das Horn haben?', options: [
+    { v: 'gold', emoji: '✨', label: 'Glänzendes Gold' },
+    { v: 'regenbogen', emoji: '🌈', label: 'Bunter Regenbogen' },
+    { v: 'rosa', emoji: '💗', label: 'Rosa mit Glitzer' },
+  ] },
+  { t: 'gift', id: 'gift-horn', amount: 0, if: ['hornfarbe', 'gold'], unlock: ['form-horn-horn', 'farbe-gold'], style: { horn: 'horn', hornColor: 'gold', hornPattern: 'uni' }, bg: 'stall', who: 'rosi', show: 'horse', text: 'Fertig! Ein goldenes Horn. Setz es {horse} auf!', again: 'Das Horn ist schon fertig. Setz es {horse} auf!' },
+  { t: 'gift', id: 'gift-horn', amount: 0, if: ['hornfarbe', 'regenbogen'], unlock: ['form-horn-horn', 'muster-regenbogen'], style: { horn: 'horn', hornColor: 'rosa', hornPattern: 'regenbogen' }, bg: 'stall', who: 'rosi', show: 'horse', text: 'Fertig! Ein Horn in allen Farben vom Regenbogen. Setz es {horse} auf!', again: 'Das Horn ist schon fertig. Setz es {horse} auf!' },
+  { t: 'gift', id: 'gift-horn', amount: 0, if: ['hornfarbe', 'rosa'], unlock: ['form-horn-horn', 'muster-glitzer'], style: { horn: 'horn', hornColor: 'rosa', hornPattern: 'glitzer' }, bg: 'stall', who: 'rosi', show: 'horse', text: 'Fertig! Ein rosa Horn mit Glitzer. Setz es {horse} auf!', again: 'Das Horn ist schon fertig. Setz es {horse} auf!' },
+  { t: 'scene', bg: 'stall', show: 'horse', text: '{horse} trägt jetzt ein Horn! {horse} wiehert ganz stolz.' },
+  { t: 'gift', id: 'gift-einhorn', amount: 40, bg: 'stall', who: 'rosi', show: 'horse', text: 'Ein echtes Einhorn braucht noch mehr Zauber. Hier sind 40 Hufeisen. Probier die bunte Mähne und den Glitzer aus!', again: 'Mach {horse} zum schönsten Einhorn!' },
+  { t: 'dress', tab: 'unicorn', text: 'Mach {horse} zum Einhorn!' },
+
+  { t: 'scene', bg: 'fest', show: 'einhornFest', part: { title: 'Das Einhorn-Fest', emoji: '🎉' }, text: 'Auf der Wiese stehen lauter Einhörner! Überall glitzert und funkelt es.' },
+  { t: 'scene', bg: 'fest', who: 'emma', show: 'einhornFest', text: 'Wow! {horse} ist das schönste Einhorn, das ich je gesehen habe! Und schau mal, Luna und Funke!' },
+  { t: 'scene', bg: 'fest', who: 'eule', show: 'eule', if: ['ella', 'mit'], text: 'Huhu! Schaut mal, meine Glitzer-Feder! Bin ich jetzt eine Einhorn-Eule?' },
+  { t: 'choice', bg: 'fest', key: 'fest7', text: 'Was macht ihr auf dem Fest?', options: [
+    { v: 'parade', emoji: '🌈', label: 'Bei der Glitzer-Parade mitreiten' },
+    { v: 'reihe', emoji: '💃', label: 'Beim Einhorn-Tanz mitmachen' },
+  ] },
+  { t: 'scene', bg: 'fest', show: 'ride', if: ['fest7', 'parade'], text: 'Die Parade geht los! Über bunte Stangen geht es durch die Wiese. Hopp, kleines Einhorn!' },
+  { t: 'jump', title: 'Glitzer-Parade', if: ['fest7', 'parade'] },
+  { t: 'scene', bg: 'fest', who: 'emma', if: ['fest7', 'reihe'], text: 'Zum Einhorn-Tanz stellen sich alle der Reihe nach auf. Wer hat welche Nummer?' },
+  { t: 'sortNums', title: 'Der Einhorn-Tanz', after: 'Alle tanzen in der richtigen Reihe!', if: ['fest7', 'reihe'] },
+  { t: 'scene', bg: 'fest', show: 'einhornFest', text: 'Danach gibt es Regenbogen-Kuchen. Alle lachen und tanzen, bis die Sterne leuchten.' },
+  { t: 'scene', bg: 'nacht', show: 'horse', text: 'Gute Nacht, {name}. Gute Nacht, kleines Einhorn {horse}!' },
+  { t: 'chapterEnd' },
+];
+
 export const CHAPTERS = [
   { nr: 1, title: 'Ein Pferd für dich', emoji: '🐴', steps: CH1, end: 'Morgen geht die Suche nach Funke weiter!' },
   { nr: 2, title: 'Im Wald', emoji: '🌲', steps: CH2, end: 'Morgen geht es zur alten Mühle!' },
   { nr: 3, title: 'Die alte Mühle', emoji: '🏚️', steps: CH3, end: 'Funke ist wieder zu Hause! Bald gibt es ein großes Turnier.' },
   { nr: 4, title: 'Das Gewitter', emoji: '⛈️', steps: CH4, end: 'Morgen ist das große Turnier!' },
   { nr: 5, title: 'Das Sternenturnier', emoji: '🏆', steps: CH5, end: 'Was für ein Turnier! Bald bekommt der Sternenhof Besuch.' },
-  { nr: 6, title: 'Die Schatzkarte', emoji: '🗺️', steps: CH6, end: 'Was für ein Schatz! Neue Abenteuer kommen bald.' },
+  { nr: 6, title: 'Die Schatzkarte', emoji: '🗺️', steps: CH6, end: 'Was für ein Schatz! Bald gibt es ein Fest mit Einhörnern.' },
+  { nr: 7, title: 'Das Einhorn-Fest', emoji: '🦄', steps: CH7, end: 'Was für ein zauberhaftes Fest! Neue Abenteuer kommen bald.' },
 ];

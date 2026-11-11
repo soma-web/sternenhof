@@ -1,4 +1,4 @@
-// Mathe: Plus und Minus bis 50, passt sich automatisch an.
+// Mathe: Plus und Minus bis 100, passt sich automatisch an.
 import { S, save } from './state.js';
 import { sfx } from './audio.js';
 import { myHorse } from './horse.js';
@@ -12,20 +12,20 @@ export function makeTask(level = S.mathLevel) {
     case 1: // bis 20
       if (plus) { a = rand(2, 10); b = rand(1, Math.min(10, 20 - a)); } else { a = rand(6, 20); b = rand(1, Math.min(10, a - 1)); }
       break;
-    case 2: // glatte Zehner oder bis 20 mit Übergang
+    case 2: // glatte Zehner bis 100 oder bis 20 mit Übergang
       if (Math.random() < 0.5) {
-        if (plus) { a = rand(1, 4) * 10; b = rand(1, 5 - a / 10) * 10; } else { a = rand(2, 5) * 10; b = rand(1, a / 10 - 1) * 10; }
+        if (plus) { a = rand(1, 8) * 10; b = rand(1, 10 - a / 10) * 10; } else { a = rand(2, 10) * 10; b = rand(1, a / 10 - 1) * 10; }
       } else if (plus) { a = rand(5, 9); b = rand(10 - a, 9); } else { a = rand(11, 18); b = rand(a - 9, 9); }
       break;
-    case 3: // Zehner + Einer ohne Übergang
-      a = rand(1, 4) * 10 + rand(1, 8);
+    case 3: // Zehner + Einer ohne Übergang, bis 100
+      a = rand(1, 9) * 10 + rand(1, 8);
       if (plus) { b = rand(1, 9 - (a % 10)); } else { b = rand(1, a % 10); }
       break;
     case 4: // mit Zehnerübergang
-      if (plus) { do { a = rand(11, 44); } while (a % 10 < 2); b = rand(10 - (a % 10), 9); if (a + b > 50) b = 50 - a; } else { do { a = rand(12, 50); } while (a % 10 > 7); b = rand((a % 10) + 1, 9); }
+      if (plus) { do { a = rand(11, 89); } while (a % 10 < 2); b = rand(10 - (a % 10), 9); if (a + b > 100) b = 100 - a; } else { do { a = rand(12, 99); } while (a % 10 > 7); b = rand((a % 10) + 1, 9); }
       break;
-    default: // zweistellig
-      if (plus) { a = rand(11, 38); b = rand(10, 50 - a); } else { a = rand(25, 50); b = rand(11, a - 5); }
+    default: // zweistellig bis 100
+      if (plus) { a = rand(11, 78); b = rand(10, 100 - a); } else { a = rand(25, 99); b = rand(11, a - 5); }
   }
   const op = plus ? '+' : '−';
   const res = plus ? a + b : a - b;
@@ -37,7 +37,7 @@ export function makeTask(level = S.mathLevel) {
 export function choicesFor(task) {
   const ans = task.answer;
   const set = new Set([ans]);
-  const cands = shuffle([ans + 1, ans - 1, ans + 10, ans - 10, ans + 2, ans - 2]).filter((n) => n >= 0 && n <= 60);
+  const cands = shuffle([ans + 1, ans - 1, ans + 10, ans - 10, ans + 2, ans - 2]).filter((n) => n >= 0 && n <= 110);
   for (const c of cands) { if (set.size >= 3) break; set.add(c); }
   return shuffle([...set]);
 }
@@ -56,6 +56,9 @@ function tenFrames(t, emoji = '🥕') {
   const frames = Math.ceil(total / 10);
   let html = '';
   for (let f = 0; f < frames; f++) {
+    // Volle Zehner, die sich nicht ändern, kompakt als Zehnerstange (bei großen Zahlen)
+    const keep = plus ? t.a : t.a - t.b;
+    if (total > 30 && (f + 1) * 10 <= keep) { html += `<div class="frame ten-bar"><span class="ten-bar-in">${emoji} 10</span></div>`; continue; }
     let cells = '';
     for (let k = 0; k < 10; k++) {
       const n = f * 10 + k; // 0-basiert
@@ -206,7 +209,7 @@ export function feedGame({ count = 5, title = 'Füttern', theme = null } = {}, o
       const v = k.dataset.k;
       if (v === 'del') input = input.slice(0, -1);
       else if (v === 'ok') return check();
-      else if (input.length < 2) input += v;
+      else if (input.length < 3) input += v;
       box.textContent = input;
       box.classList.remove('wrong');
     }));

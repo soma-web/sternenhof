@@ -11,8 +11,10 @@ export const PALETTE = {
   lila:    { label: 'Lila',    hex: '#A27FE8' },
   weiss:   { label: 'Weiß',    hex: '#FAFAFA' },
   schwarz: { label: 'Schwarz', hex: '#2E2A2E' },
+  gold:    { label: 'Gold',    hex: '#F2C14E' },
+  silber:  { label: 'Silber',  hex: '#C9D1DA' },
 };
-export const FREE_COLORS = ['rosa', 'blau', 'weiss'];
+export const FREE_COLORS = ['rosa', 'blau', 'weiss', 'gold'];
 export const COLOR_PRICE = 6;
 
 export const PATTERNS = {
@@ -62,6 +64,25 @@ export const WRAP_FORMS = [
   { v: 'an', label: 'Gamaschen', price: 0, icon: '🧦' },
 ];
 
+export const HORNS = [
+  { v: 'keins', label: 'Kein Horn', price: 0, icon: '–' },
+  { v: 'horn', label: 'Einhorn-Horn', price: 30, icon: '🦄' },
+];
+// Mähnen- und Schweiffarbe (wie Haarfarbe zum Verkleiden)
+export const MANE_COLORS = [
+  { v: 'natur', label: 'Natur', price: 0, hex: 'linear-gradient(135deg,#8E3F1C,#E8B95E)' },
+  { v: 'regenbogen', label: 'Regenbogen', price: 15, hex: 'conic-gradient(#E8605A,#F4C542,#4FC9A4,#4F7FE8,#A27FE8,#E8605A)' },
+  { v: 'rosa', label: 'Rosa', price: 8, hex: '#FF8FC0' },
+  { v: 'lila', label: 'Lila', price: 8, hex: '#A27FE8' },
+  { v: 'tuerkis', label: 'Türkis', price: 8, hex: '#25BCD0' },
+  { v: 'blau', label: 'Blau', price: 8, hex: '#4F7FE8' },
+  { v: 'silber', label: 'Silber', price: 8, hex: '#DDE3EA' },
+];
+export const GLITTER = [
+  { v: 'aus', label: 'Kein Glitzer', price: 0, icon: '–' },
+  { v: 'an', label: 'Glitzer-Fell', price: 12, icon: '✨' },
+];
+
 export const RAINBOW5 = ['#E8605A', '#F4C542', '#4FC9A4', '#4F7FE8', '#A27FE8'];
 
 export const DEFAULT_LOOK = {
@@ -70,6 +91,8 @@ export const DEFAULT_LOOK = {
   hat: 'keiner', hatColor: 'rosa', hatPattern: 'uni', hatRim: 'weiss',
   wraps: 'keine', wrapColor: 'rosa', wrapPattern: 'uni',
   padColor: 'blau', padPattern: 'uni', padRim: 'weiss',
+  horn: 'keins', hornColor: 'gold', hornPattern: 'uni',
+  maneColor: 'natur', glitter: 'aus',
 };
 
 export const colorHex = (name, fallback = '#4F7FE8') => PALETTE[name]?.hex || fallback;

@@ -159,6 +159,39 @@ function hatParts(st, uid) {
   return out;
 }
 
+
+// ---------- Einhorn: Horn, bunte Mähne, Glitzer ----------
+function hornParts(st, uid) {
+  if (st.horn !== 'horn') return { def: '', svg: '' };
+  const p = patternFill(`${uid}-horn`, st.hornPattern, st.hornColor, 5);
+  const svg = `<g class="h-horn">
+    <path d="M300 61 Q306 40 317 19 Q319 17 319.5 20 Q316 42 313 60 Q306 63 300 61 Z" fill="${p.fill}" stroke="rgba(120,80,20,.45)" stroke-width="1.1"/>
+    <path d="M302 54 q6 2 11 -2 M304 46 q5 2 10 -2 M307 38 q4 1.6 8 -1.6 M310 30 q3 1.2 6 -1.4 M313 23 q2 .8 4 -1" stroke="rgba(120,80,20,.4)" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+    <path d="M304 56 Q308 40 316 23" stroke="rgba(255,255,255,.65)" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+  </g>`;
+  return { def: p.def, svg };
+}
+
+const MANE_HEX = { rosa: '#FF8FC0', lila: '#A27FE8', tuerkis: '#25BCD0', blau: '#4F7FE8', silber: '#DDE3EA' };
+const RAINBOW_STOPS = ['#E8605A', '#F4A63C', '#F4D442', '#6CCB6E', '#5BA8F0', '#9C7FE8'];
+function maneFillFor(st, c, uid) {
+  if (st.maneColor === 'regenbogen') {
+    const id = `${uid}-rbm`;
+    return {
+      fill: `url(#${id})`,
+      def: `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">${RAINBOW_STOPS.map((col, k) => `<stop offset="${(k / (RAINBOW_STOPS.length - 1)).toFixed(2)}" stop-color="${col}"/>`).join('')}</linearGradient>`,
+    };
+  }
+  return { fill: MANE_HEX[st.maneColor] || c.mane, def: '' };
+}
+
+const GLITTER_PTS = [[130, 140], [168, 128], [205, 136], [240, 150], [150, 178], [190, 172], [228, 188], [262, 118], [276, 92], [112, 166], [210, 160], [180, 150]];
+function glitterSVG(st) {
+  if (st.glitter !== 'an') return '';
+  const star = (x, y, r, k) => `<path class="twinkle" style="animation-delay:${(k % 5) * 0.4}s" d="M${x} ${y - r} L${x + r * 0.28} ${y - r * 0.28} L${x + r} ${y} L${x + r * 0.28} ${y + r * 0.28} L${x} ${y + r} L${x - r * 0.28} ${y + r * 0.28} L${x - r} ${y} L${x - r * 0.28} ${y - r * 0.28} Z" fill="${k % 3 ? '#FFFFFF' : '#FFE27A'}" opacity=".95"/>`;
+  return `<g class="h-glitter">${GLITTER_PTS.map(([x, y], k) => star(x, y, k % 2 ? 4 : 6, k)).join('')}</g>`;
+}
+
 // Positionen für Schmutzflecken (im Koordinatensystem des Pferdes)
 export const DIRT_SPOTS = [
   [140, 150, 15], [180, 135, 13], [222, 150, 16], [165, 190, 14], [205, 192, 13],
@@ -198,7 +231,10 @@ export function horseSVG(opts = {}) {
   const pp = patternFill(`${uid}-pad`, st.padPattern, st.padColor, 12);
   const padRim = colorHex(st.padRim, '#FAFAFA');
   const hat = hatParts(st, uid);
-  const forelock = `<path d="M296 60 C306 60 314 66 314 78 C306 76 300 70 296 60 Z" fill="${c.mane}"/>`;
+  const mf = maneFillFor(st, c, uid);
+  const cm = { ...c, mane: mf.fill };
+  const horn = hornParts(st, uid);
+  const forelock = `<path d="M296 60 C306 60 314 66 314 78 C306 76 300 70 296 60 Z" fill="${cm.mane}"/>`;
 
   const patches = c.patch ? `
     <g clip-path="url(#clip-${uid})" fill="${c.patch}">
@@ -231,7 +267,7 @@ export function horseSVG(opts = {}) {
   }).join('');
 
   return `<svg class="horse ${opts.cls || ''}" viewBox="36 14 352 266" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pferd">
-  <defs>${wp.def}${pp.def}${hat.defs}<clipPath id="clip-${uid}">
+  <defs>${wp.def}${pp.def}${hat.defs}${mf.def}${horn.def}<clipPath id="clip-${uid}">
     <ellipse cx="195" cy="165" rx="100" ry="52"/>
     <path d="M240 140 C246 108 258 82 282 60 L318 76 C306 102 296 134 290 172 Z"/>
   </clipPath></defs>
@@ -242,7 +278,7 @@ export function horseSVG(opts = {}) {
     ${leg(236, 182, 20, 72, c.shade, lower, opts.socks, 2, wrapOf())}
   </g>
   <!-- Schweif -->
-  <g class="h-tail">${tailSVG(st, c, ribbon)}</g>
+  <g class="h-tail">${tailSVG(st, cm, ribbon)}</g>
   <!-- Körper -->
   <ellipse cx="195" cy="165" rx="100" ry="52" fill="${c.body}"/>
   <ellipse cx="190" cy="196" rx="70" ry="16" fill="${c.shade}" opacity=".35"/>
@@ -254,6 +290,7 @@ export function horseSVG(opts = {}) {
   ${patches}
   ${dirt}
   ${mud}
+  ${glitterSVG(st)}
   ${g.pad ? `<path class="gear-pad" d="M158 116 H234 Q242 116 242 124 V170 Q242 178 234 178 H166 Q158 178 158 170 Z" fill="${pp.fill}" stroke="${padRim}" stroke-width="4.5"/>` : ''}
   ${g.girth ? `<rect class="gear-girth" x="207" y="134" width="14" height="82" rx="4" fill="#5A3A22"/>` : ''}
   ${g.saddle ? `<g class="gear-saddle">
@@ -262,7 +299,7 @@ export function horseSVG(opts = {}) {
       <path d="M196 136 L198 190" stroke="#5A3520" stroke-width="4"/>
       <path d="M190 190 h16 l-2 9 h-12 Z" fill="#B8BEC6"/>
     </g>` : ''}
-  ${maneSVG(st, c, ribbon)}
+  ${maneSVG(st, cm, ribbon)}
   <!-- Kopf (etwas größer für den niedlichen Look) -->
   <g transform="translate(300 96) scale(1.2) translate(-300 -96)">
   <g class="h-head">
@@ -275,6 +312,7 @@ export function horseSVG(opts = {}) {
     <g class="h-ear"><path d="M292 64 L296 36 L310 60 Z" fill="${c.body}"/><path d="M296 58 L298 45 L305 58 Z" fill="#F2B8A8"/>${hat.near}</g>
     ${st.hat === 'muetze' ? '' : forelock}
     ${hat.top}
+    ${horn.svg}
     ${jewelSVG(st)}
     <ellipse cx="332" cy="101" rx="6.5" ry="4" fill="#FF8FA3" opacity=".35"/>
     <g class="h-eye">
